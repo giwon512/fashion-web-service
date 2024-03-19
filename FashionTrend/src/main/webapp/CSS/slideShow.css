@@ -1,0 +1,55 @@
+*{
+    margin : 0;
+    padding : 0;
+}
+.wrapper {
+    width : 100%;
+    margin : 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.slideShow {
+    width : 500%;
+    height: 400px;
+    position: relative;
+}
+
+.showBox {
+    width : 20%;
+    height : 100%;
+    background-color: aqua;
+    border : 1px dashed black;
+    box-sizing: border-box;
+    transition : 0.5s;
+    float :left;
+    position : relative;
+}
+
+.showBox h1 {
+    position : absolute;
+    left : 50%;
+    top : 45%;
+}
+
+.slideShow > div:last-child {
+    clear: both;
+}
+
+.arrow .prev{
+    text-decoration: none;
+    position : absolute;
+    left:40px; 
+    top:180px;
+}
+
+.arrow .next{
+    text-decoration: none;
+    position : absolute;
+    right: 40px; 
+    top:180px;
+}
+
+.hiddenBox {
+    display : none;
+}
