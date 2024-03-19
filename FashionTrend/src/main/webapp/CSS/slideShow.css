@@ -13,6 +13,7 @@
     width : 500%;
     height: 400px;
     position: relative;
+    transition : 0.5s;
 }
 
 .showBox {
@@ -21,7 +22,6 @@
     background-color: aqua;
     border : 1px dashed black;
     box-sizing: border-box;
-    transition : 0.5s;
     float :left;
     position : relative;
 }

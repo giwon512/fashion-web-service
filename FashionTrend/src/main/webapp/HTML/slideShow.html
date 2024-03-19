@@ -19,36 +19,49 @@
 
             let currentIdx = 0;
             let translate = 0;
+
+            const moveRight = () => {
+                //현재가 마지막 슬라이드가 아니라면
+                if (currentIdx !== showBox.length - 1) {
+                    translate -= showBoxWidth;
+                    slideShow.style.transform = `translateX(${translate}px)`;
+                    currentIdx += 1;
+                }
+                //현재가 마지막 슬라이드인 경우 첫 슬라이드로 이동
+                else {
+                    currentIdx = 0;
+                    translate = 0;
+                    slideShow.style.transform = `translateX(${translate}px)`;
+                }
+            }
+
+            const moveLeft = () => {
+                //현재가 첫 슬라이드가 아니라면
+                if (currentIdx !== 0){
+                    translate += showBoxWidth;
+                    slideShow.style.transform = `translateX(${translate}px)`;
+                    currentIdx -= 1;
+                }
+                //현재가 첫 슬라이드인 경우 마지막 슬라이드로 이동
+                else {
+                    currentIdx = showBox.length - 1;
+                    translate = currentIdx * showBoxWidth * -1;
+                    slideShow.style.transform = `translateX(${translate}px)`;
+                }
+            }
+
             arrow.addEventListener('click', ev => {
                 ev.preventDefault();
                 if(ev.target.className === 'next') {
-                    //현재가 마지막 슬라이드가 아니라면
-                    if (currentIdx !== showBox.length - 1) {
-                        translate -= showBoxWidth;
-                        slideShow.style.transform = `translateX(${translate}px)`;
-                        currentIdx += 1;
-                    }
-                    //현재가 마지막 슬라이드인 경우 첫 슬라이드로 이동
-                    else {
-                        currentIdx = 0;
-                        translate = 0;
-                        slideShow.style.transform = `translateX(${translate}px)`;
-                    }
+                    moveRight();
                 } else if(ev.target.className === 'prev') {
-                    //현재가 첫 슬라이드가 아니라면
-                    if (currentIdx !== 0){
-                        translate += showBoxWidth;
-                        slideShow.style.transform = `translateX(${translate}px)`;
-                        currentIdx -= 1;
-                    }
-                    //현재가 첫 슬라이드인 경우 마지막 슬라이드로 이동
-                    else {
-                        currentIdx = showBox.length - 1;
-                        translate = currentIdx * showBoxWidth * -1;
-                        slideShow.style.transform = `translateX(${translate}px)`;
-                    }
+                    moveLeft();
                 }
             }, false);
+
+            setInterval(() => {
+                moveRight();
+            }, 2000);
         };
     </script>
 </head>
