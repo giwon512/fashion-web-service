@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/slideShow.css">
+    <script src="../JS/slideShow.js"></script>
+    <script>
+        window.onload = () => {
+            const wrapper = document.querySelector('.wrapper');
+            const slideShow = document.querySelector('.slideShow');
+            const showBox = document.querySelectorAll('.showBox');
+            const arrow = document.querySelector('.arrow');
+
+            const showBoxWidth = showBox[0].clientWidth;
+            const sliderWidth = showBoxWidth * showBox.length;
+            slideShow.style.width = `${sliderWidth}px`;
+
+            let currentIdx = 0;
+            let translate = 0;
+            arrow.addEventListener('click', ev => {
+                ev.preventDefault();
+                if(ev.target.className === 'next') {
+                    //현재가 마지막 슬라이드가 아니라면
+                    if (currentIdx !== showBox.length - 1) {
+                        translate -= showBoxWidth;
+                        slideShow.style.transform = `translateX(${translate}px)`;
+                        currentIdx += 1;
+                    }
+                    //현재가 마지막 슬라이드인 경우 첫 슬라이드로 이동
+                    else {
+                        currentIdx = 0;
+                        translate = 0;
+                        slideShow.style.transform = `translateX(${translate}px)`;
+                    }
+                } else if(ev.target.className === 'prev') {
+                    //현재가 첫 슬라이드가 아니라면
+                    if (currentIdx !== 0){
+                        translate += showBoxWidth;
+                        slideShow.style.transform = `translateX(${translate}px)`;
+                        currentIdx -= 1;
+                    }
+                    //현재가 첫 슬라이드인 경우 마지막 슬라이드로 이동
+                    else {
+                        currentIdx = showBox.length - 1;
+                        translate = currentIdx * showBoxWidth * -1;
+                        slideShow.style.transform = `translateX(${translate}px)`;
+                    }
+                }
+            }, false);
+        };
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="slideShow">
+            <div class="showBox">
+                <h1>1</h1>
+            </div>
+            <div class="showBox">
+                <h1>2</h1>
+            </div>
+            <div class="showBox">
+                <h1>3</h1>
+            </div>
+            <div class="showBox">
+                <h1>4</h1>
+            </div>
+            <div class="showBox">
+                <h1>5</h1>
+            </div>
+            <div class="hiddenBox"></div>
+        </div>
+        <div class="arrow">
+            <h1><a href="" class="prev">&lang;</a></h1>
+            <h1><a href="" class="next">&rang;</a></h1>
+        </div>
+    </div>
+</body>
+</html>
