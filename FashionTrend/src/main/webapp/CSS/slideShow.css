@@ -59,7 +59,7 @@
     text-decoration: none;
     position : absolute;
     left:40px; 
-    top:230px;
+    top: 45%;
     color : white;
     font-size: 50px;
 }
@@ -73,7 +73,7 @@
     text-decoration: none;
     position : absolute;
     right:40px; 
-    top:230px;
+    top: 45%;
     color : white;
     font-size: 50px;
 }
