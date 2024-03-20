@@ -4,8 +4,8 @@ window.onload = () => {
     const showBox = document.querySelectorAll('.showBox');
     const arrow = document.querySelector('.arrow');
 
-    const showBoxWidth = showBox[0].clientWidth;
-    const sliderWidth = showBoxWidth * showBox.length;
+    let showBoxWidth = showBox[0].clientWidth;
+    let sliderWidth = showBoxWidth * showBox.length;
     slideShow.style.width = `${sliderWidth}px`;
 
     let currentIdx = 0;
@@ -53,4 +53,16 @@ window.onload = () => {
     setInterval(() => {
         moveRight();
     }, 4000);
+
+    window.addEventListener('resize', () => {
+        // 창 크기 변경이 일어나면 슬라이드 쇼 크기 조정
+        const width = window.innerWidth;
+
+        showBoxWidth = width;
+        sliderWidth = showBoxWidth * showBox.length;
+        slideShow.style.width = `${sliderWidth}px`;
+        currentIdx = 0;
+        translate = 0;
+        slideShow.style.transform = `translateX(${translate}px)`;
+    }, false);
 };
