@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../CSS/news_reset.css">
 </head>
 <body>
-    <!-- 1d 전체영역~? -->
+    <!-- 1d 전체영역~? 11111 -->
     <div class="container">     
         <!-- inner -->         
         <div class="content">
