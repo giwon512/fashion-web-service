@@ -1,5 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="utf-8">
     <title>Shopping mall</title>
@@ -29,7 +30,7 @@
                             <img class="img-fluid" src="../images/recommand/hood.jpg" alt="">
                         </div>
                         <div class="ps-4" style="background-color:white">
-                            <h3 class="text-uppercase mb-3" style="color: black;">상의</h3>
+                            <h3 class="text-uppercase mb-3" style="color: black;">상의</h3>
                             <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam.</p>
                             <span class="text-uppercase text-primary"></span>
                         </div>
@@ -101,7 +102,7 @@
                         <a class="btn btn-square" href=""><i class="fa fa-plus text-primary"></i></a>
                     </div>
                     	
-                    <button type="button" class="navyBtn" onClick="location.href='recommand_add.html'"  style="float: right;"
+                    <button type="button" class="navyBtn" onClick="location.href='recommand_add.jsp'"  style="float: right;"
                         
                         border: none; 
 
