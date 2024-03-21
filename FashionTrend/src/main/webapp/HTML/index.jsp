@@ -7,6 +7,7 @@
 </head>
 <body>
 	<%@ include file="slideShow.jsp" %>
+	<%@ include file="News.jsp" %>
 	<%@ include file="recommand.jsp" %>
 	
 
