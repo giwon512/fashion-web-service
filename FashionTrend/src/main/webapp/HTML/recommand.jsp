@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,7 +16,9 @@
     <link href="../CSS/recommand.css" rel="stylesheet">
 </head>
 <body>
+
      <!-- 민재파트 -->
+     
      <div class="container-xxl py-5" style="background-color: white;">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">

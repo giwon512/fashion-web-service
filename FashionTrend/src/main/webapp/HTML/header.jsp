@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,9 @@
     <!-- Custom CSS -->
     <style>
         /* Add your custom styles here */
+        
+        
+        
     </style>
 </head>
 <body>
@@ -25,16 +29,18 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">홈 <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="#"><span class="sr-only">home</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">마이페이지</a>
+                            <a class="nav-link" href="profile.jsp">mypage</a>
                         </li>
+                        
+                       
                         <li class="nav-item">
-                            <a class="nav-link" href="#">로그인</a>
+                            <a href="login.jsp" class="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">login<i class="fa fa-arrow-right ms-3"></i></a>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">회원가입<i class="fa fa-arrow-right ms-3"></i></a>
+                         <li class="nav-item">
+                            <a class="nav-link" href="signIn.jsp">register</a>
                         </li>
                     </ul>
                 </div>
@@ -43,13 +49,6 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
-    <div class="container">
-        <h1>Main Content Goes Here</h1>
-        <p>This is the main content of your website.</p>
-    </div>
-
-    
 
 
 </body>
