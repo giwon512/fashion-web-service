@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+	String login  = (String)session.getAttribute("user") != null ? "logout"  : "login";
+	String register =(String)session.getAttribute("user") != null ? "" : "register";
+
+%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,9 +14,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
-        /* Add your custom styles here */
-        
-        
+    
         
     </style>
 </head>
@@ -37,10 +40,10 @@
                         
                        
                         <li class="nav-item">
-                            <a href="login.jsp" class="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block">login<i class="fa fa-arrow-right ms-3"></i></a>
+                            <a href="login.jsp" class="btn btn-primary rounded-0 py-2 px-lg-4 d-none d-lg-block"><%=login %><i class="fa fa-arrow-right ms-3"></i></a>
                         </li>
                          <li class="nav-item">
-                            <a class="nav-link" href="signIn.jsp">register</a>
+                            <a class="nav-link" href="signIn.jsp"><%= register %></a>
                         </li>
                     </ul>
                 </div>

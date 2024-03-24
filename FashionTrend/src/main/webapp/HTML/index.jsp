@@ -6,6 +6,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<%@ include file="header.jsp" %>
 	<%@ include file="slideShow.jsp" %>
 	<%@ include file="News.jsp" %>
 	<%@ include file="recommand.jsp" %>

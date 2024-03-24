@@ -27,12 +27,10 @@ public class UserDao {
     
     public boolean checkDuplicateUserID(String name) {
         String sql = "SELECT COUNT(*) FROM member WHERE name=?";
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        try {
-            conn = connPool.con;
-            stmt = conn.prepareStatement(sql);
+   
+   	 try (Connection conn = connPool.getConnection();
+	            PreparedStatement stmt = conn.prepareStatement(sql)) {
+          
             stmt.setString(1, name);
             rs = stmt.executeQuery();
             if (rs.next()) {
@@ -41,20 +39,19 @@ public class UserDao {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (rs != null) try { rs.close(); } catch(SQLException sqle) {}
-            if (stmt != null) try { stmt.close(); } catch(SQLException sqle) {}
-            if (conn != null) try { conn.close(); } catch(SQLException sqle) {}
         }
+   	 
+
         return false; // 아이디 중복 여부 확인 실패 시 기본값인 false 반환
     }
+    
     
     
     public boolean insertUser(Member member) {
     	String sql = "insert into MEMBER(userId, name, password, gender,email,address) "
     			+ "values(member_seq.nextval,?,?,?,?,?)";
-    	 
-    	 try (Connection conn = connPool.con;
+    	
+    	 try (Connection conn = connPool.getConnection();
     	            PreparedStatement stmt = conn.prepareStatement(sql)) {
 
 
@@ -80,9 +77,10 @@ public class UserDao {
         String sql = "SELECT * FROM MEMBER WHERE name=? AND password=?";
         
  
-        try (Connection conn = connPool.con;
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
-        	
+
+   	 try (Connection conn = connPool.getConnection();
+   	            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
         	
       
             stmt.setString(1, name);
@@ -91,7 +89,7 @@ public class UserDao {
             return rs.next(); // 결과셋에 레코드가 있다면 로그인 성공
         } 
         
-        catch (SQLException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
         
@@ -107,7 +105,7 @@ public class UserDao {
         int result = 0;
 
 
-        try (Connection conn = connPool.con;
+        try (Connection conn = connPool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
          
             
@@ -123,8 +121,8 @@ public class UserDao {
             
            System.out.println(member.getUserId());
 
-        } catch (Exception err) {
-            System.out.println("updateUser() 에서 오류 : " + err);
+        } catch (Exception e) {
+            System.out.println("updateUser() 에서 오류 : " + e);
         } 
            
 
@@ -137,9 +135,11 @@ public class UserDao {
           String sql = "SELECT * FROM MEMBER";
 
 
-          try (Connection conn = connPool.con;
+          try (Connection conn = connPool.getConnection();
                   PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery(); // ResultSet 가져오기
+            
+          
 
             while (rs.next()) {
               Member member = new Member();
@@ -169,7 +169,7 @@ public class UserDao {
         String sql = "SELECT * FROM MEMBER WHERE USERID = ?";
 
 
-        try (Connection conn = connPool.con;
+        try (Connection conn = connPool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
            
             stmt.setInt(1, userId);
@@ -177,6 +177,41 @@ public class UserDao {
 
             if (rs.next()) {
                 member = new Member();
+                member.setName(rs.getString("NAME"));
+                member.setPassword(rs.getString("PASSWORD"));
+                member.setGender(rs.getString("GENDER"));
+                member.setEmail(rs.getString("EMAIL"));
+                member.setAddress(rs.getString("ADDRESS"));
+                
+            }
+            
+           System.out.println(member.getAddress());
+        } catch (Exception err) {
+            System.out.println("findUserById() 에서 오류: " + err);
+            
+        } 
+    
+
+
+        return member;
+    }
+    
+    public Member findUserByName(String name) {
+        Member member=null;
+        
+
+        String sql = "SELECT * FROM MEMBER WHERE NAME = ?";
+
+
+        try (Connection conn = connPool.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+           
+            stmt.setString(1, name);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                member = new Member();
+                member.setUserId(rs.getInt("userId"));
                 member.setName(rs.getString("NAME"));
                 member.setPassword(rs.getString("PASSWORD"));
                 member.setGender(rs.getString("GENDER"));

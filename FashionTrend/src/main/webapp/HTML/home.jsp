@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- 로그인 된 사용자만 접근가능
-
- if (session.getAttribute("user") == null) {
-    response.sendRedirect("/login");
-    return;
-}
- -->
 
 
 <!DOCTYPE html>

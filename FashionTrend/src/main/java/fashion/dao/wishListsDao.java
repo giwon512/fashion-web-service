@@ -29,7 +29,7 @@ public class wishListsDao {
 		String sql = "insert into Wishlists(wishlistId, userId, productId, imageUrl,brandName,productPrice) "
 				+ "values(wishlists_seq.NEXTVAL,?,?,?,?,?)";
 			
-		try (Connection conn = connPool.con;
+		 try (Connection conn = connPool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 	
 				
@@ -50,13 +50,15 @@ public class wishListsDao {
 	}
 	
 	
-	public List<WishLists> findAllWishLists() {
+	public List<WishLists> findAllWishLists(int userId) {
 		
 		  List<WishLists> allList = new ArrayList<>();
-		  String sql = "select * from wishlists";
+		  String sql = "select * from wishlists where userId = ?";
 
-		  try (Connection conn = connPool.con;
+		  try (Connection conn = connPool.getConnection();
 	                PreparedStatement stmt = conn.prepareStatement(sql)) {
+			  
+			 stmt.setInt(1, userId);
 	        
 		    ResultSet rs = stmt.executeQuery(); // ResultSet 가져오기
 
@@ -87,7 +89,7 @@ public class wishListsDao {
 	    WishLists wish = null;
 	    String sql = "SELECT * FROM WISHLISTS WHERE wishlistId = ?";
 
-	    try (Connection conn = connPool.con;
+	    try (Connection conn = connPool.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 	      
 	        stmt.setInt(1, wishlistId);
@@ -112,6 +114,42 @@ public class wishListsDao {
 
 	    return wish;
 	}
+	
+	public List<WishLists> findWishListByName(String name) {
+		
+	    WishLists wish = null;
+
+		  List<WishLists> allList = new ArrayList<>();
+	    String sql = "SELECT * FROM WISHLISTS WHERE name = ?";
+
+	    try (Connection conn = connPool.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+	      
+	        stmt.setString(1, name);
+	        rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	        	wish.setWishlistId(rs.getInt("wishlistId"));
+	            wish.setUserId(rs.getInt("userId"));
+	            wish.setProductId(rs.getInt("productId"));
+	            wish.setProductName(rs.getString("productName"));
+	            wish.setImageUrl(rs.getString("imageUrl"));
+	            wish.setBrandName(rs.getString("brandName"));
+	            wish.setProductPrice(rs.getInt("productPrice"));
+	            
+	            allList.add(wish); // WishLists 객체를 List에 추가
+	        }
+	        
+	       System.out.println(wish);
+	    } catch (Exception err) {
+	        System.out.println("findWishListByName() 에서 오류: " + err);
+	    } 
+	    
+
+
+	    return allList;
+	}
+
 
 	
 	

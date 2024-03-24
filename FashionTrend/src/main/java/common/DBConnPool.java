@@ -1,9 +1,7 @@
 package common;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,49 +11,28 @@ import javax.sql.DataSource;
 
 
 public class DBConnPool {
-	public Connection con;
-	public Statement stmt;
-	public PreparedStatement psmt;
-	public ResultSet rs;
+    private DataSource dataSource;
+
+    public DBConnPool() {
+        try {
+            // 커넥션 풀 (DataSource) 얻기
+            Context initCtx = new InitialContext();
+            Context ctx = (Context) initCtx.lookup("java:comp/env");
+            dataSource = (DataSource) ctx.lookup("dbcp_myoracle");
+
+            System.out.println("DB 커넥션 풀 초기화 성공");
+        } catch (Exception e) {
+            System.out.println("DB 커넥션 풀 초기화 실패");
+            e.printStackTrace();
+        }
+    }
+
+    // 커넥션 풀에서 Connection 객체를 가져오는 메소드
+    public Connection getConnection() throws Exception {
+        return dataSource.getConnection();
+    }
 	
-	
-	
-	public DBConnPool() {
-		
-		try {
-			
-			//커넥션 풀 (DataSource)얻
-			
-			Context initCtx = new InitialContext();
-			Context ctx = (Context)initCtx.lookup("java:comp/env");
-			DataSource source = (DataSource)ctx.lookup("dbcp_myoracle");
-			
-			
-			
-			con = source.getConnection();
-			
-			System.out.println("DB 커넥션 풀 연결 성공");
-			
-		}
-		catch(Exception e) {
-			System.out.println("DB 커넥션 풀 연결 실패");
-			e.printStackTrace();
-		}
-	}
-	
-	public void close() {
-		try {
-			if(rs!= null) rs.close();
-			if(stmt != null) stmt.close();
-			if(psmt!= null) psmt.close();
-			if(con!=null)con.close();
-			
-			System.out.println("DB 커넥션 풀 자원 반납");
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 
 }

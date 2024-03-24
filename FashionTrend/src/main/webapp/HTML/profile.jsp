@@ -2,6 +2,8 @@
 <%@page import="fashion.dao.UserDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="home.jsp" %>
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -78,31 +80,45 @@
   
 
      <%
-     	int userId = 2; // session.getAttribute로 해당 세션의 id값을 얻어옴. 지금은 하드코딩함.
+     	
+     	
+     
+
+
+	if(session.getAttribute("user") == null){
+		response.sendRedirect("login.jsp");
+		return;
+	}
+		
+     	String name = (String)session.getAttribute("user");
+     	//int userId = (int)session.getAttribute("userId");
         UserDao userDao = new UserDao();
-        Member member = userDao.findUserById(userId); // 예시로 1번 ID를 사용
-        member.setUserId(userId);
+        Member member = userDao.findUserByName(name);
+        
         
  
     %>
+    
+    
      <div class="index-content">
     <form action="profileUpdate.jsp" method="post">
-        <input type="hidden" name="userId" value="<%= member.getUserId() %>"> <!-- 수정된 부분 -->
+   
+   	  <input type="hidden" id="userId" name="userId" value="<%= member.getUserId()%>"> <!-- 수정된 부분 -->
         <div class="input-group">
           <label for="name">이름</label>
-          <input type="text" id="name" name="name" value="<%= member.getName() %>"> <!-- 수정된 부분 -->
+          <input type="text" id="name" name="name" value="<%= member.getName() %>" readonly> <!-- 수정된 부분 -->
         </div>
         <div class="input-group">
           <label for="password">비밀번호</label>
-          <input type="password" id="password" name="password" value="<%= member.getPassword() %>"> <!-- 수정된 부분 -->
+          <input type="password" id="password" name="password" value="<%= member.getPassword() %> "> <!-- 수정된 부분 -->
         </div>
         <div class="input-group">
           <label for="email">이메일</label>
-          <input type="email" id="email" name="email" value="<%= member.getEmail() %>"> <!-- 수정된 부분 -->
+          <input type="email" id="email" name="email" value="<%= member.getEmail() %>" > <!-- 수정된 부분 -->
         </div>
-        <div class="input-group">
+        <div class="input-group" >
           <label for="gender">성별</label>
-          <select id="gender" name="gender">
+          <select id="gender" name="gender" >
             <option value="M" <% if(member.getGender().equals("M")) out.print("selected"); %>>남자</option>
             <option value="F" <% if(member.getGender().equals("F")) out.print("selected"); %>>여자</option>
           </select>

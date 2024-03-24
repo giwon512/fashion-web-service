@@ -1,20 +1,11 @@
-<%-- <%@page import="fashion.dto.purChaseInfo"%>
+
+
+<%@page import="fashion.dto.purChaseInfo"%>
 <%@page import="fashion.dao.purChaseInfoDao"%>
 <%@ page contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-
-
 <%@page import="java.util.List"%>
 
-<%@ page contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +32,10 @@ th {
 </style>
 </head>
 <body>
+<%@ include file="home.jsp" %>
+<div class="home-content">
+
+
     <h2>구매 내역</h2>
     <table>
         <tr>
@@ -51,19 +46,25 @@ th {
             <th>주문금액</th>
         </tr>
         <%
+        	
+        //
         
-        //아이디를 어떻게 가져올
+        int userId = (int)session.getAttribute("userId");
+        
+       
             purChaseInfoDao dao = new purChaseInfoDao();
-        	purChaseInfo info = dao.getPurchaseInfoByUserId(userId);
-            for(purchase_info pur : purchaseList) {
+        	List<purChaseInfo> info = dao.getPurchaseInfofindAll(userId);
+            for(purChaseInfo pur : info) {
         %>
         <tr>
             <td>
             	<img src="https://image.msscdn.net/images/goods_img/20220111/2301177/2301177_1_big.jpg" alt="반팔티" style="width:100px; height:auto; float:left;">
-            	 <span style="display:block; text-align:left;"><%=pur.getItem_name()%></span>
+            	 <span style="display:block; text-align:left;"><%=pur.getProductName()%></span>
             </td>
-            <td><%=pur.getPurchase_date()%></td>
-            <td><%=pur.getPurchase_id()%></td>
+            
+            
+            <td><%=pur.getPurchaseDate()%></td>
+            <td><%=pur.getPurchaseId()%></td>
             <td><%=pur.getQuantity()%></td>
             <td><%=pur.getAmount()%></td>
         </tr>
@@ -71,9 +72,10 @@ th {
             }
         %>
     </table>
+    </div>
 </body>
 </html>
 
 
 </body>
-</html> --%>
+</html> 

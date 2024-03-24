@@ -4,6 +4,8 @@
 <%@ page import="java.util.List"%>
 
 
+
+
 <%@ include file="home.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -48,10 +50,15 @@
 </style>
 </head>
 <body>
+<jsp:useBean id="wishDao" class="fashion.dao.wishListsDao" scope="session"/>
  
   <%
-    wishListsDao dao = new wishListsDao(); // wishListsDao 객체 생성
-   	List<WishLists> wishList = dao.findAllWishLists(); // 위시리스트 전체 조회 메소드 호출
+    	int userId = (int)session.getAttribute("userId");
+    
+  
+   		List<WishLists> wishList = wishDao.findAllWishLists(userId); // 위시리스트 전체 조회 메소드 호출
+   	
+   	
   %>
   
   <div class="home-content">
