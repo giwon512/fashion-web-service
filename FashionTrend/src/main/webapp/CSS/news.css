@@ -1,13 +1,13 @@
 .container{
-    height: 85vh;
+    height: 100vh;
     width: 100%;
-    background-color: #111; 
+    background-color: #000; 
  }
 
 
 .content{  
-    min-height: 70%;
-    max-width: 70%;
+    min-height: 90%;
+    max-width: 90%;
     margin: 0 auto;
 
     position: relative;
@@ -15,7 +15,174 @@
     transform: translate(0, -50%);
  }
 
+ .con{
+    float: left;
+    width: 30%;
 
+    border: solid red;
+}
+
+.con > div{
+    float: left;
+    border: solid green;
+}
+
+ @media screen and (max-width:1023px) {
+    .con{
+        float: left;
+        width:45%;
+        height: 350px;
+    
+        border: solid magenta;
+    }
+
+    .lwrap_img{
+        height: 200px;
+        width: 100%;
+
+        border: solid orange;
+        overflow: hidden;
+     }
+
+    .lwrap_img img{
+        width:100%;
+        padding-bottom: 100%;
+        object-fit:cover;
+     }
+
+     .rwrap{
+
+        border: solid skyblue;
+        position: absolute;
+        
+        top:210px;
+        height: 140px;
+
+        /*
+        border: solid magenta;
+        position: absolute;
+
+        height: 200px;
+        width: 50%;
+
+        right: 5%;
+        top: 50%;
+        transform: translate(0, -50%);     */  
+    }
+
+    .rwrap h1{
+        
+        /*
+        font-size: 18px;
+        color: #fff;
+        font-weight: 600;*/
+    }
+
+    .text {
+        /*
+        display: block;
+        border: solid blue;
+        height: 60%;
+
+        margin-top: 5%;
+        margin-bottom: 3%;
+
+        overflow: hidden;
+        /*글자수제한하기*/
+    }
+
+   
+
+   
+
+}
+
+@media screen and (max-width:767px) {
+    .con{
+        float: left;
+        width: 100%;
+        height: 250px;
+    
+        border: solid blue;
+
+        position: relative;
+    }
+
+
+    .lwrap_img{
+        height: 200px;
+        width: 35%;
+
+        border: solid orange;
+
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        
+        margin-left: 5%;
+        margin-right: 5%;
+     }
+
+    .lwrap_img img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+     }
+
+    .rwrap{
+        border: solid magenta;
+        position: absolute;
+
+        height: 200px;
+        width: 50%;
+
+        right: 5%;
+        top: 50%;
+        transform: translate(0, -50%);       
+    }
+
+    .rwrap h1{
+        font-size: 18px;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .text {
+        display: block;
+        border: solid blue;
+        height: 60%;
+
+        margin-top: 5%;
+        margin-bottom: 3%;
+
+        overflow: hidden;
+        /*글자수제한하기*/
+    }
+/*
+    .more{
+        float: right;
+    }*/
+}
+
+.about {
+    color:#fff
+}
+
+.text{
+    color:#fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
  .con .lwrap {
     min-height: 100%;
     min-width: 40%;
@@ -74,7 +241,7 @@
     overflow-y: hidden;
 }
 
-
+/*
 .rcon2 > div{
     float: left;
     width: 40%;
@@ -100,8 +267,8 @@
 
     overflow-y: hidden;
 }
-
-
+*/
+/*
 .more a{
     color: #fff;
 
@@ -147,4 +314,4 @@
 
         overflow: hidden;
     }
-  }
+  }*/
