@@ -8,55 +8,116 @@
 .content{  
     min-height: 90%;
     max-width: 90%;
-    margin: 0 auto;
+    
 
     position: relative;
     top: 50%;
-    transform: translate(0, -50%);
+    transform: translate( 0, -50%);
+
+    margin: 0 auto;
+
  }
 
- .con{
+ /* full size */
+.con{
     float: left;
-    width: 30%;
+    width: 32%;
 
-    border: solid red;
+    margin-right: 10px;
+    margin-bottom: 50px;
 }
 
 .con > div{
     float: left;
-    border: solid green;
+    
 }
 
- @media screen and (max-width:1023px) {
+
+ .lwrap_img{
+    height: 300px;
+    width: 300px;
+
+    margin-right: 20px;
+    object-fit:cover;
+ }
+
+ .lwrap_img img{
+    height: 300px;
+    width: 300px;
+    padding-bottom: 100%;
+    object-fit:cover;
+ }
+
+.rwrap{
+
+    position: relative;
+    
+    height: 300px;
+    width: 380px;
+}
+
+.rwrap h1{
+    
+    font-size: 22px;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.text {
+        
+    display: block;
+    height: 60%;
+    font-size: 20px;
+    margin-bottom: 30px;
+
+    line-height: 1.3;
+
+    overflow: hidden;
+    /*글자수제한하기*/
+}
+.more{
+    
+}
+
+
+
+ @media screen and (max-width:1300px) {
     .con{
         float: left;
         width:45%;
-        height: 350px;
+        height: 380px;
+
+        margin-left: 25px;
+        margin-bottom: 50px;
+        margin-right: 5px;
     
-        border: solid magenta;
     }
 
-    .lwrap_img{
+    .lwrap_img{ 
+        margin-right: 20px;
+        width: 145%;
         height: 200px;
-        width: 100%;
 
-        border: solid orange;
         overflow: hidden;
      }
 
     .lwrap_img img{
-        width:100%;
+        width: 100%;
         padding-bottom: 100%;
         object-fit:cover;
      }
 
      .rwrap{
 
-        border: solid skyblue;
-        position: absolute;
+        margin-top: 20px;
+        position: relative;
         
-        top:210px;
+
         height: 140px;
+        width: 100%;     
+        
 
         /*
         border: solid magenta;
@@ -72,28 +133,23 @@
 
     .rwrap h1{
         
-        /*
-        font-size: 18px;
+        
+        font-size: 20px;
         color: #fff;
-        font-weight: 600;*/
+        font-weight: 600;
+        margin-bottom: 10px;
     }
 
     .text {
-        /*
+        
         display: block;
-        border: solid blue;
         height: 60%;
 
-        margin-top: 5%;
         margin-bottom: 3%;
 
         overflow: hidden;
         /*글자수제한하기*/
     }
-
-   
-
-   
 
 }
 
@@ -103,9 +159,9 @@
         width: 100%;
         height: 250px;
     
-        border: solid blue;
 
         position: relative;
+        margin-bottom: 10px;
     }
 
 
@@ -113,7 +169,6 @@
         height: 200px;
         width: 35%;
 
-        border: solid orange;
 
         position: absolute;
         top: 50%;
@@ -130,27 +185,25 @@
      }
 
     .rwrap{
-        border: solid magenta;
         position: absolute;
 
         height: 200px;
         width: 50%;
 
         right: 5%;
-        top: 50%;
+        top: 44%;
         transform: translate(0, -50%);       
     }
 
     .rwrap h1{
-        font-size: 18px;
+        font-size: 17px;
         color: #fff;
         font-weight: 600;
     }
 
     .text {
         display: block;
-        border: solid blue;
-        height: 60%;
+        height: 50%;
 
         margin-top: 5%;
         margin-bottom: 3%;
