@@ -16,6 +16,16 @@ public class WishLists {
     	
     	
     }
+    
+    public WishLists(String imageUrl,String brandName,String productName,int productPrice) {
+    	this.imageUrl = imageUrl;
+    	this.brandName = brandName;
+    	this.productName = productName;
+    	this.productPrice = productPrice;
+    }
+    
+    
+  
 
 
 	public int getWishlistId() {

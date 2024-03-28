@@ -1,3 +1,4 @@
+<%@page import="utils.JSFunction"%>
 <%@page import="fashion.dao.UserDao"%>
 <%@page import="fashion.dto.Member"%>
 <%@ page import="java.sql.*" %>
@@ -43,44 +44,29 @@ String address = userAddress1 + " " + userAddress2;
     	  
     	  session.setAttribute("user", name);
     	  session.setAttribute("userId",member.getUserId());
-          
     	  
- %>
-    	  <script>
-          alert("회원가입이 완료되었습니다.");
-          window.location.href = "index.jsp";
-      </script>
-      
-      
+    	  JSFunction.alertLocation("회원가입 성공", "survey.jsp", out);
          
-<%       } else {%>
+      } else {
 	
 
+    	  JSFunction.alertBack("회원가입 실패", out);
 
-		<script>
-		  
-		 alert("회원가입이 실패했습니다. 다시 시도해주세요");
-		 window.location.href = "signIn.jsp";
-		</script>    
-      <% }
-  } else {%>
- 		<script>
- 		
- 		 // 아이디가 중복되는 경우 메시지를 출력합니다.
- 	     	alert("이미 존재하는 아이디입니다.");
-          window.location.href = "signIn.jsp";
- 		
- 		</script>
+      }
+  } else {
+	  
+	  JSFunction.alertBack("이미 존재하는 아이디입니다.", out);
+ 	
      
-<%   }  %>  
+   } 
+  
+  
+  
+  %>  
   
 
 
   
- 
-
-
-%> 
         	
 </body>
 </html>

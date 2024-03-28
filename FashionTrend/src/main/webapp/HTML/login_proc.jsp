@@ -41,6 +41,7 @@
           
     %>
     		<script>
+    		
                 alert("로그인 성공");
                 window.location.href = "index.jsp";
             </script>

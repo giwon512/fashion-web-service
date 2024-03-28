@@ -76,7 +76,7 @@ a {
 
 
 
-<%@ include file="home.jsp" %>
+
 
 
   <div class="home-content">
