@@ -25,7 +25,7 @@
     float :left;
     position : relative;
 }
-
+/*
 .showBox h1 {
     position : absolute;
     left : 50%;
@@ -41,7 +41,7 @@
     
 }
 
-.showBox P {
+.showBox p {
    	position : absolute;
     left : 50%;
     bottom : 50%;
@@ -53,8 +53,52 @@
     background-color: rgba(1, 1, 1, 0.5);
     text-align: top;
     border-radius: 10px;
+}*/
+/*
+.textBox{
+    position : absolute;
+
+    z-index: 2;
+    border: solid yellow;
+    
+}*/
+
+.showBox .textBox{
+    height: 100px;
+    width: 70%;
+    top: 450px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 2;
+    background-color: rgba(1, 1, 1, 0.5);
+    border-radius: 10px;
+}
+
+
+.textBox h1 {
+    text-align: center;
+    
+    color : white;
+    font-size: 30px;
+    margin-bottom: 8px;
     
 }
+
+.textBox p {
+    width: 100%;
+
+    color : white;
+    font-size: 18px;
+
+    position: absolute;
+    
+
+    display: inline;
+    text-align: center;
+}
+
 
 .showBox img {
     width : 100%;
