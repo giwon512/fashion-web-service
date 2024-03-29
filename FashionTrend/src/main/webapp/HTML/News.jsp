@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,21 +11,24 @@
 </head>
 <body>
     <!-- 1d 전체영역~? 11111 -->
-    <div class="container">     
+    <div class="news_container">     
         <!-- inner -->         
-        <div class="content">
+        <div id="subject">NEWS</div>
+        <div class="line"></div>
+        <div class="news_content" id="trend">
+            
 
             <!-- 기사 -->
             <div class="con">
                 <!-- 왼쪽 기사 이미지 -->
-                <div class="lwrap">
+                <div class="news_lwrap">
                     <div class="lwrap_img">
                         <a href=""><img src="../images/news/news1.jpg" alt=""></a>
                     </div>               
                 </div>
 
                 <!-- 오른쪽 -->
-                <div class="rwrap">
+                <div class="news_rwrap">
                     <!-- 기사제목 -->
                     <a>
                         <h1>
@@ -45,18 +49,18 @@
                 </div> 
             </div>  
             <!-- 기사 끝 -->  
-
+            
             <!-- 기사 -->
             <div class="con">
                 <!-- 왼쪽 기사 이미지 -->
-                <div class="lwrap">
+                <div class="news_lwrap">
                     <div class="lwrap_img">
                         <a href=""><img src="../images/news/news2.jpg" alt=""></a>
                     </div>               
                 </div>
 
                 <!-- 오른쪽 -->
-                <div class="rwrap">
+                <div class="news_rwrap">
                     <!-- 기사제목 -->
                     <a>
                         <h1>
@@ -81,14 +85,14 @@
             <!-- 기사 -->
             <div class="con">
                 <!-- 왼쪽 기사 이미지 -->
-                <div class="lwrap">
+                <div class="news_lwrap">
                     <div class="lwrap_img">
                         <a href=""><img src="../images/news/news3.jpg" alt=""></a>
                     </div>               
                 </div>
 
                 <!-- 오른쪽 -->
-                <div class="rwrap">
+                <div class="news_rwrap">
                     <!-- 기사제목 -->
                     <a>
                         <h1>
@@ -109,18 +113,20 @@
                 </div> 
             </div>  
             <!-- 기사 끝 -->
-
+        </div>
+        <div class="line"></div>
+        <div class="news_content" id="celeb"> 
             <!-- 기사 -->
             <div class="con">
                 <!-- 왼쪽 기사 이미지 -->
-                <div class="lwrap">
+                <div class="news_lwrap">
                     <div class="lwrap_img">
                         <a href=""><img src="../images/news/news4.jpg" alt=""></a>
                     </div>               
                 </div>
 
                 <!-- 오른쪽 -->
-                <div class="rwrap">
+                <div class="news_rwrap">
                     <!-- 기사제목 -->
                     <a>
                         <h1>
@@ -145,14 +151,14 @@
             <!-- 기사 -->
             <div class="con">
                 <!-- 왼쪽 기사 이미지 -->
-                <div class="lwrap">
+                <div class="news_lwrap">
                     <div class="lwrap_img">
                         <a href=""><img src="../images/news/news5.jpg" alt=""></a>
                     </div>               
                 </div>
 
                 <!-- 오른쪽 -->
-                <div class="rwrap">
+                <div class="news_rwrap">
                     <!-- 기사제목 -->
                     <a>
                         <h1>
@@ -177,14 +183,14 @@
             <!-- 기사 -->
             <div class="con">
                 <!-- 왼쪽 기사 이미지 -->
-                <div class="lwrap">
+                <div class="news_lwrap">
                     <div class="lwrap_img">
                         <a href=""><img src="../images/news/news6.jpg" alt=""></a>
                     </div>               
                 </div>
 
                 <!-- 오른쪽 -->
-                <div class="rwrap">
+                <div class="news_rwrap">
                     <!-- 기사제목 -->
                     <a>
                         <h1>
@@ -205,18 +211,20 @@
                 </div> 
             </div>  
             <!-- 기사 끝 -->
-
+        </div>
+        <div class="line"></div>
+        <div class="news_content" id="brand">        
             <!-- 기사 -->
             <div class="con">
                 <!-- 왼쪽 기사 이미지 -->
-                <div class="lwrap">
+                <div class="news_lwrap">
                     <div class="lwrap_img">
                         <a href=""><img src="../images/news/news7.jpg" alt=""></a>
                     </div>               
                 </div>
 
                 <!-- 오른쪽 -->
-                <div class="rwrap">
+                <div class="news_rwrap">
                     <!-- 기사제목 -->
                     <a>
                         <h1>
@@ -241,14 +249,14 @@
             <!-- 기사 -->
             <div class="con">
                 <!-- 왼쪽 기사 이미지 -->
-                <div class="lwrap">
+                <div class="news_lwrap">
                     <div class="lwrap_img">
                         <a href=""><img src="../images/news/news8.jpg" alt=""></a>
                     </div>               
                 </div>
 
                 <!-- 오른쪽 -->
-                <div class="rwrap">
+                <div class="news_rwrap">
                     <!-- 기사제목 -->
                     <a>
                         <h1>
@@ -273,14 +281,14 @@
             <!-- 기사 -->
             <div class="con">
                 <!-- 왼쪽 기사 이미지 -->
-                <div class="lwrap">
+                <div class="news_lwrap">
                     <div class="lwrap_img">
                         <a href=""><img src="../images/news/news9.jpg" alt=""></a>
                     </div>               
                 </div>
 
                 <!-- 오른쪽 -->
-                <div class="rwrap">
+                <div class="news_rwrap">
                     <!-- 기사제목 -->
                     <a>
                         <h1>
@@ -301,21 +309,6 @@
                 </div> 
             </div>  
             <!-- 기사 끝 -->
-
-            
-
-        
-
-            
-
-            
-
-            
-
-            
-               
-
-            
 
         </div>
     </div>
