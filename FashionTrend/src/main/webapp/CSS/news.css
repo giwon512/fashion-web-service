@@ -1,21 +1,241 @@
 .container{
-    height: 85vh;
+    height: 100vh;
     width: 100%;
-    background-color: #111; 
+    background-color: #000; 
  }
 
 
 .content{  
-    min-height: 70%;
-    max-width: 70%;
-    margin: 0 auto;
+    min-height: 90%;
+    max-width: 90%;
+    
 
     position: relative;
     top: 50%;
-    transform: translate(0, -50%);
+    transform: translate( 0, -50%);
+
+    margin: 0 auto;
+
  }
 
+ /* full size */
+.con{
+    float: left;
+    width: 32%;
 
+    margin-right: 10px;
+    margin-bottom: 50px;
+}
+
+.con > div{
+    float: left;
+    
+}
+
+
+ .lwrap_img{
+    height: 300px;
+    width: 300px;
+
+    margin-right: 20px;
+    object-fit:cover;
+ }
+
+ .lwrap_img img{
+    height: 300px;
+    width: 300px;
+    padding-bottom: 100%;
+    object-fit:cover;
+ }
+
+.rwrap{
+
+    position: relative;
+    
+    height: 300px;
+    width: 380px;
+}
+
+.rwrap h1{
+    
+    font-size: 22px;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.text {
+        
+    display: block;
+    height: 60%;
+    font-size: 20px;
+    margin-bottom: 30px;
+
+    line-height: 1.3;
+
+    overflow: hidden;
+    /*글자수제한하기*/
+}
+.more{
+    
+}
+
+
+
+ @media screen and (max-width:1300px) {
+    .con{
+        float: left;
+        width:45%;
+        height: 380px;
+
+        margin-left: 25px;
+        margin-bottom: 50px;
+        margin-right: 5px;
+    
+    }
+
+    .lwrap_img{ 
+        margin-right: 20px;
+        width: 145%;
+        height: 200px;
+
+        overflow: hidden;
+     }
+
+    .lwrap_img img{
+        width: 100%;
+        padding-bottom: 100%;
+        object-fit:cover;
+     }
+
+     .rwrap{
+
+        margin-top: 20px;
+        position: relative;
+        
+
+        height: 140px;
+        width: 100%;     
+        
+
+        /*
+        border: solid magenta;
+        position: absolute;
+
+        height: 200px;
+        width: 50%;
+
+        right: 5%;
+        top: 50%;
+        transform: translate(0, -50%);     */  
+    }
+
+    .rwrap h1{
+        
+        
+        font-size: 20px;
+        color: #fff;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .text {
+        
+        display: block;
+        height: 60%;
+
+        margin-bottom: 3%;
+
+        overflow: hidden;
+        /*글자수제한하기*/
+    }
+
+}
+
+@media screen and (max-width:767px) {
+    .con{
+        float: left;
+        width: 100%;
+        height: 250px;
+    
+
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+
+    .lwrap_img{
+        height: 200px;
+        width: 35%;
+
+
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        
+        margin-left: 5%;
+        margin-right: 5%;
+     }
+
+    .lwrap_img img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+     }
+
+    .rwrap{
+        position: absolute;
+
+        height: 200px;
+        width: 50%;
+
+        right: 5%;
+        top: 44%;
+        transform: translate(0, -50%);       
+    }
+
+    .rwrap h1{
+        font-size: 17px;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .text {
+        display: block;
+        height: 50%;
+
+        margin-top: 5%;
+        margin-bottom: 3%;
+
+        overflow: hidden;
+        /*글자수제한하기*/
+    }
+/*
+    .more{
+        float: right;
+    }*/
+}
+
+.about {
+    color:#fff
+}
+
+.text{
+    color:#fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
  .con .lwrap {
     min-height: 100%;
     min-width: 40%;
@@ -74,7 +294,7 @@
     overflow-y: hidden;
 }
 
-
+/*
 .rcon2 > div{
     float: left;
     width: 40%;
@@ -100,8 +320,8 @@
 
     overflow-y: hidden;
 }
-
-
+*/
+/*
 .more a{
     color: #fff;
 
@@ -147,4 +367,4 @@
 
         overflow: hidden;
     }
-  }
+  }*/
