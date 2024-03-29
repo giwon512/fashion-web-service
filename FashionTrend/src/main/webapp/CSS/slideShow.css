@@ -28,15 +28,30 @@
 
 .showBox h1 {
     position : absolute;
-    left : 5%;
-    top : 5%;
+    left : 50%;
+    top : 50%;
     color : white;
-    font-size: 100px;
+    font-size: 30px;
     display: block;
     width: 150px;
-    height : 150px;
+    height : 450px;
     background-color: rgba(1, 1, 1, 0.5);
-    text-align: center;
+    text-align: top;
+    border-radius: 10px;
+    
+}
+
+.showBox P {
+   	position : absolute;
+    left : 50%;
+    bottom : 50%;
+    color : white;
+    font-size: 30px;
+    display: block;
+    width: 150px;
+    height : 450px;
+    background-color: rgba(1, 1, 1, 0.5);
+    text-align: top;
     border-radius: 10px;
     
 }
@@ -80,4 +95,9 @@
 
 .hiddenBox {
     display : none;
+}
+
+.centered-span {
+    display: block; 
+    text-align: center; 
 }
