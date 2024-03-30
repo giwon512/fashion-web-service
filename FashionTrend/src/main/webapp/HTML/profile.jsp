@@ -18,7 +18,8 @@
 }
 
 .container {
-    max-width: 600px;
+    width: 80%; /* 너비를 퍼센티지로 조정하여 더 유동적으로 만듭니다. */
+    max-width: 800px; /* 최대 너비를 800px 또는 더 넓은 값으로 조정합니다. */
     margin: auto;
     background-color: #fff;
     padding: 20px;
@@ -71,19 +72,11 @@
     <div class="header">
       <h1>회원정보 수정</h1>
     </div>
-    
-  <!--
-  	유저 정보를 어떻게 가져오냐?
-  	로그인이 성공하면, 세션값에 
-  
-    -->
+
   
 
      <%
      	
-     	
-     
-
 
 	if(session.getAttribute("user") == null){
 		response.sendRedirect("login.jsp");
@@ -100,7 +93,7 @@
     %>
     
     
-     <div class="index-content">
+     <div class="home-content">
     <form action="profileUpdate.jsp" method="post">
    
    	  <input type="hidden" id="userId" name="userId" value="<%= member.getUserId()%>"> <!-- 수정된 부분 -->

@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
     <!-- Footer -->
     <footer class="bg-dark text-white py-3">
         <div class="container text-center">
-            <p>&copy; 2024 Your Website. All rights reserved.</p>
+            <p>&copy; 2024 도토리 패. All rights reserved.</p>
         </div>
     </footer>
 </body>

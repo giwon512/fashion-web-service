@@ -17,6 +17,8 @@
  
 
             <%@ include file="recommand.jsp" %>
+            
+            <%@ include file="footer.jsp" %>
 
    
 </body>

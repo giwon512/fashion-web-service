@@ -1,5 +1,16 @@
 
+<%@page import="utils.JSFunction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+
+if(session.getAttribute("userId") != null){
+    // 사용자를 홈 페이지로 리디렉션
+    
+    session.invalidate();
+    response.sendRedirect("home.jsp"); // "homepage.jsp"는 사용자를 리디렉션할 대상 페이지입니다.
+    return; // 현재 실행을 중단하고 리디렉션 수행
+}
+%>
 <%@ include file="home.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">

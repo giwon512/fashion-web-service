@@ -43,6 +43,9 @@
     dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301177/2301177_1_big.jpg", "나이키 반팔티", LocalDate.parse("2023-03-24"), 12345, 1, 30000));
     dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301178/2301178_1_big.jpg", "아디다스 운동화", LocalDate.parse("2023-03-22"), 12346, 2, 90000));
     dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301179/2301179_1_big.jpg", "리복 크로스핏", LocalDate.parse("2023-03-20"), 12347, 1, 80000));
+    dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301177/2301177_1_big.jpg", "나이키 반팔티", LocalDate.parse("2023-03-24"), 12345, 1, 30000));
+    dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301178/2301178_1_big.jpg", "아디다스 운동화", LocalDate.parse("2023-03-22"), 12346, 2, 90000));
+    dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301179/2301179_1_big.jpg", "리복 크로스핏", LocalDate.parse("2023-03-20"), 12347, 1, 80000));
         for(purChaseInfo pur : dummyPurchaseList) {
     %>
     <div class="purchase-card">

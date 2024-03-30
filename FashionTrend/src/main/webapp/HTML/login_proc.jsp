@@ -34,9 +34,9 @@
             session.setAttribute("user", username);
             session.setAttribute("userId",mem.getUserId());
             
-            int id = (int)session.getAttribute("userId");
-            
-            System.out.println("id 값 : " + id);
+          Integer id = (Integer)session.getAttribute("userId");
+          
+          System.out.println(id);
             
           
     %>

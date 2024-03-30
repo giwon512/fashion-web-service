@@ -5,10 +5,7 @@ public class Preference {
 	 	private int prefId;
 	    private int userId;
 	    private String category;
-	    private String color;
 	    private String brand;
-	    
-	    
 		public int getPrefId() {
 			return prefId;
 		}
@@ -27,21 +24,15 @@ public class Preference {
 		public void setCategory(String category) {
 			this.category = category;
 		}
-		public String getColor() {
-			return color;
-		}
-		public void setColor(String color) {
-			this.color = color;
-		}
 		public String getBrand() {
 			return brand;
 		}
 		public void setBrand(String brand) {
 			this.brand = brand;
 		}
-
 	    
-	 
+	    
+	
 	    
 	    
 	    
