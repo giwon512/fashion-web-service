@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+  
+           <%@ include file="header.jsp" %>
+  
+
 
 
 <!DOCTYPE html>
@@ -8,11 +12,13 @@
     <meta charset="UTF-8">
     <title>마이페이지</title>
     <style>
+
+    
         /* 전체 페이지 스타일링 */
         .home-body {
             font-family: 'Arial', sans-serif;	
             margin: 0;
-            padding: 0;
+            padding-top: 60px;
             display: flex;
         }
 

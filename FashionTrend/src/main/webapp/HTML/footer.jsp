@@ -16,7 +16,7 @@
     <!-- Footer -->
     <footer class="bg-dark text-white py-3">
         <div class="container text-center">
-            <p>&copy; 2024 도토리 패. All rights reserved.</p>
+            <p>&copy; 2024 도토리 패션 포털. All rights reserved.</p>
         </div>
     </footer>
 </body>

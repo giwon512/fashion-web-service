@@ -12,7 +12,7 @@
             background-color: #333;
             color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
         }
         .survey-container {
             max-width: 600px;
