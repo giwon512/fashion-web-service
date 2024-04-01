@@ -309,7 +309,7 @@
                 </div> 
             </div>  
             <!-- 기사 끝 -->
-
+			<div class="line"></div>
         </div>
     </div>
     <!--

@@ -6,7 +6,7 @@
     width : 100%;
     height: 0;
     /* 패딩을 넣어서 이미지 비율 유지 */
-    padding-bottom: 40%; 
+    padding-bottom: 45%; 
     margin : 0 auto;
     position: relative;
     overflow: hidden;
@@ -88,16 +88,44 @@
 .showBox span {
 	display : block;
 	position : absolute;
-	left : 30%;
-    top : 30%;
+	right : 10%;
+    top : 550px;
     color : white;
-    font-size: 30px;
     display: block;
-    width: 450px;
-    height : 450px;
+    width: 40%;
     background-color: rgba(1, 1, 1, 0.5);
     text-align: top;
     border-radius: 10px;
-	
-	
+    overflow: hidden;
+    padding: 5px;
+}
+
+.showBox b {
+    font-size : 30px;
+}
+
+span {
+    font-size : 16px;
+}
+
+@media screen and (max-width: 1200px) {
+    .showBox b {
+        font-size : 24px;
+    }
+
+    .showBox span {
+        font-size : 12px;
+        top : 400px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .showBox b {
+        font-size : 16px;
+    }
+
+    .showBox span {
+        font-size : 10px;
+        top : 200px;
+    }
 }
