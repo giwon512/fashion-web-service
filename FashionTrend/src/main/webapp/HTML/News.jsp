@@ -15,6 +15,7 @@
         <!-- inner -->         
         <div id="subject">NEWS</div>
         <div class="line"></div>
+        <div id="innerSubject">TRENDS</div>
         <div class="news_content" id="trend">
             
 
@@ -115,6 +116,7 @@
             <!-- 기사 끝 -->
         </div>
         <div class="line"></div>
+        <div id="innerSubject">CELEB</div>
         <div class="news_content" id="celeb"> 
             <!-- 기사 -->
             <div class="con">
@@ -213,6 +215,7 @@
             <!-- 기사 끝 -->
         </div>
         <div class="line"></div>
+        <div id="innerSubject">BRANDS</div>
         <div class="news_content" id="brand">        
             <!-- 기사 -->
             <div class="con">
@@ -309,8 +312,8 @@
                 </div> 
             </div>  
             <!-- 기사 끝 -->
-			<div class="line"></div>
         </div>
+        <div class="line"></div>
     </div>
     <!--
     <div class="container-xxl py-5">

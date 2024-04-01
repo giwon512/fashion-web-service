@@ -12,6 +12,14 @@
     text-align: center;
 }
 
+#innerSubject {
+    height : 80px;
+    color : white;
+    line-height: 80px;
+    font-size : 30px;
+    text-align: center;
+}
+
 .line {
     width : 88%;
     margin : 0 auto;
@@ -28,7 +36,7 @@
 
     position: relative;
     /* top : 5%; */
-    margin: 30px auto;
+    margin: 20px auto;
 
  }
 
