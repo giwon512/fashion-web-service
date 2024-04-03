@@ -21,7 +21,7 @@
      <div class="container-xxl py-5" style="background-color: black ;">
         <div class="container" style="background-color: black ;">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;" >
-                <h1 class="text-uppercase" style="color: white;">Recommand</h1> <!--제목-->
+                <h1 class="text-uppercase" style="color: white;">Recommend</h1> <!--제목-->
             </div>
             <div class="row g-4" style="background-color: black;">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" >

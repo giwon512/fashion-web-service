@@ -17,6 +17,9 @@
     
         String username = request.getParameter("name");
         String password = request.getParameter("password");
+        
+        
+        System.out.println("로그인 넘어온 패스워드" + password);
 
         
         boolean loggedIn = userDao.checkLogin(username, password);

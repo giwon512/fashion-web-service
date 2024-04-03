@@ -64,19 +64,23 @@
 
       if(wishList == null || wishList.isEmpty()) {
           wishList = new ArrayList<WishLists>();
-          wishList.add(new WishLists("/path/to/dummy/image1.jpg", "나이키", "업템포", 130000));
-          wishList.add(new WishLists("/path/to/dummy/image2.jpg", "아디다스", "울트라부스트", 180000));
-          wishList.add(new WishLists("/path/to/dummy/image3.jpg", "리복", "클래식", 75000));
+          wishList.add(new WishLists("/FashionTrend/resources/wishListsPicture/up.jpeg", "나이키", "업템포"));
+          wishList.add(new WishLists("/FashionTrend/resources/wishListsPicture/dior.jpeg", "Dior", "디올 워크앤디올 스니커즈"));
+          wishList.add(new WishLists("/FashionTrend/resources/wishListsPicture/lv.jpeg", "루이비통", "남성 슬렌더 월릿 [M62294]"));
+          wishList.add(new WishLists("/FashionTrend/resources/wishListsPicture/vest.jpeg", "나이키", "SS24 나이키 ACG ARCTIC WOLF VEST BAROQUE_BROWN 24PFN2448SP_237"));
       }
   } else {
-      wishList = new ArrayList<WishLists>();
-      wishList.add(new WishLists("/path/to/dummy/image1.jpg", "나이키", "업템포", 130000));
-      wishList.add(new WishLists("/path/to/dummy/image2.jpg", "아디다스", "울트라부스트", 180000));
-      wishList.add(new WishLists("/path/to/dummy/image3.jpg", "리복", "클래식", 75000));
+	  wishList = new ArrayList<WishLists>();
+      wishList.add(new WishLists("/FashionTrend/resources/wishListsPicture/up.jpeg", "나이키", "업템포"));
+      wishList.add(new WishLists("/FashionTrend/resources/wishListsPicture/dior.jpeg", "Dior", "디올 워크앤디올 스니커즈"));
+      wishList.add(new WishLists("/FashionTrend/resources/wishListsPicture/lv.jpeg", "루이비통", "남성 슬렌더 월릿 [M62294]"));
+      
+      
+      //SS24 나이키 ACG ARCTIC WOLF VEST BAROQUE_BROWN 24PFN2448SP_237
   }
   %>
   
-  
+  v
 <div class="home-content">
 <div class="wish-list-container">
     <% for(WishLists list : wishList) { %>
@@ -85,7 +89,7 @@
             <div class="wish-item-info">
                 <div class="brand-name"><%= list.getBrandName() %></div>
                 <div class="product-name"><%= list.getProductName() %></div>
-                <div class="product-price"><%= list.getProductPrice() %>원</div>
+                
             </div>
         </div>
     <% } %>

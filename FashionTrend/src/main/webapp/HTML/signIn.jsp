@@ -138,7 +138,7 @@ function sample4_execDaumPostcode() {
     <form action="signIn_Proc.jsp" method="post">
         <table>
             <tr>
-                <td>이름:</td>
+                <td>아이디:</td>
                 <td><input type="text" name="name" maxlength="20" required></td>
             </tr>
             <tr>

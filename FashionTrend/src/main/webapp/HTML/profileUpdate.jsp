@@ -29,8 +29,11 @@
         String gender = request.getParameter("gender");
         String address = request.getParameter("address");
         
+		
+        System.out.println("넘어온 password : " + password);
 
-
+        
+      
         // userId를 정수로 파싱
         int userId;
         
@@ -54,6 +57,8 @@
         // 업데이트 결과에 따라 메시지 출력
         if (updateResult > 0) {
             %>
+            
+       
             <p>회원 정보가 성공적으로 업데이트되었습니다.</p>
             <a href="profile.jsp?userId=<%=userId%>">회원 정보 보기</a>
             <%

@@ -17,11 +17,12 @@
 <body style="background-color: black ;">
 
      <!-- 민재파트 -->
+     <%@ include file="header.jsp" %>
      
      <div class="container-xxl py-5" style="background-color: black ;">
         <div class="container" style="background-color: black ;">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;" >
-                <h1 class="text-uppercase" style="color: white;">Recommand</h1> <!--제목-->
+                <h1 class="text-uppercase" style="color: white;">Recommend</h1> <!--제목-->
             </div>
             <div class="row g-4" style="background-color: black;">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" >
@@ -30,7 +31,7 @@
                             <img class="img-fluid" src="../images/recommand/hood.jpg" alt="">
                         </div>
                         <div class="ps-4" style="background-color:#343a40">
-                            <h3 class="text-uppercase mb-3" style="color: white;">상의</h3>
+                            <h3 class="text-uppercase mb-3" style="color: white;">상의</h3>
                             <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam.</p>
                             <span class="text-uppercase text-primary"></span>
                         </div>
@@ -120,6 +121,8 @@
             </div>
         </div>
     </div>
+    
+    <%@ include file="footer.jsp" %>
     <!-- Service End -->
 </body>
 </html>

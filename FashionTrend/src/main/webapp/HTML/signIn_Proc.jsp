@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>signIn_proc.jsp</title>
+<title>signIn_proc.jsp</title>	
 </head>
 <body>
 <jsp:useBean id="userDao" class="fashion.dao.UserDao" scope="session"/>

@@ -99,12 +99,12 @@
    
    	  <input type="hidden" id="userId" name="userId" value="<%= member.getUserId()%>"> <!-- 수정된 부분 -->
         <div class="input-group">
-          <label for="name">이름</label>
+          <label for="name">아이디</label>
           <input type="text" id="name" name="name" value="<%= member.getName() %>" readonly> <!-- 수정된 부분 -->
         </div>
         <div class="input-group">
           <label for="password">비밀번호</label>
-          <input type="password" id="password" name="password" value="<%= member.getPassword() %> "> <!-- 수정된 부분 -->
+		  <input type="password" id="password" name="password" value="<%= member.getPassword().trim() %>">
         </div>
         <div class="input-group">
           <label for="email">이메일</label>

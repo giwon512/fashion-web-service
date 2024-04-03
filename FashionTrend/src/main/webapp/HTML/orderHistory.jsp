@@ -3,7 +3,7 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ include file="./IsLoggedIn.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,26 +36,23 @@
 <body>
 <%@ include file="home.jsp" %>
 <div class="home-content">
-    <h2>구매 내역</h2>
+    <h2>저장된 페이지</h2>
     <%
         // 더미 데이터 생성
    List<purChaseInfo> dummyPurchaseList = new ArrayList<>();
-    dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301177/2301177_1_big.jpg", "나이키 반팔티", LocalDate.parse("2023-03-24"), 12345, 1, 30000));
-    dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301178/2301178_1_big.jpg", "아디다스 운동화", LocalDate.parse("2023-03-22"), 12346, 2, 90000));
-    dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301179/2301179_1_big.jpg", "리복 크로스핏", LocalDate.parse("2023-03-20"), 12347, 1, 80000));
-    dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301177/2301177_1_big.jpg", "나이키 반팔티", LocalDate.parse("2023-03-24"), 12345, 1, 30000));
-    dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301178/2301178_1_big.jpg", "아디다스 운동화", LocalDate.parse("2023-03-22"), 12346, 2, 90000));
-    dummyPurchaseList.add(new purChaseInfo("https://image.msscdn.net/images/goods_img/20220111/2301179/2301179_1_big.jpg", "리복 크로스핏", LocalDate.parse("2023-03-20"), 12347, 1, 80000));
+    dummyPurchaseList.add(new purChaseInfo("/FashionTrend/resources/wishListsPicture/savepage1.png", "2024 F/W 파리 패션위크 빅 트렌드 키워드11 ", LocalDate.parse("2023-03-12"), 12342, 1, 1818000));
+    dummyPurchaseList.add(new purChaseInfo("/FashionTrend/resources/wishListsPicture/fashion02.png", "2024 F/W 루이비통 2024 F/W 여성복 컬렉션 ", LocalDate.parse("2023-02-13"), 12341, 1, 1818000));
+    dummyPurchaseList.add(new purChaseInfo("/FashionTrend/resources/wishListsPicture/yak.jpeg", "블랙야크 해발 1,100m 아웃도어 복합문화공간 '베이스캠프' 지리산점 오픈 ", LocalDate.parse("2023-03-22"), 12332, 1, 1818000));
+    dummyPurchaseList.add(new purChaseInfo("/FashionTrend/resources/wishListsPicture/cam.jpeg", "캠브리지 멤버스, 예복 슈트 스타일링 팁까지 시그니처 슈트 컬렉션 출시 ", LocalDate.parse("2023-03-25"), 12233, 1, 1818000));
+    dummyPurchaseList.add(new purChaseInfo("/FashionTrend/resources/wishListsPicture/bacity.jpeg", "화사한 봄날 다시 뜨는 유행템 '바시티 재킷 vs 청청 패션' 뭐 살까? ", LocalDate.parse("2023-03-23"), 12211, 1, 1818000));
         for(purChaseInfo pur : dummyPurchaseList) {
     %>
     <div class="purchase-card">
         <img src="<%= pur.getImageUrl() %>" alt="Product Image" class="purchase-img">
         <div class="purchase-info">
-            <div>상품명: <%= pur.getProductName() %></div>
-            <div>주문일자: <%= pur.getPurchaseDate() %></div>
-            <div>주문번호: <%= pur.getPurchaseId() %></div>
-            <div>수량: <%= pur.getQuantity() %></div>
-            <div>주문금액: <%= pur.getAmount() %>원</div>
+            <div>기사명: <%= pur.getProductName() %></div>
+            <div>기사일자: <%= pur.getPurchaseDate() %></div>
+            <div>기사번호: <%= pur.getProductId()%></div>
         </div>
     </div>
     <%

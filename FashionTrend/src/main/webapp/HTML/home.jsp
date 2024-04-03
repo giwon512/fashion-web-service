@@ -66,10 +66,9 @@
                 <!-- 로그인된 사용자에게 보여줄 메뉴 -->
                 <li><a href="index.jsp">홈</a></li>
                 <li><a href="logout.jsp">로그아웃</a>
-                <li><a href="fashionNews.jsp">패션뉴스</a></li>
                 <li><a href="wishList.jsp">찜목록</a></li>
                 <li><a href="profile.jsp">회원정보 수정</a></li>
-                <li><a href="orderHistory.jsp">구매내역</a></li>
+                <li><a href="orderHistory.jsp">저장된페이지</a></li>
                 <li><a href="surveyForm.jsp">패션취향관리</a></li>
               
                
@@ -79,8 +78,7 @@
                 
                 <li><a href="login.jsp">로그인</a>
                 <li><a href="index.jsp">홈</a></li>
-                <li><a href="fashionNews.jsp">패션뉴스</a></li>
-       
+      
             <% } %>
         </ul>
     </div>
