@@ -1,4 +1,4 @@
-package com.fashionNav.model.user;
+package com.fashionNav.model.entity;
 
 
 import lombok.AllArgsConstructor;
