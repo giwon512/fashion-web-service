@@ -2,8 +2,8 @@ package com.fashionNav.controller;
 
 
 import com.fashionNav.common.api.Api;
+import com.fashionNav.model.dto.UserRegisterRequest;
 import com.fashionNav.model.entity.User;
-import com.fashionNav.model.user.UserRegisterRequest;
 import com.fashionNav.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

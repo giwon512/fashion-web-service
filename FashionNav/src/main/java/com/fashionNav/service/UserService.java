@@ -1,7 +1,7 @@
 package com.fashionNav.service;
 
+import com.fashionNav.model.dto.UserRegisterRequest;
 import com.fashionNav.model.entity.User;
-import com.fashionNav.model.user.UserRegisterRequest;
 import com.fashionNav.repository.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
