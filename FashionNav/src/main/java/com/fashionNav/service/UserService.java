@@ -23,6 +23,8 @@ public class UserService {
         user.setPassword(request.getPassword());
         user.setName(request.getName());
         user.setEmail(request.getEmail());
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
 
         userMapper.insert(user);
         return user;
