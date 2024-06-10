@@ -88,14 +88,14 @@ public class NewsController {
 
     @Operation(summary = "모든 이미지 조회", description = "모든 이미지를 조회합니다.")
     @GetMapping("/images")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Images> getAllImages() {
         return newsService.getAllImages();
     }
 
     @Operation(summary = "특정 ID의 이미지 조회", description = "특정 ID의 이미지를 조회합니다.")
     @GetMapping("/images/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Images getImageById(@PathVariable int id) {
         return newsService.getImageById(id);
     }
