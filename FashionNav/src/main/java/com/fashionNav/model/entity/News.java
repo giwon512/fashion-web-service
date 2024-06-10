@@ -1,6 +1,7 @@
 package com.fashionNav.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class News {
     private int newsId;          // 뉴스 ID (기본 키)
     private String title;        // 뉴스 제목

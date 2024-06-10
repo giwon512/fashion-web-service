@@ -1,6 +1,7 @@
 package com.fashionNav.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Images {
     private int imageId;      // 이미지 ID (기본 키)
     private String url;       // 이미지 URL

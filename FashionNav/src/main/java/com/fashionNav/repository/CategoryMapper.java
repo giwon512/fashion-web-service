@@ -11,6 +11,9 @@ import java.util.List;
 
 public interface CategoryMapper {
 
+    @Select("SELECT COUNT(*) FROM CATEGORY WHERE style = #{style}")
+    int countByStyle(String style);
+
     @Select("SELECT * FROM CATEGORY")
     List<Category> findAll();
 
@@ -18,7 +21,7 @@ public interface CategoryMapper {
     Category findById(String style);
 
     @Insert("INSERT INTO CATEGORY (style) VALUES (#{style})")
-    void insert(Category category);
+    void insertStyle(String style);
 
     @Update("UPDATE CATEGORY SET style = #{style} WHERE style = #{style}")
     void update(Category category);
