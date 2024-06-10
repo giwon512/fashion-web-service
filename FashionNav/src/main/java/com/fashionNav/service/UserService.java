@@ -1,11 +1,13 @@
 package com.fashionNav.service;
 
+import com.fashionNav.common.error.TokenErrorCode;
 import com.fashionNav.common.error.UserErrorCode;
 import com.fashionNav.exception.ApiException;
 import com.fashionNav.model.dto.request.UserLoginRequest;
 import com.fashionNav.model.dto.request.UserRegisterRequest;
 import com.fashionNav.model.dto.request.UserUpdateRequest;
 import com.fashionNav.model.dto.response.UserAuthenticationResponse;
+import com.fashionNav.model.dto.response.UserRegistrationResponse;
 import com.fashionNav.model.dto.response.UserResponse;
 import com.fashionNav.model.entity.User;
 import com.fashionNav.repository.UserMapper;
@@ -26,7 +28,7 @@ public class UserService implements UserDetailsService {
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
-    public User register(UserRegisterRequest request) {
+    public UserRegistrationResponse register(UserRegisterRequest request) {
 
 
         userMapper
@@ -47,13 +49,13 @@ public class UserService implements UserDetailsService {
 
 
         userMapper.insert(user);
-        return user;
+        return UserRegistrationResponse.from(user);
     }
 
 
     public UserResponse getUserId(int userId) {
         var userEntity = userMapper.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
-        return UserResponse.from(userEntity,null);
+        return UserResponse.from(userEntity,null,null);
     }
 
 
@@ -70,7 +72,8 @@ public class UserService implements UserDetailsService {
 
         if(passwordEncoder.matches(body.getPassword(), userEntity.getPassword())){
             var accessToken = jwtService.generateAccessToken(userEntity);
-            return new UserAuthenticationResponse(accessToken);
+            var refreshToken = jwtService.generateRefreshToken(userEntity);
+            return new UserAuthenticationResponse(accessToken,refreshToken);
 
         }else{
             throw new ApiException(UserErrorCode.USER_NOT_FOUND);
@@ -78,7 +81,6 @@ public class UserService implements UserDetailsService {
         }
 
     }
-
 
     public User getUserEntityByUserEmail(String email){
         return userMapper.findByEmail(email)
@@ -111,12 +113,25 @@ public class UserService implements UserDetailsService {
 
         // 이메일이 변경되었다면 새로운 토큰 생성
         String newToken = null;
+        String newRefreshToken = null;
         if (emailChanged) {
             newToken = jwtService.generateAccessToken(userEntity);
+            newRefreshToken = jwtService.generateRefreshToken(userEntity);
         }
 
 
 
-        return UserResponse.from(userEntity,newToken);
+        return UserResponse.from(userEntity,newToken,newRefreshToken);
+    }
+
+    public UserAuthenticationResponse refreshToken(String refreshToken) {
+        if (jwtService.isTokenValid(refreshToken)) {
+            var username = jwtService.getUsername(refreshToken);
+            var userEntity = getUserEntityByUserEmail(username);
+            var newAccessToken = jwtService.generateAccessToken(userEntity);
+            return new UserAuthenticationResponse(newAccessToken, refreshToken);
+        } else {
+            throw new ApiException(TokenErrorCode.INVALID_TOKEN, "유효하지 않은 리프레시 토큰입니다.");
+        }
     }
 }

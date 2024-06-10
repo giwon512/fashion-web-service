@@ -1,10 +1,13 @@
 package com.fashionNav.config.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
@@ -18,7 +21,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @Configuration
+@RequiredArgsConstructor
+@EnableMethodSecurity
 public class WebConfiguration {
+
 
     private List<String> SWAGGER = List.of(
             "/swagger-ui.html",
@@ -27,12 +33,13 @@ public class WebConfiguration {
     );
 
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Autowired private JwtExceptionFilter jwtExceptionFilter;
+     private final JwtExceptionFilter jwtExceptionFilter;
 
 
+
+    //프론트 엔드와 통신할땨의 CORS 설정
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
 
@@ -41,7 +48,7 @@ public class WebConfiguration {
         configuration.setAllowedMethods(List.of("GET","POST","PATCH","DELETE"));
         configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**",configuration);
+        source.registerCorsConfiguration("/**",configuration);
         return source;
 
 

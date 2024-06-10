@@ -19,21 +19,29 @@ public class UserResponse {
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String newToken; // 새로운 토큰
+    private String newAccessToken; // 새로운 액세스 토큰
+    private String newRefreshToken; // 새로운 리프레시 토큰
 
-
-
-
-
-    public static UserResponse from(User user, String newToken){
+    public static UserResponse from(User user, String newAccessToken, String newRefreshToken){
         return new UserResponse(
                 user.getUserId(),
-                user.getUsername(),
+                user.getName(),
                 user.getEmail(),
                 user.getCreatedAt(),
                 user.getUpdatedAt(),
-                newToken
+                newAccessToken,
+                newRefreshToken
         );
     }
-
+    public static UserResponse from(User user) {
+        return new UserResponse(
+                user.getUserId(),
+                user.getName(),
+                user.getEmail(),
+                user.getCreatedAt(),
+                user.getUpdatedAt(),
+                null,
+                null
+        );
+    }
 }

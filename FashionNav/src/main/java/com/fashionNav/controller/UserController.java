@@ -6,6 +6,7 @@ import com.fashionNav.model.dto.request.UserLoginRequest;
 import com.fashionNav.model.dto.request.UserRegisterRequest;
 import com.fashionNav.model.dto.request.UserUpdateRequest;
 import com.fashionNav.model.dto.response.UserAuthenticationResponse;
+import com.fashionNav.model.dto.response.UserRegistrationResponse;
 import com.fashionNav.model.dto.response.UserResponse;
 import com.fashionNav.model.entity.User;
 import com.fashionNav.service.UserService;
@@ -29,7 +30,7 @@ public class UserController {
     @Operation(summary = "회원 가입", description = "새로운 사용자를 등록합니다.")
     @PostMapping("/register")
     public Api<UserResponse> createUser(@Valid @RequestBody UserRegisterRequest request) {
-        User response = userService.register(request);
+        UserRegistrationResponse response = userService.register(request);
         return Api.OK(UserResponse.builder()
                 .userId(response.getUserId())
                 .name(response.getName())
@@ -46,8 +47,14 @@ public class UserController {
         return Api.OK(response);
     }
 
+    @Operation(summary = "리프레시 토큰", description = "리프레시 토큰을 사용해 새로운 액세스 토큰을 발급합니다.")
+    @PostMapping("/refresh")
+    public UserAuthenticationResponse refreshToken(@RequestHeader("Authorization") String refreshToken) {
+        return userService.refreshToken(refreshToken);
+    }
+
     @Operation(summary = "사용자 조회", description = "특정 ID를 가진 사용자의 정보를 조회합니다.")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{userId}")
     public Api<UserResponse> getUser(@PathVariable int userId) {
         var response = userService.getUserId(userId);
