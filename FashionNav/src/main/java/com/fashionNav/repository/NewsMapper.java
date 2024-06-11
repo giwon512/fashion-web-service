@@ -32,7 +32,7 @@ public interface NewsMapper {
     @Update("UPDATE NEWS SET like_count = like_count + 1 WHERE news_id = #{newsId}")
     void increaseLikeCount(int newsId);
 
-    @Select("SELECT * FROM NEWS WHERE type = #{type} LIMIT #{pageSize} OFFSET #{offset}")
+    @Select("SELECT * FROM NEWS WHERE type = #{type} ORDER BY published_date ASC LIMIT #{pageSize} OFFSET #{offset}")
     List<News> getNewsByTypePaged(@Param("type") String type, @Param("pageSize") int pageSize, @Param("offset") int offset);
 
     //메인화면 뉴스 list로 보여주기

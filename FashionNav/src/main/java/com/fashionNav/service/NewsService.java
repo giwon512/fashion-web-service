@@ -86,9 +86,9 @@ public class NewsService {
         newsMapper.deleteNews(id);
     }
 
-    public List<News> getNewsByTypePaged(String type, int page, int size) {
-        int offset = page * size;
-        return newsMapper.getNewsByTypePaged(type, offset, size);
+    public List<News> getNewsByTypePaged(String type, int pageNumber, int pageSize) {
+        int offset = (pageNumber - 1) * pageSize;
+        return newsMapper.getNewsByTypePaged(type, pageSize, offset);
     }
 
     public List<NewsImageDetail> getAllNewsImageDetails() {
