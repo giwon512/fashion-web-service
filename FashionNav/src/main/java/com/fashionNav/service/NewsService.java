@@ -3,6 +3,7 @@ package com.fashionNav.service;
 
 import com.fashionNav.model.dto.request.SaveNewsRequest;
 import com.fashionNav.model.dto.response.MainPageNewsDetail;
+import com.fashionNav.model.dto.response.NewsDetailResponse;
 import com.fashionNav.model.dto.response.NewsImageDetail;
 import com.fashionNav.model.entity.Images;
 import com.fashionNav.model.entity.News;
@@ -104,4 +105,10 @@ public class NewsService {
     public void increaseVisitCount(int id) { newsMapper.increaseVisitCount(id); }
 
     public void increaseLikeCount(int id) { newsMapper.increaseLikeCount(id); }
+
+
+    //뉴스 상세화면 뉴스 id값 받아서
+    public NewsDetailResponse getNewsDetail(int newsId) {
+        return newsMapper.getNewsDetail(newsId);
+    }
 }

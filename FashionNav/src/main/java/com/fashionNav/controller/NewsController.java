@@ -1,8 +1,8 @@
 package com.fashionNav.controller;
 
-
 import com.fashionNav.model.dto.request.SaveNewsRequest;
 import com.fashionNav.model.dto.response.MainPageNewsDetail;
+import com.fashionNav.model.dto.response.NewsDetailResponse;
 import com.fashionNav.model.dto.response.NewsImageDetail;
 import com.fashionNav.model.entity.Images;
 import com.fashionNav.model.entity.News;
@@ -23,14 +23,17 @@ public class NewsController {
 
     private final NewsService newsService;
 
-
+    @Operation(summary = "메인에서 그림을 클릭했을 때 상세화면 페이지 ", description = "상세화면에  표시될 뉴스 정보를 조회합니다.")
+    @GetMapping("/details/{newsId}")
+    public NewsDetailResponse getNewsDetail(@PathVariable int newsId) {
+        return newsService.getNewsDetail(newsId);
+    }
 
     @Operation(summary = "메인에 표시될 뉴스 요약 정보 조회 ", description = "메인에 표시될 상품 정보를 조회합니다.")
     @GetMapping("/summaries")
     public List<MainPageNewsDetail> getAllNewsSummaries() {
         return newsService.getAllNewsSummaries();
     }
-
 
     @Operation(summary = "뉴스와 이미지를 함께 저장", description = "뉴스와 이미지를 함께 저장합니다.")
     @PostMapping
@@ -42,7 +45,6 @@ public class NewsController {
     @Operation(summary = "특정 ID의 뉴스 업데이트", description = "특정 ID의 뉴스를 업데이트합니다.")
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-
     public void updateNews(@RequestBody News news, @PathVariable int id) {
         news.setNewsId(id);
         newsService.updateNews(news);
