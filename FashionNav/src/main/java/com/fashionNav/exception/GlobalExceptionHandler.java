@@ -6,7 +6,10 @@ import com.fashionNav.common.api.Result;
 import com.fashionNav.common.error.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,11 +24,34 @@ public class GlobalExceptionHandler {
     ){
         log.error("",exception);
 
-     return ResponseEntity
-             .status(500)
-             .body(
-                     Api.Error(Result.ERROR(ErrorCode.SERVER_ERROR))
-             );
+        return ResponseEntity
+                .status(500)
+                .body(
+                        Api.Error(Result.ERROR(ErrorCode.SERVER_ERROR))
+                );
 
     }
+
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Api<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        var errorMessage = e.getFieldErrors().stream()
+                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+                .toList()
+                .toString();
+        log.error("Validation error: {}", errorMessage);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Api.Error(Result.ERROR(ErrorCode.BAD_REQUEST, errorMessage)));
+    }
+
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Api<Object>> handleMessageNotReadableException(HttpMessageNotReadableException e) {
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Api.Error(Result.ERROR(ErrorCode.BAD_REQUEST, "Required request body is missing.")));
+    }
+
 }
