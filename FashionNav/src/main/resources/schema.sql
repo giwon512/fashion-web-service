@@ -1,162 +1,225 @@
--- ADMIN 테이블 생성 (관리자 정보)
-CREATE TABLE ADMIN (
-                       admin_id VARCHAR(50) PRIMARY KEY,  -- 관리자 ID (기본 키)
-                       admin_pw VARCHAR(255) NOT NULL     -- 관리자 비밀번호
+create table fashiondb.CATEGORY
+(
+    style varchar(50) not null
+        primary key
 );
 
--- USER 테이블 생성 (사용자 정보)
-CREATE TABLE USER (
-                      user_id INT AUTO_INCREMENT PRIMARY KEY,           -- 사용자 ID (자동 증가, 기본 키)
-                      password VARCHAR(50) NOT NULL,                    -- 사용자 비밀번호
-                      name VARCHAR(50) NOT NULL,                        -- 사용자 이름
-                      email VARCHAR(100) UNIQUE NOT NULL,               -- 사용자 이메일 (유일, 필수)
-                      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,    -- 사용자 등록 날짜 (기본값: 현재 날짜와 시간)
-                      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 사용자 수정 날짜 (기본값: 현재 날짜와 시간, 업데이트 시 자동 변경)
+create table fashiondb.CONTENT_TYPE
+(
+    content_type varchar(50)  not null
+        primary key,
+    description  varchar(200) null
 );
 
--- CATEGORY 테이블 생성 (카테고리 정보)
-CREATE TABLE CATEGORY (
-                          style VARCHAR(50) PRIMARY KEY                     -- 스타일 이름 (기본 키)
+create table fashiondb.CRAWLING_SITE
+(
+    site_address    varchar(200) not null
+        primary key,
+    site_name       varchar(100) null,
+    last_crawled    datetime     null,
+    crawl_frequency varchar(20)  null
 );
 
--- ITEM 테이블 생성 (상품 정보)
-CREATE TABLE ITEM (
-                      item_id INT AUTO_INCREMENT PRIMARY KEY,           -- 상품 ID (자동 증가, 기본 키)
-                      name VARCHAR(100) NOT NULL,                       -- 상품 이름
-                      description VARCHAR(500),                         -- 상품 설명
-                      price DECIMAL(10, 2),                             -- 상품 가격
-                      brand VARCHAR(50),                                -- 상품 브랜드
-                      style VARCHAR(50),                                -- 스타일 (카테고리와 연관)
-                      FOREIGN KEY (style) REFERENCES CATEGORY(style)    -- 외래 키 설정
+create table fashiondb.IMAGES
+(
+    image_id int auto_increment
+        primary key,
+    url      varchar(500) not null,
+    alt_text varchar(200) null,
+    caption  varchar(500) null
 );
 
--- ITEM_CATEGORY 테이블 생성 (상품-카테고리 관계)
-CREATE TABLE ITEM_CATEGORY (
-                               item_id INT,                                      -- 상품 ID (외래 키)
-                               style VARCHAR(50),                                -- 스타일 (카테고리와 연관)
-                               PRIMARY KEY (item_id, style),                     -- 복합 기본 키 (상품 ID, 스타일)
-                               FOREIGN KEY (item_id) REFERENCES ITEM(item_id),   -- 외래 키 설정
-                               FOREIGN KEY (style) REFERENCES CATEGORY(style)    -- 외래 키 설정
+create table fashiondb.ITEM
+(
+    item_id     int auto_increment
+        primary key,
+    name        varchar(100)   not null,
+    description varchar(500)   null,
+    price       decimal(10, 2) null,
+    brand       varchar(50)    null,
+    style       varchar(50)    null,
+    constraint ITEM_ibfk_1
+        foreign key (style) references fashiondb.CATEGORY (style)
 );
 
--- NEWS 테이블 생성 (뉴스 정보)
-CREATE TABLE NEWS (
-                      news_id INT AUTO_INCREMENT PRIMARY KEY,           -- 뉴스 ID (자동 증가, 기본 키)
-                      title VARCHAR(200) NOT NULL,                      -- 뉴스 제목
-                      content TEXT,                                     -- 뉴스 내용
-                      type VARCHAR(50),                                 -- 뉴스 유형
-                      source VARCHAR(100),                              -- 뉴스 출처
-                      author VARCHAR(50),                               -- 뉴스 작성자
-                      published_date DATE,                              -- 뉴스 발행일
-                      modified_date DATE,                               -- 뉴스 수정일
-                      visit_count INT DEFAULT 0,                        -- 뉴스 조회수 (기본값: 0)
-                      like_count INT DEFAULT 0,                         -- 뉴스 좋아요 수 (기본값: 0)
-                      style VARCHAR(50),                                -- 뉴스 관련 스타일 (카테고리와 연관)
-                      FOREIGN KEY (type) REFERENCES NEWS_TYPE(type),    -- 외래 키 설정
-                      FOREIGN KEY (style) REFERENCES CATEGORY(style)    -- 외래 키 설정
+create index style
+    on fashiondb.ITEM (style);
+
+create table fashiondb.ITEM_CATEGORY
+(
+    item_id int         not null,
+    style   varchar(50) not null,
+    primary key (item_id, style),
+    constraint ITEM_CATEGORY_ibfk_1
+        foreign key (item_id) references fashiondb.ITEM (item_id),
+    constraint ITEM_CATEGORY_ibfk_2
+        foreign key (style) references fashiondb.CATEGORY (style)
 );
 
--- NEWS_TYPE 테이블 생성 (뉴스 유형 정보)
-CREATE TABLE NEWS_TYPE (
-                           type VARCHAR(50) PRIMARY KEY,                     -- 뉴스 유형 (기본 키)
-                           type_description VARCHAR(200)                     -- 뉴스 유형 설명
+create index style
+    on fashiondb.ITEM_CATEGORY (style);
+
+create table fashiondb.ITEM_IMAGE
+(
+    item_id  int                  not null,
+    image_id int                  not null,
+    is_main  tinyint(1) default 0 null,
+    primary key (item_id, image_id),
+    constraint ITEM_IMAGE_ibfk_1
+        foreign key (item_id) references fashiondb.ITEM (item_id),
+    constraint ITEM_IMAGE_ibfk_2
+        foreign key (image_id) references fashiondb.IMAGES (image_id)
 );
 
--- IMAGES 테이블 생성 (이미지 정보)
-CREATE TABLE IMAGES (
-                        image_id INT AUTO_INCREMENT PRIMARY KEY,          -- 이미지 ID (자동 증가, 기본 키)
-                        url VARCHAR(500) NOT NULL,                        -- 이미지 URL
-                        alt_text VARCHAR(200),                            -- 이미지 대체 텍스트
-                        caption VARCHAR(500)                              -- 이미지 캡션
+create index image_id
+    on fashiondb.ITEM_IMAGE (image_id);
+
+create table fashiondb.NEWS_TYPE
+(
+    type             varchar(50)  not null
+        primary key,
+    type_description varchar(200) null
 );
 
--- ITEM_IMAGE 테이블 생성 (상품-이미지 관계)
-CREATE TABLE ITEM_IMAGE (
-                            item_id INT,                                      -- 상품 ID (외래 키)
-                            image_id INT,                                     -- 이미지 ID (외래 키)
-                            is_main BOOLEAN DEFAULT FALSE,                    -- 메인 이미지 여부 (기본값: FALSE)
-                            PRIMARY KEY (item_id, image_id),                  -- 복합 기본 키 (상품 ID, 이미지 ID)
-                            FOREIGN KEY (item_id) REFERENCES ITEM(item_id),   -- 외래 키 설정
-                            FOREIGN KEY (image_id) REFERENCES IMAGES(image_id)-- 외래 키 설정
+create table fashiondb.NEWS
+(
+    news_id        int auto_increment
+        primary key,
+    title          varchar(200)  not null,
+    content        text          null,
+    type           varchar(50)   null,
+    source         varchar(100)  null,
+    author         varchar(50)   null,
+    published_date date          null,
+    modified_date  date          null,
+    visit_count    int default 0 null,
+    like_count     int default 0 null,
+    style          varchar(50)   null,
+    constraint NEWS_ibfk_1
+        foreign key (type) references fashiondb.NEWS_TYPE (type),
+    constraint NEWS_ibfk_2
+        foreign key (style) references fashiondb.CATEGORY (style)
 );
 
--- NEWS_IMAGE 테이블 생성 (뉴스-이미지 관계)
-CREATE TABLE NEWS_IMAGE (
-                            news_id INT,                                      -- 뉴스 ID (외래 키)
-                            image_id INT,                                     -- 이미지 ID (외래 키)
-                            is_main BOOLEAN DEFAULT FALSE,                    -- 메인 이미지 여부 (기본값: FALSE)
-                            PRIMARY KEY (news_id, image_id),                  -- 복합 기본 키 (뉴스 ID, 이미지 ID)
-                            FOREIGN KEY (news_id) REFERENCES NEWS(news_id),   -- 외래 키 설정
-                            FOREIGN KEY (image_id) REFERENCES IMAGES(image_id)-- 외래 키 설정
+create index style
+    on fashiondb.NEWS (style);
+
+create index type
+    on fashiondb.NEWS (type);
+
+create table fashiondb.NEWS_IMAGE
+(
+    news_id  int                  not null,
+    image_id int                  not null,
+    is_main  tinyint(1) default 0 null,
+    primary key (news_id, image_id),
+    constraint NEWS_IMAGE_ibfk_1
+        foreign key (news_id) references fashiondb.NEWS (news_id),
+    constraint NEWS_IMAGE_ibfk_2
+        foreign key (image_id) references fashiondb.IMAGES (image_id)
 );
 
--- CONTENT_TYPE 테이블 생성 (콘텐츠 유형 정보)
-CREATE TABLE CONTENT_TYPE (
-                              content_type VARCHAR(50) PRIMARY KEY,             -- 콘텐츠 유형 (기본 키, 예: 'news', 'item')
-                              description VARCHAR(200)                          -- 콘텐츠 유형 설명
+create index image_id
+    on fashiondb.NEWS_IMAGE (image_id);
+
+create table fashiondb.PAGE
+(
+    page_id      int auto_increment
+        primary key,
+    url          varchar(200)                         not null,
+    title        varchar(100)                         null,
+    description  varchar(500)                         null,
+    created_at   datetime default current_timestamp() null,
+    content_type varchar(50)                          not null,
+    constraint PAGE_ibfk_1
+        foreign key (content_type) references fashiondb.CONTENT_TYPE (content_type)
 );
 
--- PAGE 테이블 생성 (페이지 정보)
-CREATE TABLE PAGE (
-                      page_id INT AUTO_INCREMENT PRIMARY KEY,           -- 페이지 ID (자동 증가, 기본 키)
-                      url VARCHAR(200) NOT NULL,                        -- 페이지 URL
-                      title VARCHAR(100),                               -- 페이지 제목
-                      description VARCHAR(500),                         -- 페이지 설명
-                      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,    -- 페이지 생성 날짜 (기본값: 현재 날짜와 시간)
-                      content_type VARCHAR(50) NOT NULL,                -- 콘텐츠 유형 ('news', 'item' 등)
-                      FOREIGN KEY (content_type) REFERENCES CONTENT_TYPE(content_type) -- 콘텐츠 유형 외래 키 설정
+create index content_type
+    on fashiondb.PAGE (content_type);
+
+create table fashiondb.SURVEY
+(
+    survey_id   int auto_increment
+        primary key,
+    title       varchar(100)                         not null,
+    description varchar(500)                         null,
+    created_at  datetime default current_timestamp() null
 );
 
--- USER_PAGE 테이블 생성 (사용자가 저장한 페이지)
-CREATE TABLE USER_PAGE (
-                           user_id INT,                                      -- 사용자 ID (외래 키)
-                           page_id INT,                                      -- 페이지 ID (외래 키)
-                           saved_at DATETIME DEFAULT CURRENT_TIMESTAMP,      -- 페이지 저장 날짜 (기본값: 현재 날짜와 시간)
-                           PRIMARY KEY (user_id, page_id),                   -- 복합 기본 키 (사용자 ID, 페이지 ID)
-                           FOREIGN KEY (user_id) REFERENCES USER(user_id),   -- 사용자 ID 외래 키 설정
-                           FOREIGN KEY (page_id) REFERENCES PAGE(page_id)    -- 페이지 ID 외래 키 설정
+create table fashiondb.SURVEY_QUESTION
+(
+    question_id   int auto_increment
+        primary key,
+    survey_id     int          null,
+    question_text varchar(500) not null,
+    constraint SURVEY_QUESTION_ibfk_1
+        foreign key (survey_id) references fashiondb.SURVEY (survey_id)
 );
 
--- CRAWLING_SITE 테이블 생성 (크롤링 사이트 정보)
-CREATE TABLE CRAWLING_SITE (
-                               site_address VARCHAR(200) PRIMARY KEY,            -- 사이트 주소 (기본 키)
-                               site_name VARCHAR(100),                           -- 사이트 이름
-                               last_crawled DATETIME,                            -- 마지막 크롤링 시간
-                               crawl_frequency VARCHAR(20)                       -- 크롤링 빈도
+create table fashiondb.SURVEY_OPTION
+(
+    option_id   int auto_increment
+        primary key,
+    question_id int          null,
+    option_text varchar(500) not null,
+    constraint SURVEY_OPTION_ibfk_1
+        foreign key (question_id) references fashiondb.SURVEY_QUESTION (question_id)
 );
 
--- SURVEY 테이블 생성 (설문조사 정보)
-CREATE TABLE SURVEY (
-                        survey_id INT AUTO_INCREMENT PRIMARY KEY,         -- 설문조사 ID (자동 증가, 기본 키)
-                        title VARCHAR(100) NOT NULL,                      -- 설문조사 제목
-                        description VARCHAR(500),                         -- 설문조사 설명
-                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP     -- 설문조사 생성 날짜 (기본값: 현재 날짜와 시간)
+create index question_id
+    on fashiondb.SURVEY_OPTION (question_id);
+
+create index survey_id
+    on fashiondb.SURVEY_QUESTION (survey_id);
+
+create table fashiondb.USER
+(
+    user_id    int auto_increment
+        primary key,
+    password   varchar(255)                             not null,
+    name       varchar(50)                              not null,
+    email      varchar(100)                             not null,
+    created_at datetime     default current_timestamp() null,
+    updated_at datetime                                 null,
+    role       varchar(255) default 'ROLE_USER'         not null,
+    constraint email
+        unique (email)
 );
 
--- SURVEY_QUESTION 테이블 생성 (설문조사 질문)
-CREATE TABLE SURVEY_QUESTION (
-                                 question_id INT AUTO_INCREMENT PRIMARY KEY,       -- 질문 ID (자동 증가, 기본 키)
-                                 survey_id INT,                                    -- 설문조사 ID (외래 키)
-                                 question_text VARCHAR(500) NOT NULL,              -- 질문 텍스트
-                                 FOREIGN KEY (survey_id) REFERENCES SURVEY(survey_id) -- 외래 키 설정
+create table fashiondb.USER_PAGE
+(
+    user_id  int                                  not null,
+    page_id  int                                  not null,
+    saved_at datetime default current_timestamp() null,
+    primary key (user_id, page_id),
+    constraint USER_PAGE_ibfk_1
+        foreign key (user_id) references fashiondb.USER (user_id),
+    constraint USER_PAGE_ibfk_2
+        foreign key (page_id) references fashiondb.PAGE (page_id)
 );
 
--- SURVEY_OPTION 테이블 생성 (설문조사 옵션)
-CREATE TABLE SURVEY_OPTION (
-                               option_id INT AUTO_INCREMENT PRIMARY KEY,         -- 옵션 ID (자동 증가, 기본 키)
-                               question_id INT,                                  -- 질문 ID (외래 키)
-                               option_text VARCHAR(500) NOT NULL,                -- 옵션 텍스트
-                               FOREIGN KEY (question_id) REFERENCES SURVEY_QUESTION(question_id) -- 외래 키 설정
+create index page_id
+    on fashiondb.USER_PAGE (page_id);
+
+create table fashiondb.USER_SURVEY_RESPONSE
+(
+    user_id       int                                  not null,
+    question_id   int                                  not null,
+    option_id     int                                  not null,
+    response_date datetime default current_timestamp() null,
+    primary key (user_id, question_id, option_id),
+    constraint USER_SURVEY_RESPONSE_ibfk_1
+        foreign key (user_id) references fashiondb.USER (user_id),
+    constraint USER_SURVEY_RESPONSE_ibfk_2
+        foreign key (question_id) references fashiondb.SURVEY_QUESTION (question_id),
+    constraint USER_SURVEY_RESPONSE_ibfk_3
+        foreign key (option_id) references fashiondb.SURVEY_OPTION (option_id)
 );
 
--- USER_SURVEY_RESPONSE 테이블 생성 (사용자 설문조사 응답)
-CREATE TABLE USER_SURVEY_RESPONSE (
-                                      user_id INT,                                      -- 사용자 ID (외래 키)
-                                      question_id INT,                                  -- 질문 ID (외래 키)
-                                      option_id INT,                                    -- 옵션 ID (외래 키)
-                                      response_date DATETIME DEFAULT CURRENT_TIMESTAMP, -- 응답 날짜 (기본값: 현재 날짜와 시간)
-                                      PRIMARY KEY (user_id, question_id, option_id),    -- 복합 기본 키 (사용자 ID, 질문 ID, 옵션 ID)
-                                      FOREIGN KEY (user_id) REFERENCES USER(user_id),   -- 사용자 ID 외래 키 설정
-                                      FOREIGN KEY (question_id) REFERENCES SURVEY_QUESTION(question_id), -- 외래 키 설정
-                                      FOREIGN KEY (option_id) REFERENCES SURVEY_OPTION(option_id) -- 외래 키 설정
-);
+create index option_id
+    on fashiondb.USER_SURVEY_RESPONSE (option_id);
+
+create index question_id
+    on fashiondb.USER_SURVEY_RESPONSE (question_id);
+
