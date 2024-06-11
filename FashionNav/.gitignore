@@ -79,10 +79,8 @@ Icon
 ehthumbs.db
 Thumbs.db
 
-### Windows ###
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-*.lnk
-
+### 개인화된 설정 ###
+application-local.properties
+application-local.yml
+application-personal.properties
+application-personal.yml
