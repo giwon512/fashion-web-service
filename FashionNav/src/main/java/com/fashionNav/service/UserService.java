@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -134,4 +135,13 @@ public class UserService implements UserDetailsService {
             throw new ApiException(TokenErrorCode.INVALID_TOKEN, "유효하지 않은 리프레시 토큰입니다.");
         }
     }
+
+    public void deleteUser(int userId) {
+        User user = userMapper.findById(userId).get();
+        if (user == null) {
+            throw new ApiException(UserErrorCode.USER_NOT_FOUND);
+        }
+        userMapper.deleteUser(userId);
+    }
+
 }

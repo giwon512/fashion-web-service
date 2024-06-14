@@ -69,6 +69,15 @@ public class UserController {
 
         return Api.OK(response);
     }
+
+    @Operation(summary = "회원 탈퇴", description = "사용자 정보를 삭제합니다.")
+    @PreAuthorize("authentication.principal.userId == #userId")
+    @DeleteMapping("/{userId}")
+    public Api<String> deleteUser(@PathVariable int userId) {
+        userService.deleteUser(userId);
+
+        return Api.OK("회원 탈퇴가 완료되었습니다");
+    }
 }
 
 

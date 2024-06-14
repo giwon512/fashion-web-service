@@ -10,6 +10,9 @@ import java.util.Optional;
 @Mapper
 public interface UserMapper {
 
+    static void deleteUser(User user) {
+    }
+
     /**
      * 주어진 이메일에 해당하는 사용자를 조회합니다.
      *
@@ -61,5 +64,6 @@ public interface UserMapper {
      * @param userId 사용자의 ID
      */
     @Delete("DELETE FROM USER WHERE user_id = #{userId}")
-    void delete(int userId);
+    void deleteUser(int userId);
+
 }
