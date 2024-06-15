@@ -1,19 +1,15 @@
-package com.fashionNav.model.entity;
-
+package com.fashionNav.model.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class SurveyQuestion {
-    private int questionId;
-    private int surveyId;
+public class QuestionRequest {
     private String questionText;
-
-
+    private List<OptionRequest> options;
 }

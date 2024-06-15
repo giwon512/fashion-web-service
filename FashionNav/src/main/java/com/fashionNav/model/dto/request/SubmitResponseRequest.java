@@ -1,19 +1,13 @@
-package com.fashionNav.model.entity;
-
+package com.fashionNav.model.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class SurveyQuestion {
+public class SubmitResponseRequest {
     private int questionId;
-    private int surveyId;
-    private String questionText;
-
-
+    private int optionId;
 }

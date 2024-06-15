@@ -2,6 +2,7 @@ package com.fashionNav.common.api;
 
 
 import com.fashionNav.common.error.ErrorCodeIfs;
+import com.fashionNav.common.success.SuccessCodeIfs;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,24 @@ public class Api<T> {
         return api;
 
     }
+
+    public static <T> Api<T> OK(T data, SuccessCodeIfs successCodeIfs) {
+        var api = new Api<T>();
+        api.result = Result.OK(successCodeIfs);
+        api.body = data;
+        return api;
+    }
+
+
+    public static Api<Void> OK(SuccessCodeIfs successCodeIfs) {
+        var api = new Api<Void>();
+        api.result = Result.OK(successCodeIfs);
+        api.body = null;
+        return api;
+    }
+
+
+
 
     public static Api<Object> Error(Result result) {
         var api = new Api<Object>();

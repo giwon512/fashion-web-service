@@ -2,7 +2,7 @@ package com.fashionNav.controller;
 
 import com.fashionNav.common.api.Api;
 import com.fashionNav.model.dto.request.SaveNewsRequest;
-import com.fashionNav.model.dto.response.MainPageNewsDetail;
+import com.fashionNav.model.dto.response.MainPageNews;
 import com.fashionNav.model.dto.response.NewsDetailResponse;
 import com.fashionNav.model.dto.response.NewsImageDetail;
 import com.fashionNav.model.entity.Images;
@@ -33,7 +33,7 @@ public class NewsController {
 
     @Operation(summary = "메인에 표시될 뉴스 요약 정보 조회 ", description = "메인에 표시될 뉴스 정보를 조회합니다.")
     @GetMapping("/summaries")
-    public Api<List<MainPageNewsDetail>> getAllNewsSummaries() {
+    public Api<List<MainPageNews>> getAllNewsSummaries() {
         var response = newsService.getAllNewsSummaries();
         return Api.OK(response);
     }

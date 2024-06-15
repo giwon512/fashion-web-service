@@ -18,7 +18,7 @@ public interface SurveyMapper {
     @Insert("INSERT INTO SURVEY (title, description, created_at) " +
             "VALUES (#{title}, #{description}, #{createdAt})")
     @Options(useGeneratedKeys = true, keyProperty = "surveyId")
-    void insert(Survey survey);
+    void insertSurvey(Survey survey);
 
     @Update("UPDATE SURVEY SET title = #{title}, description = #{description} " +
             "WHERE survey_id = #{surveyId}")

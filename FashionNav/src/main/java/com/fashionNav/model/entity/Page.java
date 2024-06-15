@@ -2,6 +2,7 @@ package com.fashionNav.model.entity;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Page {
     private int pageId;         // 페이지 ID (기본 키)
     private String url;         // 페이지 URL

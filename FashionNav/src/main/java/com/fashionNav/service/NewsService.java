@@ -2,7 +2,7 @@ package com.fashionNav.service;
 
 
 import com.fashionNav.model.dto.request.SaveNewsRequest;
-import com.fashionNav.model.dto.response.MainPageNewsDetail;
+import com.fashionNav.model.dto.response.MainPageNews;
 import com.fashionNav.model.dto.response.NewsDetailResponse;
 import com.fashionNav.model.dto.response.NewsImageDetail;
 import com.fashionNav.model.entity.Images;
@@ -28,7 +28,7 @@ public class NewsService {
 
 
     //메인 페이지 뉴스
-    public List<MainPageNewsDetail> getAllNewsSummaries() {
+    public List<MainPageNews> getAllNewsSummaries() {
         return newsMapper.getAllNewsSummaries();
     }
 

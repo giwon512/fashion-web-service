@@ -1,3 +1,4 @@
+
 create table fashiondb.CATEGORY
 (
     style varchar(50) not null
@@ -223,3 +224,15 @@ create index option_id
 create index question_id
     on fashiondb.USER_SURVEY_RESPONSE (question_id);
 
+
+
+
+CREATE TABLE fashiondb.USER_PAGE_IMAGE (
+                                           user_id INT NOT NULL,
+                                           page_id INT NOT NULL,
+                                           image_id INT NOT NULL,
+                                           PRIMARY KEY (user_id, page_id, image_id),
+                                           FOREIGN KEY (user_id) REFERENCES fashiondb.USER(user_id),
+                                           FOREIGN KEY (page_id) REFERENCES fashiondb.PAGE(page_id),
+                                           FOREIGN KEY (image_id) REFERENCES fashiondb.IMAGES(image_id)
+);

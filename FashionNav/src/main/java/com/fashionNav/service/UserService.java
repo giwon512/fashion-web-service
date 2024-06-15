@@ -74,16 +74,20 @@ public class UserService implements UserDetailsService {
         if(passwordEncoder.matches(body.getPassword(), userEntity.getPassword())){
             var accessToken = jwtService.generateAccessToken(userEntity);
             var refreshToken = jwtService.generateRefreshToken(userEntity);
-            return new UserAuthenticationResponse(accessToken,refreshToken);
-
-        }else{
-            throw new ApiException(UserErrorCode.USER_NOT_FOUND);
-
+            return new UserAuthenticationResponse(accessToken, refreshToken);
+        } else {
+            throw new ApiException(UserErrorCode.INVALID_PASSWORD);
         }
 
     }
 
-    public User getUserEntityByUserEmail(String email){
+    /**
+     * 이메일로 사용자 정보 조회
+     * @param email 사용자 이메일
+     * @return User 사용자 엔티티
+     * @throws ApiException 사용자를 찾을 수 없는 경우 예외 발생
+     */
+    public User getUserEntityByUserEmail(String email) {
         return userMapper.findByEmail(email)
                 .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND,"존재하지 않는 유저입니다."));
     }
@@ -103,7 +107,7 @@ public class UserService implements UserDetailsService {
         // 이메일이 변경되었는지 확인
         boolean emailChanged = !userEntity.getEmail().equals(request.getEmail());
 
-
+        // 사용자 정보 업데이트
         userEntity.setName(request.getName());
         userEntity.setEmail(request.getEmail());
         userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
@@ -120,11 +124,15 @@ public class UserService implements UserDetailsService {
             newRefreshToken = jwtService.generateRefreshToken(userEntity);
         }
 
-
-
-        return UserResponse.from(userEntity,newToken,newRefreshToken);
+        return UserResponse.from(userEntity, newToken, newRefreshToken);
     }
 
+    /**
+     * 리프레시 토큰을 사용하여 새로운 액세스 토큰 발급
+     * @param refreshToken 리프레시 토큰
+     * @return UserAuthenticationResponse 새로운 액세스 토큰과 리프레시 토큰
+     * @throws ApiException 유효하지 않은 리프레시 토큰인 경우 예외 발생
+     */
     public UserAuthenticationResponse refreshToken(String refreshToken) {
         if (jwtService.isTokenValid(refreshToken)) {
             var username = jwtService.getUsername(refreshToken);
@@ -144,4 +152,16 @@ public class UserService implements UserDetailsService {
         userMapper.deleteUser(userId);
     }
 
+
+    /**
+     * UserDetailsService 인터페이스 메서드 구현: 이메일로 사용자 정보 조회
+     * @param email 사용자 이메일
+     * @return UserDetails 사용자 세부 정보
+     * @throws UsernameNotFoundException 사용자를 찾을 수 없는 경우 예외 발생
+     */
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userMapper.findByEmail(email)
+                .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND, email));
+    }
 }

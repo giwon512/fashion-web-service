@@ -4,6 +4,7 @@ package com.fashionNav.common.api;
 
 import com.fashionNav.common.error.ErrorCode;
 import com.fashionNav.common.error.ErrorCodeIfs;
+import com.fashionNav.common.success.SuccessCodeIfs;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,14 @@ public class Result {
                 .build();
 
     }
+    public static Result OK(SuccessCodeIfs successCodeIfs) {
+        return Result.builder()
+                .resultCode(successCodeIfs.getSuccessCode())
+                .resultMessage(successCodeIfs.getDescription())
+                .resultDescription("성공")
+                .build();
+    }
+
 
     public static Result ERROR(ErrorCodeIfs errorCodeIfs){
         return Result.builder()

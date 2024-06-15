@@ -1,7 +1,7 @@
 package com.fashionNav.repository;
 
 
-import com.fashionNav.model.dto.response.MainPageNewsDetail;
+import com.fashionNav.model.dto.response.MainPageNews;
 import com.fashionNav.model.dto.response.NewsDetailResponse;
 import com.fashionNav.model.entity.News;
 import org.apache.ibatis.annotations.*;
@@ -40,7 +40,7 @@ public interface NewsMapper {
             "FROM NEWS n " +
             "JOIN NEWS_IMAGE ni ON n.news_id = ni.news_id " +
             "JOIN IMAGES img ON ni.image_id = img.image_id")
-    List<MainPageNewsDetail> getAllNewsSummaries();
+    List<MainPageNews> getAllNewsSummaries();
 
 
     @Select("SELECT n.title, i.url AS imageUrl, n.published_at AS publishedAt, n.type AS newsType " +

@@ -50,7 +50,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Api<Object>> handleMessageNotReadableException(HttpMessageNotReadableException e) {
-
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(Api.Error(Result.ERROR(ErrorCode.BAD_REQUEST, "Required request body is missing.")));
@@ -62,7 +61,7 @@ public class GlobalExceptionHandler {
         log.error("Access Denied: {}", e.getMessage());
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN) // 403 Forbidden 상태 코드 사용
-                .body(Api.Error(Result.ERROR(UserErrorCode.USER_NOT_ALLOWED, "Access is denied")));
+                .body(Api.Error(Result.ERROR(UserErrorCode.USER_NOT_ALLOWED)));
     }
 
 
