@@ -35,17 +35,17 @@ public interface NewsMapper {
     @Select("SELECT * FROM NEWS WHERE type = #{type} ORDER BY published_date ASC LIMIT #{pageSize} OFFSET #{offset}")
     List<News> getNewsByTypePaged(@Param("type") String type, @Param("pageSize") int pageSize, @Param("offset") int offset);
 
-    //메인화면 뉴스 list로 보여주기
-    @Select("SELECT n.type AS newsType, n.title AS title, img.url AS imageUrl " +
+    @Select("SELECT n.news_id AS newsId, n.type AS newsType, n.title AS title, img.url AS imageUrl " +
             "FROM NEWS n " +
             "JOIN NEWS_IMAGE ni ON n.news_id = ni.news_id " +
             "JOIN IMAGES img ON ni.image_id = img.image_id")
     List<MainPageNews> getAllNewsSummaries();
 
 
-    @Select("SELECT n.title, i.url AS imageUrl, n.published_at AS publishedAt, n.type AS newsType " +
+    @Select("SELECT n.title, img.url AS imageUrl, n.published_date AS publishedDate, n.type AS newsType " +
             "FROM NEWS n " +
-            "JOIN IMAGES i ON n.image_id = i.image_id " +
+            "JOIN NEWS_IMAGE ni ON n.news_id = ni.news_id " +
+            "JOIN IMAGES img ON ni.image_id = img.image_id " +
             "WHERE n.news_id = #{newsId}")
-    NewsDetailResponse getNewsDetail(@Param("newsId") int newsId);
+    NewsDetailResponse getNewsDetail(int newsId);
 }
