@@ -61,13 +61,6 @@ public class UserService implements UserDetailsService {
 
 
 
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userMapper.findByEmail(email)
-                .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND,email));
-    }
-
     public UserAuthenticationResponse authenticate(UserLoginRequest body) {
         var userEntity = getUserEntityByUserEmail(body.getEmail());
 
