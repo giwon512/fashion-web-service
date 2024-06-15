@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 public class NewsDetailResponse {
     private String title;
+    private String content;
     private String imageUrl;
     private LocalDateTime publishedAt;
     private String newsType;  // 추가된 필드

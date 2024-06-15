@@ -3,6 +3,7 @@ package com.fashionNav.repository;
 
 import com.fashionNav.model.dto.response.MainPageNews;
 import com.fashionNav.model.dto.response.NewsDetailResponse;
+import com.fashionNav.model.dto.response.NewsResponse;
 import com.fashionNav.model.entity.News;
 import org.apache.ibatis.annotations.*;
 
@@ -10,6 +11,26 @@ import java.util.List;
 
 @Mapper
 public interface NewsMapper {
+
+
+
+    @Select("SELECT n.*, img.url AS imageUrl " +
+            "FROM NEWS n " +
+            "LEFT JOIN NEWS_IMAGE ni ON n.news_id = ni.news_id " +
+            "LEFT JOIN IMAGES img ON ni.image_id = img.image_id " +
+            "WHERE n.type = #{type} " +
+            "ORDER BY n.published_date DESC " +
+            "LIMIT 3")
+    @Results({
+            @Result(property = "newsId", column = "news_id"),
+            @Result(property = "title", column = "title"),
+            @Result(property = "content", column = "content"),
+            @Result(property = "type", column = "type"),
+            @Result(property = "imageUrl", column = "imageUrl")
+    })
+    List<NewsResponse> findTop3NewsByCategory(String type);
+
+
     @Select("SELECT * FROM NEWS WHERE news_id = #{newsId}")
     News findNewsById(int newsId);
 
@@ -42,7 +63,7 @@ public interface NewsMapper {
     List<MainPageNews> getAllNewsSummaries();
 
 
-    @Select("SELECT n.title, img.url AS imageUrl, n.published_date AS publishedDate, n.type AS newsType " +
+    @Select("SELECT n.title, n.content,img.url AS imageUrl, n.published_date AS publishedDate, n.type AS newsType " +
             "FROM NEWS n " +
             "JOIN NEWS_IMAGE ni ON n.news_id = ni.news_id " +
             "JOIN IMAGES img ON ni.image_id = img.image_id " +

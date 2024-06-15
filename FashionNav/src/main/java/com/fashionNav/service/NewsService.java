@@ -5,6 +5,7 @@ import com.fashionNav.model.dto.request.SaveNewsRequest;
 import com.fashionNav.model.dto.response.MainPageNews;
 import com.fashionNav.model.dto.response.NewsDetailResponse;
 import com.fashionNav.model.dto.response.NewsImageDetail;
+import com.fashionNav.model.dto.response.NewsResponse;
 import com.fashionNav.model.entity.Images;
 import com.fashionNav.model.entity.News;
 import com.fashionNav.model.entity.NewsImage;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,12 @@ public class NewsService {
     private final NewsImageMapper newsImageMapper;
     private final NewsTypeMapper newsTypeMapper;
     private final CategoryMapper categoryMapper;
+
+
+
+    public List<NewsResponse> getTop3NewsByCategory(String category) {
+        return newsMapper.findTop3NewsByCategory(category);
+    }
 
 
     //메인 페이지 뉴스
@@ -87,7 +96,7 @@ public class NewsService {
     }
 
     public List<News> getNewsByTypePaged(String type, int pageNumber, int pageSize) {
-        int offset = (pageNumber - 1) * pageSize;
+        int offset = pageNumber* pageSize;
         return newsMapper.getNewsByTypePaged(type, pageSize, offset);
     }
 
