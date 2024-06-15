@@ -42,8 +42,8 @@ public class UserController {
 
     @Operation(summary = "사용자 인증", description = "사용자 로그인 및 JWT 토큰을 발급합니다.")
     @PostMapping("/authenticate")
-    public Api<UserAuthenticationResponse> authenticate(@Valid @RequestBody Api<UserLoginRequest> request) {
-        var response = userService.authenticate(request.getBody());
+    public Api<UserAuthenticationResponse> authenticate(@Valid @RequestBody UserLoginRequest request) {
+        var response = userService.authenticate(request);
         return Api.OK(response);
     }
 
