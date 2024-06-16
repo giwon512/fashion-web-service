@@ -1,4 +1,3 @@
-
 create table fashiondb.CATEGORY
 (
     style varchar(50) not null
@@ -203,6 +202,26 @@ create table fashiondb.USER_PAGE
 create index page_id
     on fashiondb.USER_PAGE (page_id);
 
+create table fashiondb.USER_PAGE_IMAGE
+(
+    user_id  int not null,
+    page_id  int not null,
+    image_id int not null,
+    primary key (user_id, page_id, image_id),
+    constraint USER_PAGE_IMAGE_ibfk_1
+        foreign key (user_id) references fashiondb.USER (user_id),
+    constraint USER_PAGE_IMAGE_ibfk_2
+        foreign key (page_id) references fashiondb.PAGE (page_id),
+    constraint USER_PAGE_IMAGE_ibfk_3
+        foreign key (image_id) references fashiondb.IMAGES (image_id)
+);
+
+create index image_id
+    on fashiondb.USER_PAGE_IMAGE (image_id);
+
+create index page_id
+    on fashiondb.USER_PAGE_IMAGE (page_id);
+
 create table fashiondb.USER_SURVEY_RESPONSE
 (
     user_id       int                                  not null,
@@ -224,15 +243,3 @@ create index option_id
 create index question_id
     on fashiondb.USER_SURVEY_RESPONSE (question_id);
 
-
-
-
-CREATE TABLE fashiondb.USER_PAGE_IMAGE (
-                                           user_id INT NOT NULL,
-                                           page_id INT NOT NULL,
-                                           image_id INT NOT NULL,
-                                           PRIMARY KEY (user_id, page_id, image_id),
-                                           FOREIGN KEY (user_id) REFERENCES fashiondb.USER(user_id),
-                                           FOREIGN KEY (page_id) REFERENCES fashiondb.PAGE(page_id),
-                                           FOREIGN KEY (image_id) REFERENCES fashiondb.IMAGES(image_id)
-);
