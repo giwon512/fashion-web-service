@@ -32,6 +32,7 @@ def scrape_news():
             print(title)
             print(desc)
             
+            # 추후에 대표이미지 따로 다운로드
             # 본문 내용 출력 / 이미지는 태그 형식으로 출력 / 대표 이미지 출력
             img_src = None
             body = soup.find("div", class_="d_cont").div
@@ -42,7 +43,7 @@ def scrape_news():
                     if child.img:
                         if not img_src:
                             img_src = child.img["src"]
-                        img = "<img src=" + child.img["src"] + " />"
+                        img = "<img src=\"" + child.img["src"] + "\" />"
                         print("image tag :", img)
                     if child.span:
                         print(child.find("span").get_text().strip())
