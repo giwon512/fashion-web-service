@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import time
+from selenium.common.exceptions import NoSuchElementException
 
 def create_browser(url):
     # 브라우저 꺼짐 방지 옵션
@@ -39,19 +40,30 @@ def scrape_news():
                 print(title)  # 제목
                 print(desc)  # 부제목
                 print()
-                content_result = ""
                 # 해당 뉴스 세부 페이지로 이동
                 news.find_element(By.TAG_NAME, "a").click()
                 # time.sleep(2)
-                # 세부 페이지에서 기사 내용 크롤링 (예시로 타이틀 가져옴)
-                content_result = browser.find_element(By.TAG_NAME, "body").text
+                # 세부 페이지에서 기사 내용 크롤링
+                content_result = ""
+                contents_list_container = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.ID, "textinput")))
+                # xpath로 자식 노드를 모두 가져옴
+                contents_list = contents_list_container.find_elements(By.XPATH, "./*")
+                for contents in contents_list:
+                    try:
+                        #이미지 태그가 없는 경우 에러를 발생시키고, 텍스트 값을 결과에 더해준다.
+                        imgNode = contents.find_element(By.TAG_NAME, "img")
+                        img = "<img src=\"" + imgNode.get_attribute("src") + "\" />"
+                        content_result += img + '\n'
+                    except NoSuchElementException:
+                        content_result += contents.text + '\n'
                 print(content_result)  # 본문 내용
                 # 다시 목록 페이지로 복귀
                 browser.back()
                 # time.sleep(2)
                 print("//////////////////////////////////////////")
+                print()
         finally:
-            print(browser.quit())
+            browser.quit()
 
 if __name__ == "__main__":
     scrape_news()
