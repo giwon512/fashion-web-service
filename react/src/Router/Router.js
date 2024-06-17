@@ -7,7 +7,7 @@ import Contents1 from './Components/contents1';
 import Contents2 from './Components/contents2';
 import Contents3 from './Components/contents3';
 import Footer from './Components/footer';
-import News_detail_page from './Components/news_detail_page';
+import NewsDetailPage from './Components/newsDetailPage';
 import NewsPage from './Components/newsPage';
 
 const RouterDOM = () => {
@@ -21,7 +21,7 @@ const RouterDOM = () => {
 				<Route exact path="/contents2"><Contents2 /></Route>
 				<Route exact path="/contents3"><Contents3 /></Route>
 				<Route exact path="/footer"><Footer /></Route>
-				<Route exact path="/news_detail_page"><News_detail_page /></Route>
+				<Route exact path="/newsDetailPage"><NewsDetailPage /></Route>
 				<Route exact path="/newsPage"><NewsPage /></Route>
 			</Switch>
 		</Router>

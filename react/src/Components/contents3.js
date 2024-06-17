@@ -9,7 +9,7 @@ export default function Contents3 () {
 			<div className='con3_1'>
 				<ContentTitle title="CELEBRITY NEWS" moreLink="more >" />
 
-				<div className=''>
+				<div className='con3_1_wrap'>
 					<div className='con3_1_img'></div>
 					<div className='con3_1_txt'>
 						<span className='con3_1_title'>탑텐, 세계적 뮤지션과 만남! 유니버설뮤직과 협업 ‘밋 더 뮤직’ 티셔츠 런칭</span>

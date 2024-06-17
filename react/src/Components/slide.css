@@ -10,6 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 /* 슬라이드 컨테이너 설정 */
@@ -24,6 +25,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 45px;
 }
 
 /* 슬라이드 내 Wrapper 설정 */
@@ -34,6 +36,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    
 }
 
 /* 화살표 그룹 설정 */
