@@ -14,7 +14,7 @@ export default function Contents2 () {
 				<span className='_4_4'>[패션엔 포토] 뉴진스, 통통튀는 4명의 요정들 개성만점 스타일 일본 출국</span>
 				<div className='Rectangle321'/>
 				<span className='CELEBRITYNEWS'>CELEBRITY NEWS</span>
-				<span className='more'>more ></span>
+				<span className='more'>more </span>
 			</div>
 			<div className='_3'>
 				<div className='Rectangle319_1'/>
