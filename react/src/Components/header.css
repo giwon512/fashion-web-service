@@ -1,0 +1,122 @@
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.header {
+    width: 100%;
+    height: 210px;
+    background-color: #fff; 
+}
+
+.header_topbar {
+    background-color: #252525; 
+    height: 40px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.header_top {
+    width: 1150px;
+    color: white;
+}
+
+.header_logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+}
+
+.header_logo_div {
+    font-size: 24px; 
+    font-weight: bold;
+}
+
+.header_menu {
+    width: 1150px;
+    height: 60px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background-color: #fff;
+}
+
+.header_mainmenu {
+	justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.header_mainmenu ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+	text-align: center;
+}
+
+.header_mainmenu li {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px; 
+}
+
+.header_mainmenu li a {
+    text-decoration: none;
+    color: #333;
+	font-size: 16.5px;
+	font-family: 'SUIT-Regular';
+}
+
+.header_mainmenu li:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+	width: 180px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    z-index: 1000;
+}
+
+.dropdown-menu li {
+    padding: 5px 20px;
+}
+
+.dropdown-menu li a {
+    color: #333;
+    text-decoration: none;
+	font-size: 16.5px;
+	font-family: 'SUIT-Regular';
+}
+
+.header_rightmenu {
+    margin-left: auto; 
+    display: flex;
+    align-items: center; 
+	
+}
+
+.header_rightmenu span{
+	margin-left: 15px;
+}
+
+.LOGIN {
+    cursor: pointer;
+}

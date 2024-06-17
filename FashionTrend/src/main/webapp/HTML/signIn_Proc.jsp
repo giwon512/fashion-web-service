@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>signIn_proc.jsp</title>
+<title>signIn_proc.jsp</title>	
 </head>
 <body>
 <jsp:useBean id="userDao" class="fashion.dao.UserDao" scope="session"/>
@@ -42,8 +42,12 @@ String address = userAddress1 + " " + userAddress2;
       boolean isSuccess = userDao.insertUser(member);
       if (isSuccess) {
     	  
+    	  
+    	  Member m1 = userDao.findUserByName(member.getName());
     	  session.setAttribute("user", name);
-    	  session.setAttribute("userId",member.getUserId());
+    	  session.setAttribute("userId",m1.getUserId());
+    	  
+    	 	System.out.println("아이디 값 : " + m1.getUserId());
     	  
     	  JSFunction.alertLocation("회원가입 성공", "survey.jsp", out);
          

@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>시맨틱 웹 페이지 예시</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -18,6 +17,8 @@
  
 
             <%@ include file="recommand.jsp" %>
+            
+            <%@ include file="footer.jsp" %>
 
    
 </body>

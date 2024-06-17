@@ -27,3 +27,20 @@ footer {
 footer p {
     margin-bottom: 0;
 }
+
+body {
+	background-color: black !important;
+}
+
+
+.ps-4 p {
+	color: rgb(199, 31, 31);	
+}
+
+.more a {
+	 text-decoration: none;
+   	 font-size : 20px;
+   	 color : rgb(199, 31, 31);
+   	 float : right;
+   	 
+}

@@ -23,6 +23,12 @@ public class WishLists {
     	this.productName = productName;
     	this.productPrice = productPrice;
     }
+    public WishLists(String imageUrl,String brandName,String productName) {
+    	this.imageUrl = imageUrl;
+    	this.brandName = brandName;
+    	this.productName = productName;
+ 
+    }
     
     
   

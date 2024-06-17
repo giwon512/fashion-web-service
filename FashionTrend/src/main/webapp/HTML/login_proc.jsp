@@ -17,6 +17,9 @@
     
         String username = request.getParameter("name");
         String password = request.getParameter("password");
+        
+        
+        System.out.println("로그인 넘어온 패스워드" + password);
 
         
         boolean loggedIn = userDao.checkLogin(username, password);
@@ -34,9 +37,9 @@
             session.setAttribute("user", username);
             session.setAttribute("userId",mem.getUserId());
             
-            int id = (int)session.getAttribute("userId");
-            
-            System.out.println("id 값 : " + id);
+          Integer id = (Integer)session.getAttribute("userId");
+          
+          System.out.println(id);
             
           
     %>

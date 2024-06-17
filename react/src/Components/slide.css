@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체 슬라이드 컨테이너 설정 */
+.slide-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 슬라이드 컨테이너 설정 */
+.slide {
+    width: 1150px;
+    height: 550px;
+    background-color: #e3e3e3;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 슬라이드 내 Wrapper 설정 */
+.slide_wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* 화살표 그룹 설정 */
+.Group29 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+}
+
+/* 좌우 화살표 설정 */
+.Vector1, .Vector2 {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.Vector1 {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.Vector2 {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Learn more 박스 설정 */
+.learnmore_box {
+    width: 188px;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 20px;
+    background-color: #26262670;
+    margin-bottom: 130px; /* 요구된 위치에 따른 추가 여백 */
+}
+
+/* Learn more 버튼 설정 */
+.Learnmore {
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16.5px;
+    font-family: 'SUIT-Regular';
+}
+
+/* 슬라이드 내 컨텐츠 설정 */
+.slide-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #333;
+}
+
+/* 각 텍스트 요소의 폰트 설정 */
+.LOREMIPSUMSTYLE, .LOREMSTYLE, .isplaceholdertextcommonlyusedinthe {
+    font-family: 'SUIT-Regular', sans-serif;
+    font-size: 16.5px;
+    margin: 5px 0;
+}
+
+/* 슬라이드 네비게이션 설정 */
+.slide-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+/* 좌우 화살표 버튼 설정 */
+.arrow-left, .arrow-right {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* 화살표 이미지 크기 설정 */
+.arrow-left img, .arrow-right img {
+    width: 30px;
+    height: 30px;
+}

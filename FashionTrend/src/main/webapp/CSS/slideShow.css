@@ -6,7 +6,7 @@
     width : 100%;
     height: 0;
     /* 패딩을 넣어서 이미지 비율 유지 */
-    padding-bottom: 50%; 
+    padding-bottom: 45%; 
     margin : 0 auto;
     position: relative;
     overflow: hidden;
@@ -25,7 +25,14 @@
     float :left;
     position : relative;
 }
+<<<<<<< HEAD
 /*
+=======
+.showBox img {
+	width : 100%;
+}
+
+>>>>>>> 4ee5b8af02fb81b4b8a9c1d37421bf89c59cb839
 .showBox h1 {
     position : absolute;
     left : 50%;
@@ -41,6 +48,7 @@
     
 }
 
+<<<<<<< HEAD
 .showBox p {
    	position : absolute;
     left : 50%;
@@ -105,6 +113,8 @@
     object-fit: contain;
 }
 
+=======
+>>>>>>> 4ee5b8af02fb81b4b8a9c1d37421bf89c59cb839
 .slideShow > div:last-child {
     clear: both;
 }
@@ -144,4 +154,49 @@
 .centered-span {
     display: block; 
     text-align: center; 
+}
+
+.showBox span {
+	display : block;
+	position : absolute;
+	right : 10%;
+    top : 550px;
+    color : white;
+    display: block;
+    width: 40%;
+    background-color: rgba(1, 1, 1, 0.5);
+    text-align: top;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 5px;
+}
+
+.showBox b {
+    font-size : 30px;
+}
+
+span {
+    font-size : 16px;
+}
+
+@media screen and (max-width: 1200px) {
+    .showBox b {
+        font-size : 24px;
+    }
+
+    .showBox span {
+        font-size : 12px;
+        top : 400px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .showBox b {
+        font-size : 16px;
+    }
+
+    .showBox span {
+        font-size : 10px;
+        top : 200px;
+    }
 }
