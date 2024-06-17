@@ -9,10 +9,10 @@ def create_soup(url):
     return soup
 
 def scrape_news():
-
-    # 1, 2페이지에서 뉴스 가져오기
+    
+    print("[FI news scraping]")
+    # 1, 2페이지에서 뉴스 가져오기(16개)
     for i in range(1, 3):
-        print("[FI news scraping]")
         url = "https://www.fi.co.kr/main/list.asp?SectionStr=News&SectionSub=&page={}".format(i)
         soup = create_soup(url)
 
@@ -24,33 +24,35 @@ def scrape_news():
 
             # 링크 정보 / 제목 / 부제목 출력
             link = "https://www.fi.co.kr/main/" + news.find("a")["href"]
-            print("link : " + link)
+            print("link : " + link) # 링크
             soup = create_soup(link)
             head = soup.find("div", {"class":"d_head"})
             title = head.find("h3", {"class":"d_title"}).get_text().strip()
             desc = head.find("p", {"class":"d_title_p"}).get_text().strip()
-            print(title)
-            print(desc)
+            print(title) # 제목
+            print(desc) # 부제목
             
             # 추후에 대표이미지 따로 다운로드
             # 본문 내용 출력 / 이미지는 태그 형식으로 출력 / 대표 이미지 출력
             img_src = None
+            content_result = ""
             body = soup.find("div", class_="d_cont").div
             children_list = [child for child in body.children if child != '\n']
             for child in children_list:
                 if child.name =="table":
-                    print("=======================================")
                     if child.img:
                         if not img_src:
                             img_src = child.img["src"]
                         img = "<img src=\"" + child.img["src"] + "\" />"
-                        print("image tag :", img)
+                        content_result += img + '\n'
                     if child.span:
-                        print(child.find("span").get_text().strip())
-                    print("=======================================")
+                        content_result += child.find("span").get_text().strip() + '\n'
                 else:
-                    print(child.get_text().strip())
-            print("대표 이미지 : ", img_src)
+                    content_result += child.get_text().strip() + '\n'
+            print("대표 이미지 : ", img_src) # 대표 이미지
+            print()
+            print("본문 내용")
+            print(content_result) # 본문 내용
             print()
 
 

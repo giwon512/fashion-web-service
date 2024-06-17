@@ -4,11 +4,12 @@ from bs4 import BeautifulSoup, Tag
 def create_soup(url):
     res = requests.get(url)
     res.raise_for_status()
-    soup = BeautifulSoup(res.text, "lxml", from_encoding="utf8")
+    soup = BeautifulSoup(res.text, "lxml")
     return soup
 
 
 def scrape_news():
+    
     print("[FashionN News scraping]")
     #기본 뉴스 페이지에서 1페이지의 뉴스를 긁어옴(15개)
     for i in range(1, 2):
@@ -38,11 +39,9 @@ def scrape_news():
             for content in content_list:
                 # HTML을 BeautifulSoup으로 파싱하고 .contents를 사용하여 자식 요소들을 가져오면, 태그 요소는 Tag 객체로, 텍스트 요소는 NavigableString 객체로 나타난다.
                 # 그런데 <p><br/></p>태그는 단순 텍스트 노드로 인식하기 때문에 Tag 객체가 아닌 NavigableString 객체가 되어버리고, NavigableString은 .img와 같은 속성을 사용할 수 없다.
-                # 따라서 다음 함수를 통해 태그 객체가 아닌 경우를 예외처리
-                if not isinstance(content, Tag):
-                    continue
+                # 따라서 isinstance 함수를 통해 태그 객체가 아닌 경우를 예외처리
                 # 사진이 있는 문단의 경우 사진과 설명이 p태그로 한 번 더 분류되어 있음
-                if content.img:
+                if isinstance(content, Tag) and content.img:
                     p_list = content.find_all("p")
                     for elem in p_list:
                         if elem.img:
@@ -52,7 +51,7 @@ def scrape_news():
                             content_result += elem.get_text() + '\n'
                 else:
                     content_result += content.get_text() + '\n'
-            print(content_result)
+            print(content_result) # 본문 내용
             print("////////////////////////////////////////////////////")
 
 
