@@ -1,22 +1,20 @@
 .contents3 {
     width: 1150px;
     margin: 0 auto; /* 가운데 정렬 */
-    border: solid red;
-    box-sizing: border-box;
+    
 }
 
+
+/* ------------------------------  con3_1 ------------------------------  */
 .contents3_1 {
     margin-bottom: 30px; /* 아래 여백 추가 */
-	width: 890px;
-    
+	width: 890px;    
 }
 
 .con3_1{
     display: grid; 
     grid-template-columns: repeat(2, 1fr); 
-    
-        
-    
+    margin-top: 34px;
 }
 
 .con3_1_wrap {
@@ -26,8 +24,6 @@
     display: flex;
 
     margin-bottom: 20px;
- 
-
 }
 
 .con3_1_img {
@@ -63,3 +59,5 @@
     overflow: hidden; /* 최대 높이를 초과하는 부분을 숨깁니다 */
     margin-top: 5px;
 }
+
+/* ------------------------------  con3_1 ------------------------------  */
