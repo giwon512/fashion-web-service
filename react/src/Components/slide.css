@@ -1,9 +1,3 @@
-@font-face {
-    font-family: 'SUIT-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
 
 /* 전체 슬라이드 컨테이너 설정 */
 .slide-container {
