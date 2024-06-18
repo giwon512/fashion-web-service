@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import time
 from selenium.common.exceptions import NoSuchElementException
+from database import News, insert_data, dbconnect
 
 def create_browser(url):
     # 브라우저 꺼짐 방지 옵션
@@ -17,7 +18,7 @@ def create_browser(url):
 
 def scrape_news():
     print("[KFN news scraping]")
-    # 1페이지에서 뉴스 10개 가져옴
+    # 1, 2페이지에서 뉴스 20개 가져옴
     for i in range(1, 3):
         url = "https://www.koreafashionnews.com/sub.html?page={}&section=sc1&section2=".format(i)
         browser = create_browser(url)
@@ -32,19 +33,20 @@ def scrape_news():
                     continue
                 img_src = news.find_element(By.TAG_NAME, "img").get_attribute("src")
                 link = news.find_element(By.TAG_NAME, "a").get_attribute("href")
-                print("img :", img_src)  # 대표 이미지
-                print("link :", link)  # 링크
+                # print("img :", img_src)  # 대표 이미지
+                # print("link :", link)  # 링크
                 td_list = news.find_elements(By.CSS_SELECTOR, "tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr")
                 title = td_list[0].text
                 desc = td_list[1].text
-                print(title)  # 제목
-                print(desc)  # 부제목
-                print()
+                # print(title)  # 제목
+                # print(desc)  # 부제목
+                # print()
                 # 해당 뉴스 세부 페이지로 이동
                 news.find_element(By.TAG_NAME, "a").click()
                 # time.sleep(2)
                 # 세부 페이지에서 기사 내용 크롤링
                 content_result = ""
+                # 해당 요소가 렌더링될 때까지 최대 10초 기다림
                 contents_list_container = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.ID, "textinput")))
                 # xpath로 자식 노드를 모두 가져옴
                 contents_list = contents_list_container.find_elements(By.XPATH, "./*")
@@ -56,12 +58,17 @@ def scrape_news():
                         content_result += img + '\n'
                     except NoSuchElementException:
                         content_result += contents.text + '\n'
-                print(content_result)  # 본문 내용
+                # print(content_result)  # 본문 내용
                 # 다시 목록 페이지로 복귀
                 browser.back()
                 # time.sleep(2)
-                print("//////////////////////////////////////////")
-                print()
+                # print("//////////////////////////////////////////")
+                # print()
+                
+                # db에 크롤링한 결과 삽입
+                news_obj = News(title, desc, content_result, link, img_src)
+                conn = dbconnect()
+                insert_data(conn, news_obj)
         finally:
             browser.quit()
 

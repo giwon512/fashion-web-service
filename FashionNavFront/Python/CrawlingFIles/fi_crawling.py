@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from database import News, insert_data, dbconnect
 
 def create_soup(url):
     res = requests.get(url)
@@ -24,13 +25,13 @@ def scrape_news():
 
             # 링크 정보 / 제목 / 부제목 출력
             link = "https://www.fi.co.kr/main/" + news.find("a")["href"]
-            print("link : " + link) # 링크
+            # print("link : " + link) # 링크
             soup = create_soup(link)
             head = soup.find("div", {"class":"d_head"})
             title = head.find("h3", {"class":"d_title"}).get_text().strip()
             desc = head.find("p", {"class":"d_title_p"}).get_text().strip()
-            print(title) # 제목
-            print(desc) # 부제목
+            # print(title) # 제목
+            # print(desc) # 부제목
             
             # 추후에 대표이미지 따로 다운로드
             # 본문 내용 출력 / 이미지는 태그 형식으로 출력 / 대표 이미지 출력
@@ -49,11 +50,16 @@ def scrape_news():
                         content_result += child.find("span").get_text().strip() + '\n'
                 else:
                     content_result += child.get_text().strip() + '\n'
-            print("대표 이미지 : ", img_src) # 대표 이미지
-            print()
-            print("본문 내용")
-            print(content_result) # 본문 내용
-            print()
+            # print("대표 이미지 : ", img_src) # 대표 이미지
+            # print()
+            # print("본문 내용")
+            # print(content_result) # 본문 내용
+            # print()
+            
+            # db에 크롤링한 결과 삽입
+            news_obj = News(title, desc, content_result, link, img_src)
+            conn = dbconnect()
+            insert_data(conn, news_obj)
 
 
 if __name__ == "__main__":

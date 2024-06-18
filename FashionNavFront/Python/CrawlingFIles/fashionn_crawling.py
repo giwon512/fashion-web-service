@@ -1,4 +1,5 @@
 import requests
+from database import News, insert_data, dbconnect
 from bs4 import BeautifulSoup, Tag
 
 def create_soup(url):
@@ -22,14 +23,14 @@ def scrape_news():
             link = "https://www.fashionn.com/board/" + news.dd.find("a")["href"]
             desc = news.dd.get_text()
             img_src = "<img src=\"https://www.fashionn.com" + news.img["src"] + "\" />"
-            print(title) # 제목
-            print(link) # 링크
-            print(desc) # 부제목
-            print(img_src) # 대표 이미지
+            # print(title) # 제목
+            # print(link) # 링크
+            # print(desc) # 부제목
+            # print(img_src) # 대표 이미지
             
             # 추후에 이미지 따로 다운로드 받을 예정
             # 이미지 태그 / 이미지 설명 / 본문 내용을 실제 게시글의 순서에 맞게 출력
-            print("본문 내용")
+            # print("본문 내용")
             soup = create_soup(link)
             content_result = ""
             content_body = soup.find("div", {"class":"view_body"})
@@ -51,8 +52,14 @@ def scrape_news():
                             content_result += elem.get_text() + '\n'
                 else:
                     content_result += content.get_text() + '\n'
-            print(content_result) # 본문 내용
-            print("////////////////////////////////////////////////////")
+            # print(content_result) # 본문 내용
+            
+            # db에 크롤링한 결과 삽입
+            news_obj = News(title, desc, content_result, link, img_src)
+            conn = dbconnect()
+            insert_data(conn, news_obj)
+            
+            # print("////////////////////////////////////////////////////")
 
 
 
