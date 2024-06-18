@@ -25,10 +25,14 @@
     float :left;
     position : relative;
 }
+<<<<<<< HEAD
+/*
+=======
 .showBox img {
 	width : 100%;
 }
 
+>>>>>>> 4ee5b8af02fb81b4b8a9c1d37421bf89c59cb839
 .showBox h1 {
     position : absolute;
     left : 50%;
@@ -44,6 +48,73 @@
     
 }
 
+<<<<<<< HEAD
+.showBox p {
+   	position : absolute;
+    left : 50%;
+    bottom : 50%;
+    color : white;
+    font-size: 30px;
+    display: block;
+    width: 150px;
+    height : 450px;
+    background-color: rgba(1, 1, 1, 0.5);
+    text-align: top;
+    border-radius: 10px;
+}*/
+/*
+.textBox{
+    position : absolute;
+
+    z-index: 2;
+    border: solid yellow;
+    
+}*/
+
+.showBox .textBox{
+    height: 100px;
+    width: 70%;
+    top: 450px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 2;
+    background-color: rgba(1, 1, 1, 0.5);
+    border-radius: 10px;
+}
+
+
+.textBox h1 {
+    text-align: center;
+    
+    color : white;
+    font-size: 30px;
+    margin-bottom: 8px;
+    
+}
+
+.textBox p {
+    width: 100%;
+
+    color : white;
+    font-size: 18px;
+
+    position: absolute;
+    
+
+    display: inline;
+    text-align: center;
+}
+
+
+.showBox img {
+    width : 100%;
+    object-fit: contain;
+}
+
+=======
+>>>>>>> 4ee5b8af02fb81b4b8a9c1d37421bf89c59cb839
 .slideShow > div:last-child {
     clear: both;
 }

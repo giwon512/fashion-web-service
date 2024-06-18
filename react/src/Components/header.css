@@ -1,0 +1,131 @@
+.header {
+    width: 100%;
+    height: 210px;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header_topbar {
+    background-color: #252525;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_top {
+    width: 1150px;
+    color: white;
+    margin: 0 auto; /* 화면 가운데 정렬 */
+}
+
+.header_logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+}
+
+.header_logo_div {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'SUIT-Regular';
+}
+
+.header_menu {
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    position: relative;
+    margin: 0 auto; /* 화면 가운데 정렬 */
+    max-width: 1150px; /* 최대 너비 설정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_mainMenu {
+    width: 100%;
+    max-width: 1150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_mainmenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.header_mainmenu ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header_mainmenu li {
+    position: relative;
+    margin: 0 20px; /* 메뉴 간 간격 조정 */
+}
+
+.header_mainmenu li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16.5px;
+    font-family: 'SUIT-Regular';
+}
+
+.header_mainmenu li:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    z-index: 1000;
+    white-space: nowrap;
+    min-width: 180px;
+}
+
+.dropdown-menu li {
+    padding: 5px 20px;
+}
+
+.dropdown-menu li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16.5px;
+    font-family: 'SUIT-Regular';
+}
+
+.header_rightmenu {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+
+.header_rightmenu span,
+.header_rightmenu ._icon {
+    margin-left: 15px;
+}
+
+.header_rightmenu ._icon {
+    display: flex;
+    align-items: center;
+}
