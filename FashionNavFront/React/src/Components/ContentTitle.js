@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // React Router의 Link 컴포넌트 import
 import './ContentTitle.css';
 
 const ContentTitle = ({ title, moreLink }) => {
@@ -6,7 +7,7 @@ const ContentTitle = ({ title, moreLink }) => {
         <div className='con_title'>
             <div className='Group2'>
                 <span className='CELEBRITYNEWS_1'>{title}</span>
-                <span className='more_1'>{moreLink}</span>
+                <Link to={moreLink} className='more_1'>more &gt;</Link> 
             </div>
             <hr className="line" />
         </div>

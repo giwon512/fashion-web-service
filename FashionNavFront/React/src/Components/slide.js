@@ -1,31 +1,51 @@
 import React, { useState } from 'react';
 import './slide.css';
 import ImgAsset from '../public';
+import { Link } from 'react-router-dom';
 
 const Slide = () => {
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
     const slides = [
         {
-            title: 'LOREM IPSUM STYLE',
+            title: ' 1 1 1 1 1 LOREM IPSUM STYLE',
             subtitle: 'LOREM 슬라이드 배너 STYLE',
             description: 'is placeholder text commonly used in the',
             vector1: ImgAsset.arrow_left,
-            vector2: ImgAsset.arrow_right
+            vector2: ImgAsset.arrow_right,
+            newsLink: '/news/1' // 링크들 바꿔야함
         },
         {
-            title: 'Another Slide Title',
+            title: '2 Another Slide Title',
             subtitle: 'Another Slide Subtitle',
             description: 'Another slide description text.',
             vector1: ImgAsset.another_slide_Vector1,
-            vector2: ImgAsset.another_slide_Vector2
+            vector2: ImgAsset.another_slide_Vector2,
+            newsLink: '/news/1'
         },
         {
-            title: 'Yet Another Slide',
+            title: '333333333333333333 Slide',
             subtitle: 'Subtitle for Yet Another Slide',
             description: 'Description for the third slide.',
             vector1: ImgAsset.yet_another_slide_Vector1,
-            vector2: ImgAsset.yet_another_slide_Vector2
+            vector2: ImgAsset.yet_another_slide_Vector2,
+            newsLink: '/news/1'
+        },
+        {
+            title: '44 Slide Title',
+            subtitle: 'Another Slide Subtitle',
+            description: 'Another slide description text.',
+            vector1: ImgAsset.another_slide_Vector1,
+            vector2: ImgAsset.another_slide_Vector2,
+            newsLink: '/news/1'
+        },
+        {
+            title: '5번 Slide',
+            subtitle: 'Subtitle for Yet Another Slide',
+            description: 'Description for the third slide.',
+            vector1: ImgAsset.yet_another_slide_Vector1,
+            vector2: ImgAsset.yet_another_slide_Vector2,
+            newsLink: '/news/1'
         }
     ];
 
@@ -57,7 +77,7 @@ const Slide = () => {
 
                     {/* Learn more 버튼 */}
                     <div className='learnmore_box'>
-                        <span className='Learnmore'>Learn more</span>
+                        <Link to={slides[activeSlideIndex].newsLink} className='Learnmore'>Learn more</Link>
                     </div>
                 </div>
             </div>

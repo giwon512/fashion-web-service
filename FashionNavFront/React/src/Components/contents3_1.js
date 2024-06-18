@@ -63,6 +63,8 @@ export default function Content3_1() {
 
     // // 뉴스 아이템들을 화면에 렌더링합니다.
     return (
+        <div className='contents3_'>
+
         <div className='contents3_1'>
             <ContentTitle title="CELEBRITY NEWS" moreLink="more >" />
 			
@@ -78,7 +80,9 @@ export default function Content3_1() {
                         </div>
                     </div>
                 ))}
+            
             </div>
+        </div>
 
         </div>
     );
