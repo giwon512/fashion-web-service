@@ -37,15 +37,15 @@ class News():
         self.img_url = img_url
     
 def main():
-    conn = dbconnect()
-    title = "역대급 폭염 예고! ‘스트라이프 vs 민소매’ 올 여름 골프 필드룩 뭐 입지?"
-    content = "contents body"
-    img_src = "<img src=\"https://www.fashionn.com/files/board/2024/image/o_1hvqpb989fnk9or1\" />"
-    news_obj = News(title, "subtitle", content, "link", img_src)
+    # conn = dbconnect()
+    # title = "역대급 폭염 예고! ‘스트라이프 vs 민소매’ 올 여름 골프 필드룩 뭐 입지?"
+    # content = "contents body"
+    # img_src = "<img src=\"https://www.fashionn.com/files/board/2024/image/o_1hvqpb989fnk9or1\" />"
+    # news_obj = News(title, "subtitle", content, "link", img_src)
     # news_obj.content_parsing()
     # news_obj.title_parsing()
     # news_obj.img_url_parsing()
-    insert_data(conn, news_obj)
+    # insert_data(conn, news_obj)
     print("It didn't called as module")
     
 if __name__=="__main__":
