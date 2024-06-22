@@ -1,0 +1,31 @@
+.slider-container {
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.slide {
+    position: relative;
+    text-align: center;
+}
+
+.slide-image {
+    width: 100%;
+    height: auto;
+    max-height: 500px; /* 최대 높이를 설정 */
+    object-fit: contain; /* 이미지가 잘리지 않고 화면에 맞게 표시됨 */
+}
+
+.slide-caption {
+    font-size: 10px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+

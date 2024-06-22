@@ -1,0 +1,5 @@
+.home-page {
+    padding: 0 20px; /* 양쪽에 20px 여백 추가 */
+    max-width: 1200px; /* 최대 너비를 설정하여 중앙에 정렬되도록 */
+    margin: 0 auto; /* 중앙 정렬 */
+}

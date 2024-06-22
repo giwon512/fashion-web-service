@@ -1,0 +1,35 @@
+/* Join.css */
+.join-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 50px auto;
+}
+
+.join-container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.join-container p {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.join-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 18px;
+}
+
+.join-button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,58 @@
+/* src/components/CategoryNewsPage.css */
+.category-news-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cnp-page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.cnp-news-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cnp-news-item-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.cnp-news-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.cnp-news-image {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.cnp-news-text {
+    flex: 1;
+}
+
+.cnp-news-title {
+    font-size: 18px;
+    margin: 0;
+}
+
+.cnp-news-summary {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.cnp-news-date {
+    font-size: 12px;
+    color: #999;
+}

@@ -1,0 +1,41 @@
+/* src/components/UserSurveyManagement.css */
+
+.survey-management-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.survey-management-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.survey-management-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.survey-management-container ul li {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.survey-management-container ul li p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.survey-management-container ul li p span {
+    font-weight: bold;
+    color: #333;
+}
