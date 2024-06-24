@@ -85,3 +85,6 @@ application-local.properties
 application-local.yml
 application-personal.properties
 application-personal.yml
+
+# Ignore application.properties file
+FashionNav/src/main/resources/application.properties
