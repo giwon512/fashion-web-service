@@ -80,6 +80,7 @@ ehthumbs.db
 Thumbs.db
 
 ### 개인화된 설정 ###
+application.properties
 application-local.properties
 application-local.yml
 application-personal.properties
