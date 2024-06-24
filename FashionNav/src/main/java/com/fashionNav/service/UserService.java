@@ -1,3 +1,4 @@
+
 package com.fashionNav.service;
 
 import com.fashionNav.common.error.TokenErrorCode;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
@@ -34,17 +36,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    private final UserMapper userMapper;    
+    private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
     public UserRegistrationResponse register(UserRegisterRequest request) {
-        userMapper
-                .findByEmail(request.getEmail())
-                .ifPresent(user -> {
-                    throw new ApiException(UserErrorCode.USER_ALREADY_EXISTS);
-                });
-
+        userMapper.findByEmail(request.getEmail()).ifPresent(user -> {
+            throw new ApiException(UserErrorCode.USER_ALREADY_EXISTS);
+        });
         User user = new User();
         user.setPassword(passwordEncoder.encode(request.getPassword())); // 비밀번호 암호화
         user.setName(request.getName());
@@ -52,6 +51,9 @@ public class UserService implements UserDetailsService {
         user.setEmail(request.getEmail());
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
+        user.setGender(request.getGender()); // 추가: 성별 설정
+        user.setPhoneNumber(request.getPhoneNumber()); // 추가: 전화번호 설정
+        user.setBirthdate(LocalDate.parse(request.getBirthdate())); // 추가: 생일 설정
 
         userMapper.insert(user);
         return UserRegistrationResponse.from(user);
@@ -74,12 +76,9 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public User getUserById(int userId) {
-        return userMapper.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
-    }
-
     /**
      * 이메일로 사용자 정보 조회
+     *
      * @param email 사용자 이메일
      * @return User 사용자 엔티티
      * @throws ApiException 사용자를 찾을 수 없는 경우 예외 발생
@@ -90,8 +89,8 @@ public class UserService implements UserDetailsService {
     }
 
     public UserResponse updateUser(User currentUser, UserUpdateRequest request) {
-        var userEntity =
-                userMapper.findById(currentUser.getUserId()).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
+        var userEntity = userMapper.findById(currentUser.getUserId())
+                .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
 
         // 현재 비밀번호 확인
         if (!passwordEncoder.matches(request.getCurrentPassword(), userEntity.getPassword())) {
@@ -106,6 +105,9 @@ public class UserService implements UserDetailsService {
         userEntity.setEmail(request.getEmail());
         userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userEntity.setUpdatedAt(LocalDateTime.now());
+        userEntity.setGender(request.getGender()); // 추가: 성별 설정
+        userEntity.setPhoneNumber(request.getPhoneNumber()); // 추가: 전화번호 설정
+        userEntity.setBirthdate(LocalDate.parse(request.getBirthdate())); // 추가: 생일 설정
 
         // 사용자 정보 업데이트
         userMapper.update(userEntity);
@@ -123,6 +125,7 @@ public class UserService implements UserDetailsService {
 
     /**
      * 리프레시 토큰을 사용하여 새로운 액세스 토큰 발급
+     *
      * @param refreshToken 리프레시 토큰
      * @return UserAuthenticationResponse 새로운 액세스 토큰과 리프레시 토큰
      * @throws ApiException 유효하지 않은 리프레시 토큰인 경우 예외 발생
@@ -145,24 +148,20 @@ public class UserService implements UserDetailsService {
 
     /**
      * UserDetailsService 인터페이스 메서드 구현: 이메일로 사용자 정보 조회
+     *
      * @param email 사용자 이메일
      * @return UserDetails 사용자 세부 정보
      * @throws UsernameNotFoundException 사용자를 찾을 수 없는 경우 예외 발생
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userMapper.findByEmail(email)
-                .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND, email));
+        return userMapper.findByEmail(email).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND, email));
     }
 
     public UserResponseMe getUserMe(Authentication authentication) {
         var user = (User) authentication.getPrincipal();
-        return UserResponseMe.builder()
-                .userId(user.getUserId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .role(user.getRole())
-                .build();
+        return UserResponseMe.builder().userId(user.getUserId()).name(user.getName()).email(user.getEmail())
+                .role(user.getRole()).build();
     }
 
     // Google OAuth2 로그인 처리
@@ -194,7 +193,8 @@ public class UserService implements UserDetailsService {
 
     private GoogleIdToken.Payload verifyGoogleToken(String token) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-                .setAudience(Collections.singletonList("123145919395-6b789bgir2efl0o2r83vjvhicshs3avi.apps.googleusercontent.com"))
+                .setAudience(Collections
+                        .singletonList("123145919395-6b789bgir2efl0o2r83vjvhicshs3avi.apps.googleusercontent.com"))
                 .build();
 
         try {

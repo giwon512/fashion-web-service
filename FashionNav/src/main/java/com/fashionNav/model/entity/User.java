@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +25,9 @@ public class User implements UserDetails {
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String gender; // 성별 추가
+    private String phoneNumber = ""; // 전화번호 추가, 기본값으로 빈 문자열 설정
+    private LocalDate birthdate; // 생일 추가
     private String role; // 역할을 문자열로 저장
 
     @Override

@@ -44,10 +44,11 @@ public interface UserMapper {
      *
      * @param user 사용자 객체
      */
-    @Insert("INSERT INTO USER (password, name, email, role, created_at, updated_at) " +
-            "VALUES (#{password}, #{name}, #{email}, #{role}, #{createdAt}, #{updatedAt})")
+    @Insert("INSERT INTO USER (password, name, email, gender, phone_number, birthdate, role, created_at, updated_at) " +
+            "VALUES (#{password}, #{name}, #{email}, #{gender}, #{phoneNumber}, #{birthdate}, #{role}, #{createdAt}, #{updatedAt})")
     @Options(useGeneratedKeys = true, keyProperty = "userId")
     void insert(User user);
+
 
     /**
      * 기존 사용자의 정보를 업데이트합니다.
