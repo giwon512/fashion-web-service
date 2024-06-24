@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -21,14 +22,18 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public List<Post> getPostsByBoardType(@RequestParam String boardType) {
-
-        log.info(boardType);
-        return postService.getPostsByBoardType(boardType);
+    public ResponseEntity<Map<String, Object>> getPostsByBoardType(
+            @RequestParam String boardType,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        log.info("Fetching posts for board type: {} with page: {} and size: {}", boardType, page, size);
+        Map<String, Object> response = postService.getPostsByBoardTypeWithPagination(boardType, page, size);
+        return ResponseEntity.ok(response);
     }
 
+
     @GetMapping("/{postId}")
-    public Post getPostById(@PathVariable int postId) {
+    public Post getPostById(@PathVariable int postId){
         return postService.getPostById(postId);
     }
 
@@ -66,6 +71,14 @@ public class PostController {
         return ResponseEntity.ok("Comment created successfully");
     }
 
+    @PostMapping("/{postId}/comments/{parentCommentId}/replies")
+    public ResponseEntity<String> createReply(@PathVariable int postId, @PathVariable int parentCommentId, @RequestBody Comment comment, Authentication authentication) {
+        comment.setPostId(postId);
+        comment.setParentCommentId(parentCommentId);
+        postService.createComment(comment, authentication);
+        return ResponseEntity.ok("Reply created successfully");
+    }
+
     @PutMapping("/{postId}/comments/{commentId}")
     public ResponseEntity<String> updateComment(@PathVariable int postId, @PathVariable int commentId, @RequestBody Comment comment, Authentication authentication) {
         comment.setCommentId(commentId);
@@ -88,6 +101,12 @@ public class PostController {
     public ResponseEntity<String> uploadFile(@PathVariable int postId, @RequestParam("file") MultipartFile file) {
         postService.createFile(postId, file);
         return ResponseEntity.ok("File uploaded successfully");
+    }
+
+    @PutMapping("/{postId}/files/{fileId}")
+    public ResponseEntity<String> updateFile(@PathVariable int postId, @PathVariable int fileId, @RequestParam("file") MultipartFile file) {
+        postService.updateFile(fileId, file);
+        return ResponseEntity.ok("File updated successfully");
     }
 
     @DeleteMapping("/{postId}/files/{fileId}")

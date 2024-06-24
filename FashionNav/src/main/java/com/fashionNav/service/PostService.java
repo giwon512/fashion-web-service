@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -27,13 +29,21 @@ public class PostService {
 
     private final Path rootLocation = Paths.get("upload-dir");
 
-    public List<Post> getPostsByBoardType(String boardType) {
-        List<Post> posts = postMapper.findPostsByBoardType(boardType);
+    public Map<String, Object> getPostsByBoardTypeWithPagination(String boardType, int page, int size) {
+        int offset = (page - 1) * size;
+        List<Post> posts = postMapper.findPostsByBoardTypeWithPagination(boardType, size, offset);
         posts.forEach(post -> {
             User user = postMapper.findUserById(post.getUserId());
             post.setUserName(user.getName());
         });
-        return posts;
+
+        int totalPosts = postMapper.countPostsByBoardType(boardType);
+        int totalPages = (int) Math.ceil((double) totalPosts / size);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("posts", posts);
+        response.put("totalPages", totalPages);
+        return response;
     }
 
     public Post getPostById(int postId) {
@@ -67,8 +77,9 @@ public class PostService {
         if (postMapper.findPostById(postId).getUserId() != userId) {
             throw new IllegalArgumentException("You do not have permission to delete this post");
         }
-        // 게시물 삭제 전에 관련된 댓글을 먼저 삭제
+        // 게시물 삭제 전에 관련된 댓글과 파일을 먼저 삭제
         commentMapper.deleteCommentsByPostId(postId);
+        fileMapper.deleteFilesByPostId(postId);
         postMapper.deletePost(postId);
     }
 
@@ -77,15 +88,19 @@ public class PostService {
         comments.forEach(comment -> {
             User user = commentMapper.findUserById(comment.getUserId());
             comment.setUserName(user.getName());
+            loadReplies(comment);
         });
         return comments;
     }
 
-    public Comment getCommentById(int commentId) {
-        Comment comment = commentMapper.findCommentById(commentId);
-        User user = commentMapper.findUserById(comment.getUserId());
-        comment.setUserName(user.getName());
-        return comment;
+    private void loadReplies(Comment comment) {
+        List<Comment> replies = commentMapper.findRepliesByCommentId(comment.getCommentId());
+        replies.forEach(reply -> {
+            User user = commentMapper.findUserById(reply.getUserId());
+            reply.setUserName(user.getName());
+            loadReplies(reply); // 대댓글의 대댓글을 재귀적으로 로드
+        });
+        comment.setReplies(replies);
     }
 
     public void createComment(Comment comment, Authentication authentication) {
@@ -110,6 +125,15 @@ public class PostService {
         if (comment.getUserId() != userId) {
             throw new IllegalArgumentException("You do not have permission to delete this comment");
         }
+        // 해당 댓글의 대댓글을 먼저 삭제
+        deleteCommentRecursively(commentId);
+    }
+
+    private void deleteCommentRecursively(int commentId) {
+        List<Comment> replies = commentMapper.findRepliesByCommentId(commentId);
+        for (Comment reply : replies) {
+            deleteCommentRecursively(reply.getCommentId());
+        }
         commentMapper.deleteComment(commentId);
     }
 
@@ -119,6 +143,15 @@ public class PostService {
 
     public void createFile(int postId, MultipartFile file) {
         saveFile(postId, file);
+    }
+
+    public void updateFile(int fileId, MultipartFile file) {
+        File existingFile = fileMapper.findFileById(fileId);
+        if (existingFile == null) {
+            throw new IllegalArgumentException("File not found");
+        }
+        saveFile(existingFile.getPostId(), file);
+        fileMapper.updateFile(fileId, existingFile.getFileName(), existingFile.getFilePath());
     }
 
     public void deleteFile(int fileId) {

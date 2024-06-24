@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,4 +21,6 @@ public class Comment {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String userName; // 작성자 이름 추가
+    private Integer parentCommentId; // 부모 댓글 ID 추가
+    private List<Comment> replies; // 대댓글 리스트 추가
 }
