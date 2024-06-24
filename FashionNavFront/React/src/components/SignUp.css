@@ -1,67 +1,124 @@
 /* SignUp.css */
-.signup-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f8f9fa;
-}
 
-.signup-form {
+.signup {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   background-color: white;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 100%;
+  font-family: Arial, sans-serif;
 }
 
-.signup-title {
-  margin-bottom: 30px;
-  font-size: 24px;
-  font-weight: 600;
+.signup h2 {
   text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
   color: #333;
 }
 
-.form-group {
-  margin-bottom: 20px;
+.signup form {
+  display: flex;
+  flex-direction: column;
 }
 
-.signup-form label {
-  display: block;
-  margin-bottom: 5px;
-  color: #495057;
+.signup .form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.signup-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ced4da;
+.signup .form-group label {
+  width: 120px;
+  text-align: right;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.signup .form-group input,
+.signup .form-group select {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
 }
 
-.signup-button {
-  width: 100%;
-  padding: 15px;
+.signup .birthdate-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.signup .birthdate-group label {
+  width: 120px;
+  text-align: right;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.signup .birthdate-inputs {
+  display: flex;
+  align-items: center;
+}
+
+.signup .birthdate-inputs select {
+  flex: 1.98;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.signup .birthdate-inputs select:first-child {
+  flex: 0.87;
+  width: 80px;
+}
+
+.signup .birthdate-inputs select:nth-child(2),
+.signup .birthdate-inputs select:nth-child(3) {
+  flex: 0.87;
+  width: 80px;
+}
+
+.signup button[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 20px;
   background-color: #007bff;
+  color: white;
   border: none;
   border-radius: 4px;
-  color: white;
-  font-size: 18px;
-  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 14px;
 }
 
-.signup-button:hover {
+.signup button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-.error {
+.signup .error {
   color: red;
-  margin-bottom: 20px;
+  font-size: 14px;
   text-align: center;
+  margin-top: 10px;
+}
+
+.signup p {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.signup a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.signup a:hover {
+  text-decoration: underline;
 }

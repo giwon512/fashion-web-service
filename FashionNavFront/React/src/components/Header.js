@@ -154,7 +154,7 @@ const Header = ({ isLoggedIn, isAdmin, onLogout }) => {
             ) : (
                 <>
                   <span className='LOGIN'><Link to="/login">LOGIN</Link></span>
-                  <span className='JOIN'><Link to="/join">JOIN</Link></span>
+                  <span className='JOIN'><Link to="/join">SIGN UP</Link></span>
                 </>
             )}
             <div className='_icon'>

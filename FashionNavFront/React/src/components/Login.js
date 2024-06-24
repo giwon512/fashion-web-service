@@ -94,7 +94,7 @@ const Login = ({ onLogin }) => {
         <div className="login-container">
             <form className="login-form" onSubmit={handleLogin}>
                 <div className="login-input-group">
-                    <label htmlFor="email">아이디</label>
+                    <label htmlFor="email">이메일</label>
                     <input
                         type="text"
                         id="email"
@@ -126,8 +126,8 @@ const Login = ({ onLogin }) => {
                 <button type="submit" className="login-button">로그인</button>
             </form>
             <div className="login-footer">
-                <button className="signup-button" onClick={handleSignup}>회원가입</button>
-                <button className="find-idpw-button" onClick={handleFindIdPw}>아이디/비밀번호찾기</button>
+                <span className="signup-button" onClick={handleSignup}>회원가입</span>
+                <span className="find-idpw-button" onClick={handleFindIdPw}>아이디/비밀번호찾기</span>
             </div>
             <div className="social-login">
                 <h3>또는</h3>
