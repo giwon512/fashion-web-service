@@ -87,4 +87,5 @@ application-personal.properties
 application-personal.yml
 
 # Ignore application.properties file
+FashionNav/src/main/resources/application.propertiesFashionNav/src/main/resources/application.properties
 FashionNav/src/main/resources/application.properties
