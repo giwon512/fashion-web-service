@@ -31,10 +31,14 @@ public class PostService {
 
     public Map<String, Object> getPostsByBoardTypeWithPagination(String boardType, int page, int size) {
         int offset = (page - 1) * size;
-        List<Post> posts = postMapper.findPostsByBoardTypeWithPagination(boardType, size, offset);
+        List<Post> posts = postMapper.findAllPostsByBoardTypeWithPagination(boardType, size, offset);
         posts.forEach(post -> {
             User user = postMapper.findUserById(post.getUserId());
             post.setUserName(user.getName());
+            if (post.getParentPostId() == 0) {
+                List<Post> replies = postMapper.findRepliesByPostId(post.getPostId());
+                post.setReplies(replies);
+            }
         });
 
         int totalPosts = postMapper.countPostsByBoardType(boardType);
@@ -50,6 +54,8 @@ public class PostService {
         Post post = postMapper.findPostById(postId);
         User user = postMapper.findUserById(post.getUserId());
         post.setUserName(user.getName());
+        List<Post> replies = postMapper.findRepliesByPostId(postId);
+        post.setReplies(replies);
         return post;
     }
 
@@ -88,19 +94,10 @@ public class PostService {
         comments.forEach(comment -> {
             User user = commentMapper.findUserById(comment.getUserId());
             comment.setUserName(user.getName());
-            loadReplies(comment);
+            List<Comment> replies = commentMapper.findRepliesByCommentId(comment.getCommentId());
+            comment.setReplies(replies);
         });
         return comments;
-    }
-
-    private void loadReplies(Comment comment) {
-        List<Comment> replies = commentMapper.findRepliesByCommentId(comment.getCommentId());
-        replies.forEach(reply -> {
-            User user = commentMapper.findUserById(reply.getUserId());
-            reply.setUserName(user.getName());
-            loadReplies(reply); // 대댓글의 대댓글을 재귀적으로 로드
-        });
-        comment.setReplies(replies);
     }
 
     public void createComment(Comment comment, Authentication authentication) {
@@ -125,15 +122,8 @@ public class PostService {
         if (comment.getUserId() != userId) {
             throw new IllegalArgumentException("You do not have permission to delete this comment");
         }
-        // 해당 댓글의 대댓글을 먼저 삭제
-        deleteCommentRecursively(commentId);
-    }
-
-    private void deleteCommentRecursively(int commentId) {
-        List<Comment> replies = commentMapper.findRepliesByCommentId(commentId);
-        for (Comment reply : replies) {
-            deleteCommentRecursively(reply.getCommentId());
-        }
+        // 대댓글도 삭제
+        commentMapper.deleteRepliesByCommentId(commentId);
         commentMapper.deleteComment(commentId);
     }
 
@@ -177,5 +167,9 @@ public class PostService {
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file", e);
         }
+    }
+
+    public List<Post> getRepliesByPostId(int postId) {
+        return postMapper.findRepliesByPostId(postId);
     }
 }

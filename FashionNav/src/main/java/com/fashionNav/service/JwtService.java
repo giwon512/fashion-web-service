@@ -25,7 +25,7 @@ public class JwtService {
 
     // 액세스 토큰을 생성합니다. 유효 기간은 15분입니다.
     public String generateAccessToken(UserDetails userDetails){
-        return generateToken(userDetails.getUsername(), 1000 * 60 * 15); // 15분
+        return generateToken(userDetails.getUsername(), 1000 * 60 * 1/30); // 15분
     }
 
     // 리프레시 토큰을 생성합니다. 유효 기간은 7일입니다.

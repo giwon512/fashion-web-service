@@ -26,15 +26,19 @@ public class PostController {
             @RequestParam String boardType,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size) {
-        log.info("Fetching posts for board type: {} with page: {} and size: {}", boardType, page, size);
         Map<String, Object> response = postService.getPostsByBoardTypeWithPagination(boardType, page, size);
+        log.info("페이징 호출");
         return ResponseEntity.ok(response);
     }
-
 
     @GetMapping("/{postId}")
     public Post getPostById(@PathVariable int postId){
         return postService.getPostById(postId);
+    }
+
+    @GetMapping("/{postId}/replies")
+    public List<Post> getRepliesByPostId(@PathVariable int postId) {
+        return postService.getRepliesByPostId(postId);
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
@@ -44,6 +48,16 @@ public class PostController {
             Authentication authentication) {
         postService.createPost(post, file, authentication);
         return ResponseEntity.ok("Post created successfully");
+    }
+
+    @PostMapping("/{postId}/replies")
+    public ResponseEntity<String> createReply(
+            @PathVariable int postId,
+            @RequestBody Post post,
+            Authentication authentication) {
+        post.setParentPostId(postId);
+        postService.createPost(post, null, authentication);
+        return ResponseEntity.ok("Reply created successfully");
     }
 
     @PutMapping("/{postId}")
@@ -69,14 +83,6 @@ public class PostController {
         comment.setPostId(postId);
         postService.createComment(comment, authentication);
         return ResponseEntity.ok("Comment created successfully");
-    }
-
-    @PostMapping("/{postId}/comments/{parentCommentId}/replies")
-    public ResponseEntity<String> createReply(@PathVariable int postId, @PathVariable int parentCommentId, @RequestBody Comment comment, Authentication authentication) {
-        comment.setPostId(postId);
-        comment.setParentCommentId(parentCommentId);
-        postService.createComment(comment, authentication);
-        return ResponseEntity.ok("Reply created successfully");
     }
 
     @PutMapping("/{postId}/comments/{commentId}")

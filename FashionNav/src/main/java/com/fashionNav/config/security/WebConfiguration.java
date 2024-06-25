@@ -53,9 +53,12 @@ public class WebConfiguration {
         http.cors(Customizer.withDefaults())
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(HttpMethod.POST, "/api/users/*", "/api/users/authenticate").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users/refresh").permitAll()
                         .requestMatchers(SWAGGER.toArray(new String[0])).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/raw-news/**").permitAll()
+
                         .requestMatchers(HttpMethod.POST, "/api/page/archive/**").permitAll()
+
 
                         .requestMatchers(HttpMethod.GET, "/api/news/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/news/**").permitAll()
@@ -74,7 +77,9 @@ public class WebConfiguration {
                         .requestMatchers(HttpMethod.POST,"/api/posts/**").permitAll()
 //                        .requestMatchers(HttpMethod.POST,"/api/users/oauth2/naver").permitAll()
 //                        .requestMatchers(HttpMethod.POST,"/api/users/oauth2/kakao").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/users/*", "/api/users/authenticate").permitAll()
+
+
+
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(CsrfConfigurer::disable)

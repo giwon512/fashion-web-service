@@ -11,6 +11,7 @@ import com.fashionNav.model.dto.response.UserResponse;
 import com.fashionNav.model.dto.response.UserResponseMe;
 import com.fashionNav.model.entity.User;
 import com.fashionNav.service.UserService;
+import io.jsonwebtoken.JwtException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -66,8 +67,16 @@ public class UserController {
 
     @Operation(summary = "리프레시 토큰", description = "리프레시 토큰을 사용해 새로운 액세스 토큰을 발급합니다.")
     @PostMapping("/refresh")
-    public UserAuthenticationResponse refreshToken(@RequestHeader("Authorization") String refreshToken) {
+    public UserAuthenticationResponse refreshToken(@RequestHeader("Authorization") String authorizationHeader) {
         log.info("리프레쉬 부분");
+        log.info("Authorization Header: " + authorizationHeader);
+        String refreshToken;
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            refreshToken = authorizationHeader.substring(7); // "Bearer " 접두사 제거
+            log.info("Extracted Refresh Token: " + refreshToken);
+        } else {
+            throw new JwtException("Invalid refresh token format");
+        }
         return userService.refreshToken(refreshToken);
     }
 
