@@ -1,6 +1,7 @@
 import requests
-from database import News, insert_data, dbconnect
+from database import News, insert_data, dbConnect, test_insert_data, test_insert_image, test_select_id
 from bs4 import BeautifulSoup, Tag
+import base64
 
 def create_soup(url):
     res = requests.get(url)
@@ -56,8 +57,18 @@ def scrape_news():
             
             # db에 크롤링한 결과 삽입
             news_obj = News(title, desc, content_result, link, img_src)
-            conn = dbconnect()
-            insert_data(conn, news_obj)
+            
+            #이미지 다운로드
+            img_res = requests.get("https://www.fashionn.com" + news.img["src"])
+            img_data = img_res.content
+
+            #base64 인코딩
+            encoded_image = base64.b64encode(img_data).decode('utf-8')
+            
+            conn = dbConnect()
+            test_insert_data(conn, news_obj)
+            newsId = test_select_id(conn)
+            test_insert_image(conn, encoded_image, newsId)
             
             # print("////////////////////////////////////////////////////")
 

@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-from database import News, insert_data, dbconnect
+from database import News, insert_data, dbConnect, test_insert_data, test_insert_image, test_select_id
+import base64
 
 def create_soup(url):
     res = requests.get(url)
@@ -40,9 +41,10 @@ def scrape_news():
             body = soup.find("div", class_="d_cont").div
             children_list = [child for child in body.children if child != '\n']
             for child in children_list:
-                if child.name =="table":
+                if child.name =="table" or child.name =="p":
                     if child.img:
                         if not img_src:
+                            # print("find first image")
                             img_src = child.img["src"]
                         img = "<img src=\"" + child.img["src"] + "\" />"
                         content_result += img + '\n'
@@ -58,8 +60,18 @@ def scrape_news():
             
             # db에 크롤링한 결과 삽입
             news_obj = News(title, desc, content_result, link, img_src)
-            conn = dbconnect()
-            insert_data(conn, news_obj)
+            
+            #이미지 다운로드
+            img_res = requests.get(img_src)
+            img_data = img_res.content
+
+            #base64 인코딩
+            encoded_image = base64.b64encode(img_data).decode('utf-8')
+            
+            conn = dbConnect()
+            test_insert_data(conn, news_obj)
+            newsId = test_select_id(conn)
+            test_insert_image(conn, encoded_image, newsId)
 
 
 if __name__ == "__main__":

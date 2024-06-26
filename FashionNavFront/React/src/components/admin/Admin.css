@@ -1,0 +1,154 @@
+.admin-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-section {
+    margin-bottom: 40px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.admin-search-input {
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.admin-news-table,
+.admin-banner-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+}
+
+.admin-news-table th,
+.admin-banner-table th,
+.admin-news-table td,
+.admin-banner-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.admin-news-table th,
+.admin-banner-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.admin-news-table tbody tr:hover,
+.admin-banner-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.admin-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.admin-pagination .admin-button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-pagination .admin-active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.admin-pagination .admin-button:hover:not(.admin-active) {
+    background-color: #f1f1f1;
+}
+
+.admin-editor-container {
+    margin-top: 20px;
+}
+
+.admin-editor-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.admin-editor-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.admin-editor-container .ql-container {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    min-height: 200px;
+    margin-bottom: 20px;
+}
+
+.admin-button {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-button:hover {
+    background-color: #f1f1f1;
+}
+
+.admin-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.sort-button {
+    margin-bottom: 20px;
+}
+
+.radio-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 8px;
+}
+
+.ql-container img {
+    max-width: 100%;
+    height: auto;
+}
