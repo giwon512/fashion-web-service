@@ -7,7 +7,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import SubmitSurvey from "./components/SubmitSurvey";
 import MyPage from "./components/MyPage";
-import Admin from "./components/Admin";
+import Admin from "./components/admin/Admin";
 import Header from "./components/Header";
 import { PrivateRoute, AdminRoute } from "./components/PrivateRoute";
 import api from "./api";
@@ -24,17 +24,24 @@ import SearchResults from "./components/SearchResults";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-      api.get("/users/me").then((response) => {
-        const user = response.data.body;
-        setIsAdmin(user.role === "ROLE_ADMIN");
-      });
+    const initialize = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        setIsLoggedIn(true);
+        await api.get("/users/me").then((response) => {
+          const user = response.data.body;
+          setIsAdmin(user.role === "ROLE_ADMIN");
+        });
+        setIsLoading(false);
+      }
     }
+    
+    initialize();
   }, []);
 
   const handleLogin = async () => {
@@ -54,6 +61,10 @@ const App = () => {
     navigate("/");
   };
 
+  if(isLoading) {
+    return <h1>page loading...</h1>
+  }
+
   return (
       <GoogleOAuthProvider clientId="123145919395-6b789bgir2efl0o2r83vjvhicshs3avi.apps.googleusercontent.com">
         <Header isLoggedIn={isLoggedIn} isAdmin={isAdmin} onLogout={handleLogout} />
@@ -68,7 +79,7 @@ const App = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/join" element={<Join />} />
           <Route path="/join-agree" element={<JoinAgree />} />
-          <Route path="/admin" element={<AdminRoute isAuthenticated={isLoggedIn} isAdmin={isAdmin}><Admin /></AdminRoute>} />
+          <Route path="/admin/*" element={<AdminRoute isAuthenticated={isLoggedIn} isAdmin={isAdmin}><Admin /></AdminRoute>} />
           <Route path="/add-survey" element={<AddSurvey />} />
           <Route path="/survey-management" element={<PrivateRoute isAuthenticated={isLoggedIn}><UserSurveyManagement /></PrivateRoute>} />
           <Route path="/edit-survey/:surveyId" element={<EditSurvey />} />

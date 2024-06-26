@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import api from '../api'; // api 모듈 import
+import api from '../api';
 import { GoogleLogin } from '@react-oauth/google';
 import './Login.css';
 
@@ -22,15 +22,17 @@ const Login = ({ onLogin }) => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError(''); // 기존 에러 메시지 초기화
+        setError('');
 
         try {
             const response = await api.post('/users/authenticate', { email, password });
             const { accessToken, refreshToken } = response.data.body;
+            console.log('AccessToken:', accessToken);
+            console.log('RefreshToken:', refreshToken);
             localStorage.setItem('token', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
-            onLogin(); // 로그인 성공 후 콜백 함수 호출
-            navigate(from); // 원래 목적지로 이동
+            onLogin();
+            navigate(from);
         } catch (error) {
             console.error('Error during login', error);
             setError('Login failed. Please check your credentials and try again.');
@@ -38,52 +40,41 @@ const Login = ({ onLogin }) => {
     };
 
     const handleSignup = () => {
-        navigate('/signup'); // 회원가입 페이지로 이동
+        navigate('/signup');
     };
 
     const handleFindIdPw = () => {
-        // 아이디/비밀번호 찾기 페이지로 이동 로직 (필요시 구현)
+        // 구현 필요시 추가
     };
 
-    const handleGoogleSuccess = (response) => {
+    const handleGoogleSuccess = async (response) => {
         console.log('Login Success:', response);
 
-        fetch('http://localhost:8080/api/users/oauth2/google', {
-            method: 'POST',  // POST 요청으로 수정
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ token: response.credential }),  // body에 데이터 포함
-        })
-            .then((res) => {
-                console.log('Response status:', res.status);
-                console.log('Response headers:', res.headers);
-                return res.text();  // Change to text for debugging
-            })
-            .then((data) => {
-                try {
-                    console.log('Response text:', data);
-                    const jsonData = JSON.parse(data);  // 수동으로 JSON 파싱
-                    console.log('Parsed JSON:', jsonData);
-                    if (jsonData.accessToken) {  // jsonData.body.accessToken에서 jsonData.accessToken로 변경
-                        localStorage.setItem("token", jsonData.accessToken);
-                        onLogin();
-                        if (jsonData.isFirstLogin) {  // 첫 로그인 여부 확인
-                            navigate('/survey');  // 설문조사 페이지로 이동
-                        } else {
-                            navigate('/'); // 홈 페이지로 이동
-                        }
-                    } else {
-                        console.error('Login failed, no access token in response:', jsonData);
-                    }
-                } catch (error) {
-                    console.error('Error parsing JSON:', error);
-                    console.log('Response text:', data);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
+        try {
+            const res = await fetch('http://localhost:8080/api/users/oauth2/google', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token: response.credential }),
             });
+
+            const data = await res.json();
+            console.log('Parsed JSON:', data);
+
+            if (data.accessToken && data.refreshToken) {
+                console.log('AccessToken:', data.accessToken);
+                console.log('RefreshToken:', data.refreshToken);
+                localStorage.setItem('token', data.accessToken);
+                localStorage.setItem('refreshToken', data.refreshToken);
+                onLogin();
+                navigate('/');
+            } else {
+                console.error('Login failed, no access token in response:', data);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     const handleGoogleError = (error) => {
@@ -94,7 +85,7 @@ const Login = ({ onLogin }) => {
         <div className="login-container">
             <form className="login-form" onSubmit={handleLogin}>
                 <div className="login-input-group">
-                    <label htmlFor="email">이메일</label>
+                    <label htmlFor="email">아이디</label>
                     <input
                         type="text"
                         id="email"
@@ -126,8 +117,8 @@ const Login = ({ onLogin }) => {
                 <button type="submit" className="login-button">로그인</button>
             </form>
             <div className="login-footer">
-                <span className="signup-button" onClick={handleSignup}>회원가입</span>
-                <span className="find-idpw-button" onClick={handleFindIdPw}>아이디/비밀번호찾기</span>
+                <button className="signup-button" onClick={handleSignup}>회원가입</button>
+                <button className="find-idpw-button" onClick={handleFindIdPw}>아이디/비밀번호찾기</button>
             </div>
             <div className="social-login">
                 <h3>또는</h3>
