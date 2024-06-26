@@ -1,7 +1,7 @@
 import pymysql
 
 
-def dbconnect():
+def dbConnect():
     conn = pymysql.connect(host='127.0.0.1', user='fashiondbuser', password='fashiondbuser',
                        db='fashiondb', charset='utf8')
     return conn
@@ -24,11 +24,25 @@ def insert_data(conn, news):
     cur.execute(sql, (news.title, news.content))
     conn.commit()
     
-def insert_image(conn, imageData):
+def test_insert_data(conn, news):
     cur = conn.cursor()
-    sql = "insert into test_image(img_content) values(%s)"
-    cur.execute(sql, (imageData))
+    sql = "insert into Test_News(title, content, published_date) \
+        values(%s, %s, SYSDATE())"
+    cur.execute(sql, (news.title, news.content))
     conn.commit()
+    
+def test_insert_image(conn, imageData, newsId):
+    cur = conn.cursor()
+    sql = "insert into test_image(img_content, news_id) values(%s, %s)"
+    cur.execute(sql, (imageData, newsId))
+    conn.commit()
+    
+def test_select_id(conn):
+    cur = conn.cursor()
+    sql = "select news_id from Test_News order by published_date desc limit 1"
+    cur.execute(sql)
+    result = cur.fetchall()
+    return result[0]
 
 def delete_data(conn, news_id):
     cur = conn.cursor()
@@ -45,7 +59,7 @@ class News():
         self.img_url = img_url
 
 def main():
-    # conn = dbconnect()
+    # conn = dbConnect()
     # title = "역대급 폭염 예고! ‘스트라이프 vs 민소매’ 올 여름 골프 필드룩 뭐 입지?"
     # content = "contents body"
     # img_src = "<img src=\"https://www.fashionn.com/files/board/2024/image/o_1hvqpb989fnk9or1\" />"

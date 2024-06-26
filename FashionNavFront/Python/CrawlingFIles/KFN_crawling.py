@@ -3,9 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-import time
 from selenium.common.exceptions import NoSuchElementException
-from database import News, insert_data, dbconnect
+from database import News, insert_data, dbConnect, test_insert_data, test_insert_image, test_select_id
+import base64
+import requests
 
 def create_browser(url):
     # 브라우저 꺼짐 방지 옵션
@@ -67,8 +68,18 @@ def scrape_news():
                 
                 # db에 크롤링한 결과 삽입
                 news_obj = News(title, desc, content_result, link, img_src)
-                conn = dbconnect()
-                insert_data(conn, news_obj)
+                
+                #이미지 다운로드
+                img_res = requests.get(img_src)
+                img_data = img_res.content
+
+                #base64 인코딩
+                encoded_image = base64.b64encode(img_data).decode('utf-8')
+                
+                conn = dbConnect()
+                test_insert_data(conn, news_obj)
+                newsId = test_select_id(conn)
+                test_insert_image(conn, encoded_image, newsId)
         finally:
             browser.quit()
 
