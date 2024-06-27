@@ -37,8 +37,8 @@ const App = () => {
           const user = response.data.body;
           setIsAdmin(user.role === "ROLE_ADMIN");
         });
-        setIsLoading(false);
       }
+      setIsLoading(false);
     }
     
     initialize();
