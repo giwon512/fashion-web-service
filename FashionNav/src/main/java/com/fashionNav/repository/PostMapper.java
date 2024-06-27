@@ -29,7 +29,7 @@ public interface PostMapper {
     void deletePost(int postId);
 
     @Select("SELECT * FROM USER WHERE user_id = #{userId}")
-    User findUserById(int userId);
+    User findUserById(Long userId);
 
     @Select("SELECT * FROM posts WHERE parent_post_id = #{postId} ORDER BY created_at ASC")
     List<Post> findRepliesByPostId(int postId);

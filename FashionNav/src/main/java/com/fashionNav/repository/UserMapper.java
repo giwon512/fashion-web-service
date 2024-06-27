@@ -37,7 +37,7 @@ public interface UserMapper {
      * @return 사용자 객체
      */
     @Select("SELECT * FROM USER WHERE user_id = #{userId}")
-    Optional<User> findById(int userId);
+    Optional<User> findById(Long userId);
 
     /**
      * 새로운 사용자를 USER 테이블에 삽입합니다.
@@ -65,13 +65,13 @@ public interface UserMapper {
      * @param userId 사용자의 ID
      */
     @Delete("DELETE FROM USER WHERE user_id = #{userId}")
-    void deleteUser(int userId);
+    void deleteUser(Long userId);
 
     @Select("SELECT name FROM USER WHERE user_id = #{userId}")
-    String findUserNameById(int userId);
+    String findUserNameById(Long userId);
 
     @Select("SELECT * FROM USER WHERE user_id = #{userId}")
-    User findUserById(int userId);
+    User findUserById(Long userId);
 
 
 

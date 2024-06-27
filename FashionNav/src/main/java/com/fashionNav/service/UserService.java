@@ -59,7 +59,7 @@ public class UserService implements UserDetailsService {
         return UserRegistrationResponse.from(user);
     }
 
-    public UserResponse getUserId(int userId) {
+    public UserResponse getUserId(Long userId) {
         var userEntity = userMapper.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
         return UserResponse.from(userEntity, null, null);
     }
@@ -141,7 +141,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public void deleteUser(int userId) {
+    public void deleteUser(Long userId) {
         User user = userMapper.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
         userMapper.deleteUser(userId);
     }

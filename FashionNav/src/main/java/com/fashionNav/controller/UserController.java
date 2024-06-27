@@ -83,7 +83,7 @@ public class UserController {
     @Operation(summary = "사용자 조회", description = "특정 ID를 가진 사용자의 정보를 조회합니다.")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{userId}")
-    public Api<UserResponse> getUser(@PathVariable int userId) {
+    public Api<UserResponse> getUser(@PathVariable Long userId) {
         var response = userService.getUserId(userId);
 
         return Api.OK(response);
@@ -94,6 +94,7 @@ public class UserController {
     public Api<UserResponse> updateUser(Authentication authentication, @Valid @RequestBody UserUpdateRequest request) {
         var response = userService.updateUser((User)authentication.getPrincipal(), request);
 
+
         return Api.OK(response);
     }
 
@@ -101,13 +102,14 @@ public class UserController {
     @GetMapping("/me")
     public Api<UserResponseMe> findByMe(Authentication authentication) {
         var response = userService.getUserMe(authentication);
+        log.info("호출");
         return Api.OK(response);
     }
 
     @Operation(summary = "회원 탈퇴", description = "사용자 정보를 삭제합니다.")
     @PreAuthorize("authentication.principal.userId == #userId")
     @DeleteMapping("/{userId}")
-    public Api<String> deleteUser(@PathVariable int userId) {
+    public Api<String> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
 
         return Api.OK("회원 탈퇴가 완료되었습니다");

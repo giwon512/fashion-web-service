@@ -39,7 +39,7 @@ public class UserSurveyController {
 
     @PostMapping
     public Api<Void> createUserSurvey(@RequestBody UserSurveyRequest request, Authentication authentication) {
-        int userId = ((User) authentication.getPrincipal()).getUserId();
+        Long userId = ((User) authentication.getPrincipal()).getUserId();
 
         // Check if the user already has a survey
         if (userSurveyService.userHasSurvey(userId)) {
@@ -83,7 +83,7 @@ public class UserSurveyController {
 
     @GetMapping("/user")
     public Api<List<UserSurveyResponse>> getUserSurveysByUserId(Authentication authentication) {
-        int userId = ((User) authentication.getPrincipal()).getUserId();
+        Long userId = ((User) authentication.getPrincipal()).getUserId();
         List<UserSurvey> userSurveys = userSurveyService.getUserSurveysByUserId(userId);
         List<UserSurveyResponse> responses = userSurveys.stream()
                 .map(survey -> new UserSurveyResponse(survey,

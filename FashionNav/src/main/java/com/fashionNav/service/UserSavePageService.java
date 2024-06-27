@@ -32,7 +32,7 @@ public class UserSavePageService {
 
 	// 저장한 페이지 보여주는 기능
 	public List<SavePageListResponse> archive(User principal) {
-		int userId = principal.getUserId();
+		Long userId = principal.getUserId();
 		List<UserSavedPage> userSavedPages = userSavePageMapper.findByUserId(userId);
 
 		List<Long> newsIds = userSavedPages.stream()
@@ -50,7 +50,7 @@ public class UserSavePageService {
 
 	// 저장한 페이지 삭제
 	public void archiveDelete(User principal, Long newsId) {
-		int userId = principal.getUserId();
+		Long userId = principal.getUserId();
 		userSavePageMapper.deleteUserPageByUserIdAndNewsId(userId, newsId);
 	}
 }

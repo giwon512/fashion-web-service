@@ -55,11 +55,9 @@ public class WebConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/users/*", "/api/users/authenticate").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/refresh").permitAll()
                         .requestMatchers(SWAGGER.toArray(new String[0])).permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/news-comments/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/raw-news/**").permitAll()
-
                         .requestMatchers(HttpMethod.POST, "/api/page/archive/**").permitAll()
-
-
                         .requestMatchers(HttpMethod.GET, "/api/news/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/news/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/items/**").permitAll()
@@ -71,13 +69,12 @@ public class WebConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/top3/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/brands/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/styles/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/search/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/users/oauth2/google").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/posts/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/search/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users/oauth2/google").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/posts/**").permitAll()
 //                        .requestMatchers(HttpMethod.POST,"/api/users/oauth2/naver").permitAll()
 //                        .requestMatchers(HttpMethod.POST,"/api/users/oauth2/kakao").permitAll()
-
 
 
                         .anyRequest().authenticated())

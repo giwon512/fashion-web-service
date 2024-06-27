@@ -16,7 +16,7 @@ import java.util.List;
 public class Post {
     private int postId;
     private String boardType;
-    private int userId;
+    private Long userId;
     private String title;
     private String content;
     private LocalDateTime createdAt;

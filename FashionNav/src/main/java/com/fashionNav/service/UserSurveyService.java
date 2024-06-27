@@ -19,7 +19,7 @@ public class UserSurveyService {
         return userSurveyMapper.findAllUserSurveys();
     }
 
-    public boolean userHasSurvey(int userId) {
+    public boolean userHasSurvey(Long userId) {
         List<UserSurvey> surveys = userSurveyMapper.getUserSurveysByUserId(userId);
         return !surveys.isEmpty();
     }
@@ -53,7 +53,7 @@ public class UserSurveyService {
         userSurveyMapper.deleteUserSurvey(surveyId);
     }
 
-    public List<UserSurvey> getUserSurveysByUserId(int userId) {
+    public List<UserSurvey> getUserSurveysByUserId(Long userId) {
         return userSurveyMapper.getUserSurveysByUserId(userId);
     }
 

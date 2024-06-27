@@ -16,10 +16,10 @@ import com.fashionNav.model.entity.UserSavedPage;
 public interface UserSavePageMapper {
 
 	@Insert("INSERT INTO UserSavedPage ( user_Id, news_Id ) VALUES ( #{userId}, #{newsId} )")
-	void insertUserIdPageId(@Param("userId") int userId, @Param("newsId") Long newsId );
+	void insertUserIdPageId(@Param("userId") Long userId, @Param("newsId") Long newsId );
 	
 	@Select("SELECT news_id AS newsId, saved_date AS savedDate FROM UserSavedPage WHERE user_id = #{userId}")
-    List<UserSavedPage> findByUserId(int userId);
+    List<UserSavedPage> findByUserId(Long userId);
 	
 	@Select("<script>"
             + "SELECT news_id AS newsId, title, image_url AS imageUrl "
@@ -32,7 +32,7 @@ public interface UserSavePageMapper {
     List<SavePageListResponse> findByNewsIds(@Param("newsIds") List<Long> newsIds);
 
 	@Delete("DELETE FROM UserSavedPage WHERE user_Id = #{userId} AND news_Id = #{newsId}")
-    void deleteUserPageByUserIdAndNewsId(@Param("userId") int userId, @Param("newsId") Long newsId);
+    void deleteUserPageByUserIdAndNewsId(@Param("userId") Long userId, @Param("newsId") Long newsId);
 	
 	
 }

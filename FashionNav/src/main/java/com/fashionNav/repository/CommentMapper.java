@@ -18,8 +18,8 @@ public interface CommentMapper {
     @Select("SELECT * FROM comments WHERE comment_id = #{commentId}")
     Comment findCommentById(int commentId);
 
-    @Select("SELECT * FROM USER ₩ WHERE user_id = #{userId}")
-    User findUserById(int userId);
+    @Select("SELECT * FROM USER WHERE user_id = #{userId}")
+    User findUserById(Long userId);
 
     @Insert("INSERT INTO comments (post_id, user_id, content, created_at, updated_at, parent_comment_id) VALUES (#{postId}, #{userId}, #{content}, now(), now(), #{parentCommentId})")
     @Options(useGeneratedKeys = true, keyProperty = "commentId")

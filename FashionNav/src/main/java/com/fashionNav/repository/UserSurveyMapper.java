@@ -64,7 +64,7 @@ public interface UserSurveyMapper {
     void deleteUserSurvey(Long surveyId);
 
     @Select("SELECT * FROM UserSurvey WHERE user_id = #{userId}")
-    List<UserSurvey> getUserSurveysByUserId(int userId);
+    List<UserSurvey> getUserSurveysByUserId(Long userId);
 
     @Delete("DELETE FROM UserSurveyStyle WHERE survey_id = #{surveyId}")
     void deleteUserSurveyStyles(Long surveyId);

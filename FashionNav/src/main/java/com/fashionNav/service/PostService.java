@@ -60,7 +60,7 @@ public class PostService {
     }
 
     public void createPost(Post post, MultipartFile file, Authentication authentication) {
-        int userId = ((User) authentication.getPrincipal()).getUserId();  // 현재 로그인된 사용자 ID 설정
+        Long userId = ((User) authentication.getPrincipal()).getUserId();  // 현재 로그인된 사용자 ID 설정
         post.setUserId(userId);
         postMapper.insertPost(post);
         if (file != null) {
@@ -69,7 +69,7 @@ public class PostService {
     }
 
     public void updatePost(Post post, Authentication authentication) {
-        int userId = ((User) authentication.getPrincipal()).getUserId();
+        Long userId = ((User) authentication.getPrincipal()).getUserId();
         // 현재 사용자만 게시물을 수정할 수 있도록 제한
         if (postMapper.findPostById(post.getPostId()).getUserId() != userId) {
             throw new IllegalArgumentException("You do not have permission to edit this post");
@@ -78,7 +78,7 @@ public class PostService {
     }
 
     public void deletePost(int postId, Authentication authentication) {
-        int userId = ((User) authentication.getPrincipal()).getUserId();
+        Long userId = ((User) authentication.getPrincipal()).getUserId();
         // 현재 사용자만 게시물을 삭제할 수 있도록 제한
         if (postMapper.findPostById(postId).getUserId() != userId) {
             throw new IllegalArgumentException("You do not have permission to delete this post");
@@ -101,13 +101,13 @@ public class PostService {
     }
 
     public void createComment(Comment comment, Authentication authentication) {
-        int userId = ((User) authentication.getPrincipal()).getUserId();  // 현재 로그인된 사용자 ID 설정
+        Long userId = ((User) authentication.getPrincipal()).getUserId();  // 현재 로그인된 사용자 ID 설정
         comment.setUserId(userId);
         commentMapper.insertComment(comment);
     }
 
     public void updateComment(Comment comment, Authentication authentication) {
-        int userId = ((User) authentication.getPrincipal()).getUserId();
+        Long userId = ((User) authentication.getPrincipal()).getUserId();
         // 현재 사용자만 댓글을 수정할 수 있도록 제한
         if (commentMapper.findCommentById(comment.getCommentId()).getUserId() != userId) {
             throw new IllegalArgumentException("You do not have permission to edit this comment");
@@ -116,7 +116,7 @@ public class PostService {
     }
 
     public void deleteComment(int commentId, Authentication authentication) {
-        int userId = ((User) authentication.getPrincipal()).getUserId();
+        Long userId = ((User) authentication.getPrincipal()).getUserId();
         Comment comment = commentMapper.findCommentById(commentId);
         // 현재 사용자만 댓글을 삭제할 수 있도록 제한
         if (comment.getUserId() != userId) {
