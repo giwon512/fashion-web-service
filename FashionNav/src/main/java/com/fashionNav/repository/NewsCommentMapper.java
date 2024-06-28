@@ -26,4 +26,8 @@ public interface NewsCommentMapper {
 
     @Delete("DELETE FROM NewsComments WHERE comment_id = #{commentId}")
     void delete(@Param("commentId") Long commentId);
+
+    @Delete("DELETE FROM NewsComments WHERE news_id = #{newsId}")
+    void deleteByNewsId(@Param(("newsId")) Long newsId);
+
 }

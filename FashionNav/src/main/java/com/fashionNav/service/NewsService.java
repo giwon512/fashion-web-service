@@ -2,9 +2,11 @@ package com.fashionNav.service;
 
 import com.fashionNav.model.entity.Banner;
 import com.fashionNav.model.entity.RawNews;
+import com.fashionNav.repository.NewsCommentMapper;
 import com.fashionNav.repository.NewsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class NewsService {
     private final NewsMapper newsMapper;
+    private final NewsCommentMapper newsCommentMapper;
 
     public Map<String, List<RawNews>> getTop3NewsByCategories() {
         Map<String, List<RawNews>> newsByCategory = new HashMap<>();
@@ -95,8 +98,11 @@ public class NewsService {
         newsMapper.updateBanner(bannerId, banner);
     }
 
+    @Transactional
     public void deleteRawNews(Long newsId) {
+        newsCommentMapper.deleteByNewsId(newsId);
         newsMapper.deleteRawNews(newsId);
+
     }
 
     public List<RawNews> getCategoryList(String category) {
