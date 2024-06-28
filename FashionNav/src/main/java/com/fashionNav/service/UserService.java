@@ -17,6 +17,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,6 +39,11 @@ public class UserService implements UserDetailsService {
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+
+
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String googleClientId;
+
 
     public UserRegistrationResponse register(UserRegisterRequest request) {
         userMapper.findByEmail(request.getEmail()).ifPresent(user -> {
@@ -187,7 +193,7 @@ public class UserService implements UserDetailsService {
     private GoogleIdToken.Payload verifyGoogleToken(String token) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
                 .setAudience(Collections
-                        .singletonList("123145919395-6b789bgir2efl0o2r83vjvhicshs3avi.apps.googleusercontent.com"))
+                        .singletonList(googleClientId))
                 .build();
 
         try {
