@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@Tag(name = "News API2", description = "뉴스 관련 2 API")
+@Tag(name = "News API", description = "뉴스 관련 API")
 @Slf4j
 @RestController
 @RequestMapping("/api")

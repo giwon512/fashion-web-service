@@ -13,10 +13,10 @@ public interface PostMapper {
     List<Post> findAllPostsByBoardTypeWithPagination(@Param("boardType") String boardType, @Param("size") int size, @Param("offset") int offset);
 
     @Select("SELECT COUNT(*) FROM posts WHERE board_type = #{boardType}")
-    int countPostsByBoardType(String boardType);
+    int countPostsByBoardType(@Param("boardType") String boardType);
 
     @Select("SELECT * FROM posts WHERE post_id = #{postId}")
-    Post findPostById(int postId);
+    Post findPostById(@Param("postId") int postId);
 
     @Insert("INSERT INTO posts (board_type, user_id, title, content, created_at, updated_at, parent_post_id) VALUES (#{boardType}, #{userId}, #{title}, #{content}, now(), now(), #{parentPostId})")
     @Options(useGeneratedKeys = true, keyProperty = "postId")
@@ -26,13 +26,13 @@ public interface PostMapper {
     void updatePost(Post post);
 
     @Delete("DELETE FROM posts WHERE post_id = #{postId}")
-    void deletePost(int postId);
+    void deletePost(@Param("postId") int postId);
 
     @Select("SELECT * FROM USER WHERE user_id = #{userId}")
-    User findUserById(Long userId);
+    User findUserById(@Param("userId") Long userId);
 
     @Select("SELECT * FROM posts WHERE parent_post_id = #{postId} ORDER BY created_at ASC")
-    List<Post> findRepliesByPostId(int postId);
+    List<Post> findRepliesByPostId(@Param("postId") int postId);
 
     @Select("WITH RECURSIVE PostCTE AS ( " +
             "    SELECT *, 0 AS level " +
@@ -44,5 +44,5 @@ public interface PostMapper {
             "    INNER JOIN PostCTE cte ON p.parent_post_id = cte.post_id " +
             ") " +
             "SELECT * FROM PostCTE ORDER BY created_at ASC")
-    List<Post> findAllRepliesByPostId(int postId);
+    List<Post> findAllRepliesByPostId(@Param("postId") int postId);
 }
