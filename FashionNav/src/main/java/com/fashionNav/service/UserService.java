@@ -1,4 +1,3 @@
-
 package com.fashionNav.service;
 
 import com.fashionNav.common.error.TokenErrorCode;
@@ -45,15 +44,15 @@ public class UserService implements UserDetailsService {
             throw new ApiException(UserErrorCode.USER_ALREADY_EXISTS);
         });
         User user = new User();
-        user.setPassword(passwordEncoder.encode(request.getPassword())); // 비밀번호 암호화
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setName(request.getName());
-        user.setRole("ROLE_USER"); // 기본 사용자 역할 설정
+        user.setRole("ROLE_USER");
         user.setEmail(request.getEmail());
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
-        user.setGender(request.getGender()); // 추가: 성별 설정
-        user.setPhoneNumber(request.getPhoneNumber()); // 추가: 전화번호 설정
-        user.setBirthdate(LocalDate.parse(request.getBirthdate())); // 추가: 생일 설정
+        user.setGender(request.getGender());
+        user.setPhoneNumber(request.getPhoneNumber());
+        user.setBirthdate(LocalDate.parse(request.getBirthdate()));
 
         userMapper.insert(user);
         return UserRegistrationResponse.from(user);
@@ -76,13 +75,6 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    /**
-     * 이메일로 사용자 정보 조회
-     *
-     * @param email 사용자 이메일
-     * @return User 사용자 엔티티
-     * @throws ApiException 사용자를 찾을 수 없는 경우 예외 발생
-     */
     public User getUserEntityByUserEmail(String email) {
         return userMapper.findByEmail(email)
                 .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND, "존재하지 않는 유저입니다."));
@@ -92,27 +84,35 @@ public class UserService implements UserDetailsService {
         var userEntity = userMapper.findById(currentUser.getUserId())
                 .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
 
-        // 현재 비밀번호 확인
-        if (!passwordEncoder.matches(request.getCurrentPassword(), userEntity.getPassword())) {
-            throw new ApiException(UserErrorCode.INVALID_PASSWORD);
-        }
-
-        // 이메일이 변경되었는지 확인
         boolean emailChanged = !userEntity.getEmail().equals(request.getEmail());
 
-        // 사용자 정보 업데이트
+        // 구글 사용자 여부 확인
+        boolean isGoogleUser = userEntity.getPassword() == null || userEntity.getPassword().isEmpty();
+
+        // 구글 사용자가 아니고, 비밀번호 변경을 시도하는 경우에만 비밀번호 관련 처리
+        if (!isGoogleUser && (request.getCurrentPassword() != null || request.getNewPassword() != null)) {
+            if (request.getCurrentPassword() == null || request.getCurrentPassword().isEmpty()) {
+                throw new ApiException(UserErrorCode.INVALID_PASSWORD, "현재 비밀번호는 필수 입력 값입니다.");
+            }
+
+            if (!passwordEncoder.matches(request.getCurrentPassword(), userEntity.getPassword())) {
+                throw new ApiException(UserErrorCode.INVALID_PASSWORD);
+            }
+
+            if (request.getNewPassword() != null && !request.getNewPassword().isEmpty()) {
+                userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
+            }
+        }
+
         userEntity.setName(request.getName());
         userEntity.setEmail(request.getEmail());
-        userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userEntity.setUpdatedAt(LocalDateTime.now());
-        userEntity.setGender(request.getGender()); // 추가: 성별 설정
-        userEntity.setPhoneNumber(request.getPhoneNumber()); // 추가: 전화번호 설정
-        userEntity.setBirthdate(LocalDate.parse(request.getBirthdate())); // 추가: 생일 설정
+        userEntity.setGender(request.getGender());
+        userEntity.setPhoneNumber(request.getPhoneNumber());
+        userEntity.setBirthdate(LocalDate.parse(request.getBirthdate()));
 
-        // 사용자 정보 업데이트
         userMapper.update(userEntity);
 
-        // 이메일이 변경되었다면 새로운 토큰 생성
         String newToken = null;
         String newRefreshToken = null;
         if (emailChanged) {
@@ -123,13 +123,6 @@ public class UserService implements UserDetailsService {
         return UserResponse.from(userEntity, newToken, newRefreshToken);
     }
 
-    /**
-     * 리프레시 토큰을 사용하여 새로운 액세스 토큰 발급
-     *
-     * @param refreshToken 리프레시 토큰
-     * @return UserAuthenticationResponse 새로운 액세스 토큰과 리프레시 토큰
-     * @throws ApiException 유효하지 않은 리프레시 토큰인 경우 예외 발생
-     */
     public UserAuthenticationResponse refreshToken(String refreshToken) {
         if (jwtService.isTokenValid(refreshToken)) {
             var username = jwtService.getUsername(refreshToken);
@@ -146,13 +139,6 @@ public class UserService implements UserDetailsService {
         userMapper.deleteUser(userId);
     }
 
-    /**
-     * UserDetailsService 인터페이스 메서드 구현: 이메일로 사용자 정보 조회
-     *
-     * @param email 사용자 이메일
-     * @return UserDetails 사용자 세부 정보
-     * @throws UsernameNotFoundException 사용자를 찾을 수 없는 경우 예외 발생
-     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userMapper.findByEmail(email).orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND, email));
@@ -160,11 +146,18 @@ public class UserService implements UserDetailsService {
 
     public UserResponseMe getUserMe(Authentication authentication) {
         var user = (User) authentication.getPrincipal();
-        return UserResponseMe.builder().userId(user.getUserId()).name(user.getName()).email(user.getEmail())
-                .role(user.getRole()).build();
+        return UserResponseMe.builder()
+                .userId(user.getUserId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .gender(user.getGender())
+                .phoneNumber(user.getPhoneNumber())
+                .birthdate(user.getBirthdate())
+                .role(user.getRole())
+                .googleUser(user.getPassword() == null || user.getPassword().isEmpty())
+                .build();
     }
 
-    // Google OAuth2 로그인 처리
     public UserAuthenticationResponse googleLogin(String token) {
         GoogleIdToken.Payload payload = verifyGoogleToken(token);
         String email = payload.getEmail();
@@ -175,7 +168,7 @@ public class UserService implements UserDetailsService {
             user = new User();
             user.setEmail(email);
             user.setName((String) payload.get("name"));
-            user.setPassword(""); // 빈 문자열로 설정
+            user.setPassword("");
             user.setRole("ROLE_USER");
             user.setCreatedAt(LocalDateTime.now());
             user.setUpdatedAt(LocalDateTime.now());

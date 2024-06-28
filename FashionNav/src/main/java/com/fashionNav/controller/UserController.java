@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,6 @@ public class UserController {
         String token = body.get("token");
         UserAuthenticationResponse response = userService.googleLogin(token);
 
-        log.info("성공");
         return ResponseEntity.ok(response);
     }
 

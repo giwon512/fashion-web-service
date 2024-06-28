@@ -21,6 +21,7 @@ public class UserResponse {
     private LocalDateTime updatedAt;
     private String newAccessToken; // 새로운 액세스 토큰
     private String newRefreshToken; // 새로운 리프레시 토큰
+    private boolean googleUser; // 구글 사용자 여부 추가
 
     public static UserResponse from(User user, String newAccessToken, String newRefreshToken){
         return new UserResponse(
@@ -30,9 +31,11 @@ public class UserResponse {
                 user.getCreatedAt(),
                 user.getUpdatedAt(),
                 newAccessToken,
-                newRefreshToken
+                newRefreshToken,
+                user.getPassword() == null || user.getPassword().isEmpty()
         );
     }
+
     public static UserResponse from(User user) {
         return new UserResponse(
                 user.getUserId(),
@@ -41,7 +44,8 @@ public class UserResponse {
                 user.getCreatedAt(),
                 user.getUpdatedAt(),
                 null,
-                null
+                null,
+                user.getPassword() == null || user.getPassword().isEmpty()
         );
     }
 }

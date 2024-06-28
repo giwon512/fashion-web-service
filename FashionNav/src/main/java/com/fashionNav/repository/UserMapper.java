@@ -55,7 +55,7 @@ public interface UserMapper {
      *
      * @param user 사용자 객체
      */
-    @Update("UPDATE USER SET password = #{password}, name = #{name}, email = #{email}, role = #{role}, updated_at = #{updatedAt} " +
+    @Update("UPDATE USER SET password = #{password}, name = #{name}, email = #{email}, gender = #{gender}, phoneNumber = #{phoneNumber}, birthdate = #{birthdate}, role = #{role}, updated_at = NOW() " +
             "WHERE user_id = #{userId}")
     void update(User user);
 
