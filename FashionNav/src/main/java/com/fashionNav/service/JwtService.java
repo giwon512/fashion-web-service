@@ -17,20 +17,27 @@ import java.util.Date;
 public class JwtService {
 
     private final SecretKey key;
+    private final long accessTokenExpiry;
+    private final long refreshTokenExpiry;
 
-    // 생성자: JWT 비밀 키를 주입받아 SecretKey 객체로 변환합니다.
-    public JwtService(@Value("${jwt.secret-key}") String key) {
+    // 생성자: JWT 비밀 키와 토큰 유효 기간을 주입받습니다.
+    public JwtService(
+            @Value("${jwt.secret-key}") String key,
+            @Value("${jwt.access-token-expiry}") long accessTokenExpiry,
+            @Value("${jwt.refresh-token-expiry}") long refreshTokenExpiry) {
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(key));
+        this.accessTokenExpiry = accessTokenExpiry;
+        this.refreshTokenExpiry = refreshTokenExpiry;
     }
 
-    // 액세스 토큰을 생성합니다. 유효 기간은 15분입니다.
-    public String generateAccessToken(UserDetails userDetails){
-        return generateToken(userDetails.getUsername(), 1000 * 60 * 15); // 15분
+    // 액세스 토큰을 생성합니다. 유효 기간은 application.properties에서 설정한 값을 사용합니다.
+    public String generateAccessToken(UserDetails userDetails) {
+        return generateToken(userDetails.getUsername(), accessTokenExpiry);
     }
 
-    // 리프레시 토큰을 생성합니다. 유효 기간은 7일입니다.
-    public String generateRefreshToken(UserDetails userDetails){
-        return generateToken(userDetails.getUsername(), 1000 * 60 * 60 * 24 * 7); // 7일
+    // 리프레시 토큰을 생성합니다. 유효 기간은 application.properties에서 설정한 값을 사용합니다.
+    public String generateRefreshToken(UserDetails userDetails) {
+        return generateToken(userDetails.getUsername(), refreshTokenExpiry);
     }
 
     // 토큰에서 사용자 이름(주제)을 추출합니다.
