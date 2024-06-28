@@ -34,6 +34,11 @@ public class NewsService {
         return newsByCategory;
     }
 
+    public String getImageByNewsId(Long newsId) {
+    	String imgContent = newsMapper.getImageByNewsId(newsId);
+    	return imgContent;
+    }
+    
     public List<Banner> getTop5Banners() {
         return newsMapper.findTop5Banners();
     }

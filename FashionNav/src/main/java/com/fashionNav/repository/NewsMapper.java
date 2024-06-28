@@ -52,6 +52,8 @@ public interface NewsMapper {
             "ORDER BY published_date DESC LIMIT 3")
     List<RawNews> findTop3NewsByCategory(String category);
 
+    @Select("SELECT img_content FROM test_image WHERE news_id = #{newsId}")
+    String getImageByNewsId(@Param("newsId") Long newsId);
 
     @Select("SELECT * FROM Raw_News where category = #{category}")
     List<RawNews> findByCategoryLists(String category);

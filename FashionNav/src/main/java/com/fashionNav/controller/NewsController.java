@@ -65,6 +65,12 @@ public class NewsController {
     public ResponseEntity<Map<String, List<RawNews>>> getTop3NewsByCategories() {
         return ResponseEntity.ok(newsService.getTop3NewsByCategories());
     }
+    
+    @Operation(summary = "뉴스 아이디에 해당하는 이미지 조회", description = "뉴스 아이디에 해당하는 이미지의 base64URL을 조회합니다.")
+    @GetMapping("/top3/{newsId}")
+    public ResponseEntity<String> getImgByNewsId(@PathVariable("newsId") Long newsId){
+    	return ResponseEntity.ok(newsService.getImageByNewsId(newsId));
+    }
 
     @Operation(summary = "상위 5개 배너 조회", description = "상위 5개의 배너를 조회합니다.")
     @GetMapping("/banners")
