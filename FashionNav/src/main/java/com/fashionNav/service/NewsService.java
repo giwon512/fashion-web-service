@@ -10,6 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * NewsService 클래스는 뉴스(RawNews) 및 배너(Banner)와 관련된 비즈니스 로직을 처리합니다.
+ * 이 클래스는 뉴스의 조회, 검색, 업데이트, 삭제 및 배너의 조회와 업데이트 기능을 제공합니다.
+ * 다양한 카테고리의 뉴스와 배너를 가져오고, 페이징 처리 및 검색 기능을 지원합니다.
+ */
+
 @Service
 @RequiredArgsConstructor
 public class NewsService {

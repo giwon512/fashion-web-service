@@ -17,6 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * PostController 클래스는 게시물과 관련된 API를 제공합니다.
+ * 이 클래스는 게시물의 생성, 조회, 수정, 삭제 및 파일, 댓글과 관련된 엔드포인트를 정의합니다.
+ * 인증된 사용자는 게시물을 생성, 수정 및 삭제할 수 있습니다.
+ * 특정 게시물에 대한 파일과 댓글도 관리할 수 있습니다.
+ */
 @Slf4j
 @Tag(name = "Post API", description = "게시물 관련 API")
 @RestController

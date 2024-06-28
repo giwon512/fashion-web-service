@@ -10,7 +10,11 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 
 
 import java.io.IOException;
-
+/**
+ * LoggerFilter 클래스는 HTTP 요청 및 응답을 로깅하는 필터입니다.
+ * 이 클래스는 들어오는 요청과 나가는 응답의 세부 정보를 기록하여 디버깅 및 모니터링에 유용합니다.
+ * 요청과 응답의 본문, 헤더, URI, 메서드 등을 포함한 다양한 정보를 로깅합니다.
+ */
 @Slf4j
 @Component
 public class LoggerFilter implements Filter {

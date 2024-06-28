@@ -9,6 +9,13 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+
+/**
+ * NewsMapper
+ *
+ * 이 인터페이스는 MyBatis를 사용하여 데이터베이스와 상호작용하는 News 관련 쿼리 메서드를 정의합니다.
+ * 뉴스 및 배너 관련 데이터베이스 작업을 수행합니다.
+ */
 public interface NewsMapper {
 
 

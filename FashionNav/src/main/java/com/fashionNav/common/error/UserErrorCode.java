@@ -6,11 +6,18 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 
-/*
-* User의 경우 1000 번대 에러 사용
-*
-* */
 
+/*
+ * User의 경우 1400번대 에러 사용.
+ * UserErrorCode 열거형은 사용자와 관련된 에러 코드를 정의합니다.
+ * 각 에러 코드는 HTTP 상태 코드, 고유 에러 코드 및 에러 설명을 포함합니다.
+ *
+ * 주요 에러 코드:
+ * - USER_NOT_FOUND: 사용자를 찾을 수 없을 때의 에러 코드
+ * - USER_ALREADY_EXISTS: 이미 존재하는 사용자에 대한 에러 코드
+ * - USER_NOT_ALLOWED: 허용되지 않은 사용자에 대한 에러 코드
+ * - INVALID_PASSWORD: 패스워드가 올바르지 않을 때의 에러 코드
+ */
 @AllArgsConstructor
 @Getter
 public enum UserErrorCode implements ErrorCodeIfs {

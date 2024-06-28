@@ -4,6 +4,13 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 
+/**
+ * 구글 로그인과 일반 사용자를 구분하기 위해서
+ * ConditionalNotBlankValidator 클래스는 ConditionalNotBlank 애너테이션의 논리를 구현합니다.
+ * 이 클래스는 특정 조건에 따라 필드의 값이 비어 있지 않은지 검증합니다.
+ * 조건 필드와 조건 값을 검사하고, 조건이 만족되면 검증 대상 필드가 비어 있지 않은지 확인합니다.
+ * 조건이 만족되지 않으면 해당 필드에 대한 검증을 수행하지 않습니다.
+ */
 public class ConditionalNotBlankValidator implements ConstraintValidator<ConditionalNotBlank, Object> {
     private String conditionField;
     private String conditionValue;

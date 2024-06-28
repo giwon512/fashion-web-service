@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+/**
+ * JwtService 클래스는 JWT 토큰의 생성, 검증, 정보 추출 등의 기능을 제공하는 서비스 클래스입니다.
+ * 이 클래스는 액세스 토큰과 리프레시 토큰을 생성하고, 토큰의 유효성을 검증하며, 토큰에서 사용자 이름(주제)을 추출하는 기능을 수행합니다.
+ * JWT 비밀 키와 토큰의 유효 기간은 application.properties 파일에서 설정된 값을 사용하여 초기화됩니다.
+ */
 @Slf4j
 @Service
 public class JwtService {

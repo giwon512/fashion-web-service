@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+/**
+ * StyleController 클래스는 스타일과 관련된 API를 제공합니다.
+ * 이 클래스는 모든 스타일 목록을 조회하는 엔드포인트를 정의합니다.
+ * 스타일 목록은 데이터베이스에서 조회됩니다.
+ */
 @RestController
 @RequestMapping("/api/styles")
 @RequiredArgsConstructor

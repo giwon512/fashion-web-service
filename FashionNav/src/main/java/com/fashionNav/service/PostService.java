@@ -20,6 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * PostService 클래스는 게시물(Post) 및 관련 댓글(Comment), 파일(File)과 관련된 비즈니스 로직을 처리합니다.
+ * 게시물의 생성, 조회, 수정, 삭제 기능과 함께 댓글 및 파일 관리 기능을 제공합니다.
+ * 사용자 인증(Authentication)을 통해 사용자 권한을 확인하고, 게시물과 댓글의 소유자를 확인합니다.
+ */
 @Service
 @RequiredArgsConstructor
 public class PostService {

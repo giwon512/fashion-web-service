@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * UserSurveyController 클래스는 사용자 설문조사와 관련된 API를 제공합니다.
+ * 이 클래스는 사용자 설문조사를 생성, 조회, 업데이트, 삭제하는 기능을 포함합니다.
+ * 또한 인증된 사용자의 설문조사 목록을 조회할 수 있습니다.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/surveys")

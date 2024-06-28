@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * NewsController 클래스는 뉴스와 관련된 API를 제공합니다.
+ * 이 클래스는 뉴스의 조회, 업데이트, 삭제 및 검색 기능을 수행하는 엔드포인트를 정의합니다.
+ * 관리자는 특정 뉴스와 배너를 업데이트하거나 삭제할 수 있습니다.
+ */
 @Tag(name = "News API", description = "뉴스 관련 API")
 @Slf4j
 @RestController

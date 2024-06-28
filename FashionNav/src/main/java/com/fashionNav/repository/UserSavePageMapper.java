@@ -12,6 +12,10 @@ import org.apache.ibatis.annotations.Select;
 
 import com.fashionNav.model.entity.UserSavedPage;
 
+/**
+ * UserSavePageMapper 인터페이스는 사용자 저장 페이지 데이터를 관리하는 MyBatis 매퍼 인터페이스입니다.
+ * 이 인터페이스는 사용자 저장 페이지 데이터를 조회, 삽입 및 삭제하는 메서드를 제공합니다.
+ */
 @Mapper
 public interface UserSavePageMapper {
 

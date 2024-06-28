@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * NewsCommentController 클래스는 뉴스 댓글 관련 API를 제공합니다.
+ * 이 클래스는 댓글을 조회, 추가, 수정, 삭제하는 엔드포인트를 정의합니다.
+ * 사용자 인증 정보를 사용하여 댓글을 추가, 수정 및 삭제할 수 있습니다.
+ */
 @RestController
 @RequestMapping("/api/news-comments")
 @RequiredArgsConstructor

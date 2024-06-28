@@ -9,7 +9,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
-
+/**
+ * AuthorizationInterceptor 클래스는 요청의 권한을 검증하는 인터셉터입니다.
+ * 이 클래스는 HTTP 요청이 처리되기 전에 특정 조건을 만족하는지 확인하여, 조건에 따라 요청을 계속 처리하거나 차단합니다.
+ * 예를 들어, OPTIONS 메서드 요청이나 리소스 파일 요청의 경우 검증을 통과시키고, 그 외의 경우는 추가 검증 로직을 수행합니다.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Component

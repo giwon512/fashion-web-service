@@ -4,6 +4,10 @@ import com.fashionNav.model.entity.Style;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+/**
+ * StyleMapper 인터페이스는 스타일 데이터를 관리하는 MyBatis 매퍼 인터페이스입니다.
+ * 이 인터페이스는 스타일 데이터를 조회, 삽입, 업데이트 및 삭제하는 메서드를 제공합니다.
+ */
 
 @Mapper
 public interface StyleMapper {
