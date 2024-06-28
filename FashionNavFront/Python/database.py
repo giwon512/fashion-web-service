@@ -39,7 +39,7 @@ def test_insert_image(conn, imageData, newsId):
     
 def test_select_id(conn):
     cur = conn.cursor()
-    sql = "select news_id from Test_News order by published_date desc limit 1"
+    sql = "select news_id from Raw_News order by published_date desc limit 1"
     cur.execute(sql)
     result = cur.fetchall()
     return result[0]

@@ -77,7 +77,7 @@ def scrape_news():
                 encoded_image = base64.b64encode(img_data).decode('utf-8')
                 
                 conn = dbConnect()
-                test_insert_data(conn, news_obj)
+                insert_data(conn, news_obj)
                 newsId = test_select_id(conn)
                 test_insert_image(conn, encoded_image, newsId)
         finally:

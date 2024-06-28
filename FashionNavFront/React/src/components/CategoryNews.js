@@ -6,12 +6,37 @@ import './CategoryNews.css';
 
 const CategoryNews = ({ category }) => {
     const [newsList, setNewsList] = useState([]);
+    const [imgList, setImgList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        api.get(`/top3?category=${category}`)
+        const getNews = async () => {
+            await api.get(`/top3?category=${category}`)
             .then(response => setNewsList(response.data[category]))
             .catch(error => console.error('Error fetching category news:', error));
+        }
+
+        getNews();
     }, [category]);
+
+    useEffect(() => {
+        const getImages = async () => {
+            let imgContent = []
+            for (const news of newsList) {
+                await api.get(`/top3/${news.newsId}`)
+                .then(response => imgContent.push(response.data))
+                .catch(error => console.error('Error fetching news images', error));
+            }
+            setImgList(imgContent);
+            setIsLoading(false);
+        }
+
+        getImages();
+    }, [newsList]);
+
+    if(isLoading) {
+        return <h2>Loading...</h2>
+    }
 
     return (
         <div className="category-news">
@@ -20,11 +45,11 @@ const CategoryNews = ({ category }) => {
                 <Link to={`/news/${category}`} className="more-link">MORE &gt;&gt;</Link>
             </div>
             <div className="news-items">
-                {newsList.map(news => (
+                {newsList.map((news, index) => (
                     <div key={news.newsId} className="news-item">
                         <Link to={`/news/details/${news.newsId}`}>
                             <div className="news-image">
-                                <img src={news.imageUrl} alt={news.title} />
+                                <img src={"data:image/jpg;base64,"+imgList[index]} alt={news.title} />
                             </div>
                             <div className="news-text">
                                 <h3>{news.title}</h3>
