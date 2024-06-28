@@ -4,6 +4,9 @@ import com.fashionNav.model.entity.Comment;
 import com.fashionNav.model.entity.File;
 import com.fashionNav.model.entity.Post;
 import com.fashionNav.service.PostService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +17,21 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * PostController 클래스는 게시물과 관련된 API를 제공합니다.
+ * 이 클래스는 게시물의 생성, 조회, 수정, 삭제 및 파일, 댓글과 관련된 엔드포인트를 정의합니다.
+ * 인증된 사용자는 게시물을 생성, 수정 및 삭제할 수 있습니다.
+ * 특정 게시물에 대한 파일과 댓글도 관리할 수 있습니다.
+ */
 @Slf4j
+@Tag(name = "Post API", description = "게시물 관련 API")
 @RestController
-@RequestMapping("/api/posts")
 @RequiredArgsConstructor
+@RequestMapping("/api/posts")
 public class PostController {
     private final PostService postService;
 
+    @Operation(summary = "게시물 목록 조회", description = "게시판 유형에 따라 게시물 목록을 페이지네이션하여 조회합니다.")
     @GetMapping
     public ResponseEntity<Map<String, Object>> getPostsByBoardType(
             @RequestParam String boardType,
@@ -31,16 +42,21 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "게시물 조회", description = "특정 ID를 가진 게시물을 조회합니다.")
     @GetMapping("/{postId}")
-    public Post getPostById(@PathVariable int postId){
-        return postService.getPostById(postId);
+    public ResponseEntity<Post> getPostById(@PathVariable("postId") int postId) {
+        Post post = postService.getPostById(postId);
+        return ResponseEntity.ok(post);
     }
 
+    @Operation(summary = "게시물 댓글 조회", description = "특정 게시물에 대한 댓글 목록을 조회합니다.")
     @GetMapping("/{postId}/replies")
-    public List<Post> getRepliesByPostId(@PathVariable int postId) {
-        return postService.getRepliesByPostId(postId);
+    public ResponseEntity<List<Post>> getRepliesByPostId(@PathVariable("postId") int postId) {
+        List<Post> replies = postService.getRepliesByPostId(postId);
+        return ResponseEntity.ok(replies);
     }
 
+    @Operation(summary = "게시물 생성", description = "새로운 게시물을 생성합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping(consumes = {"multipart/form-data"})
     public ResponseEntity<String> createPost(
             @RequestPart("post") Post post,
@@ -50,9 +66,10 @@ public class PostController {
         return ResponseEntity.ok("Post created successfully");
     }
 
+    @Operation(summary = "댓글 생성", description = "특정 게시물에 대한 댓글을 생성합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/{postId}/replies")
     public ResponseEntity<String> createReply(
-            @PathVariable int postId,
+            @PathVariable("postId") int postId,
             @RequestBody Post post,
             Authentication authentication) {
         post.setParentPostId(postId);
@@ -60,63 +77,75 @@ public class PostController {
         return ResponseEntity.ok("Reply created successfully");
     }
 
+    @Operation(summary = "게시물 수정", description = "특정 게시물을 수정합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{postId}")
-    public ResponseEntity<String> updatePost(@PathVariable int postId, @RequestBody Post post, Authentication authentication) {
+    public ResponseEntity<String> updatePost(@PathVariable("postId") int postId, @RequestBody Post post, Authentication authentication) {
         post.setPostId(postId);
         postService.updatePost(post, authentication);
         return ResponseEntity.ok("Post updated successfully");
     }
 
+    @Operation(summary = "게시물 삭제", description = "특정 게시물을 삭제합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @DeleteMapping("/{postId}")
-    public ResponseEntity<String> deletePost(@PathVariable int postId, Authentication authentication) {
+    public ResponseEntity<String> deletePost(@PathVariable("postId") int postId, Authentication authentication) {
         postService.deletePost(postId, authentication);
         return ResponseEntity.ok("Post deleted successfully");
     }
 
+    @Operation(summary = "댓글 목록 조회", description = "특정 게시물에 대한 댓글 목록을 조회합니다.")
     @GetMapping("/{postId}/comments")
-    public List<Comment> getCommentsByPostId(@PathVariable int postId) {
-        return postService.getCommentsByPostId(postId);
+    public ResponseEntity<List<Comment>> getCommentsByPostId(@PathVariable("postId") int postId) {
+        List<Comment> comments = postService.getCommentsByPostId(postId);
+        return ResponseEntity.ok(comments);
     }
 
+    @Operation(summary = "댓글 생성", description = "특정 게시물에 댓글을 생성합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/{postId}/comments")
-    public ResponseEntity<String> createComment(@PathVariable int postId, @RequestBody Comment comment, Authentication authentication) {
+    public ResponseEntity<String> createComment(@PathVariable("postId") int postId, @RequestBody Comment comment, Authentication authentication) {
         comment.setPostId(postId);
         postService.createComment(comment, authentication);
         return ResponseEntity.ok("Comment created successfully");
     }
 
+    @Operation(summary = "댓글 수정", description = "특정 게시물에 대한 댓글을 수정합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{postId}/comments/{commentId}")
-    public ResponseEntity<String> updateComment(@PathVariable int postId, @PathVariable int commentId, @RequestBody Comment comment, Authentication authentication) {
+    public ResponseEntity<String> updateComment(@PathVariable("postId") int postId, @PathVariable("commentId") int commentId, @RequestBody Comment comment, Authentication authentication) {
         comment.setCommentId(commentId);
         postService.updateComment(comment, authentication);
         return ResponseEntity.ok("Comment updated successfully");
     }
 
+    @Operation(summary = "댓글 삭제", description = "특정 게시물에 대한 댓글을 삭제합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @DeleteMapping("/{postId}/comments/{commentId}")
-    public ResponseEntity<String> deleteComment(@PathVariable int postId, @PathVariable int commentId, Authentication authentication) {
+    public ResponseEntity<String> deleteComment(@PathVariable("postId") int postId, @PathVariable("commentId") int commentId, Authentication authentication) {
         postService.deleteComment(commentId, authentication);
         return ResponseEntity.ok("Comment deleted successfully");
     }
 
+    @Operation(summary = "파일 목록 조회", description = "특정 게시물에 대한 파일 목록을 조회합니다.")
     @GetMapping("/{postId}/files")
-    public List<File> getFilesByPostId(@PathVariable int postId) {
-        return postService.getFilesByPostId(postId);
+    public ResponseEntity<List<File>> getFilesByPostId(@PathVariable("postId") int postId) {
+        List<File> files = postService.getFilesByPostId(postId);
+        return ResponseEntity.ok(files);
     }
 
+    @Operation(summary = "파일 업로드", description = "특정 게시물에 파일을 업로드합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/{postId}/files")
-    public ResponseEntity<String> uploadFile(@PathVariable int postId, @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadFile(@PathVariable("postId") int postId, @RequestParam("file") MultipartFile file) {
         postService.createFile(postId, file);
         return ResponseEntity.ok("File uploaded successfully");
     }
 
+    @Operation(summary = "파일 수정", description = "특정 게시물에 대한 파일을 수정합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{postId}/files/{fileId}")
-    public ResponseEntity<String> updateFile(@PathVariable int postId, @PathVariable int fileId, @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> updateFile(@PathVariable("postId") int postId, @PathVariable("fileId") int fileId, @RequestParam("file") MultipartFile file) {
         postService.updateFile(fileId, file);
         return ResponseEntity.ok("File updated successfully");
     }
 
+    @Operation(summary = "파일 삭제", description = "특정 게시물에 대한 파일을 삭제합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @DeleteMapping("/{postId}/files/{fileId}")
-    public ResponseEntity<String> deleteFile(@PathVariable int postId, @PathVariable int fileId) {
+    public ResponseEntity<String> deleteFile(@PathVariable("postId") int postId, @PathVariable("fileId") int fileId) {
         postService.deleteFile(fileId);
         return ResponseEntity.ok("File deleted successfully");
     }

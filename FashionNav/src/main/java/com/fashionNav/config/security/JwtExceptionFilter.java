@@ -15,6 +15,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.HashMap;
 
+
+/**
+ * JwtExceptionFilter
+ *
+ * 이 필터는 요청을 가로채고 필터 체인 실행 중에 발생하는 JwtException을 처리합니다.
+ * JwtException이 발생하면, 응답 상태를 401 Unauthorized로 설정하고
+ * 오류 세부 정보가 포함된 JSON 응답을 반환합니다.
+ */
 @Component
 public class JwtExceptionFilter extends OncePerRequestFilter {
     @Override

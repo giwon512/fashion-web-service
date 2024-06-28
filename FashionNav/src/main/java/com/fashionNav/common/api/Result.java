@@ -10,7 +10,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * Result 클래스는 API 응답의 결과 정보를 포함하는 데이터 구조를 정의합니다.
+ * 이 클래스는 요청의 성공 또는 실패 상태를 나타내는 코드와 메시지를 포함합니다.
+ *
+ * 주요 필드:
+ * - resultCode: 요청의 결과 상태를 나타내는 코드.
+ * - resultMessage: 요청의 결과 메시지.
+ * - resultDescription: 요청의 결과 설명.
+ *
+ * 주요 메서드:
+ * - OK(): 기본 성공 응답을 생성합니다.
+ * - OK(SuccessCodeIfs successCodeIfs): 지정된 성공 코드를 포함한 성공 응답을 생성합니다.
+ * - ERROR(ErrorCodeIfs errorCodeIfs): 지정된 에러 코드를 포함한 에러 응답을 생성합니다.
+ * - ERROR(ErrorCodeIfs errorCodeIfs, Throwable tx): 지정된 에러 코드와 예외를 포함한 에러 응답을 생성합니다.
+ * - ERROR(ErrorCodeIfs errorCodeIfs, String description): 지정된 에러 코드와 설명을 포함한 에러 응답을 생성합니다.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

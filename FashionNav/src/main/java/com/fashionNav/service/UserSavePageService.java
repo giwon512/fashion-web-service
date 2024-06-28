@@ -15,6 +15,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * UserSavePageService 클래스는 사용자가 저장한 페이지를 관리하는 기능을 제공합니다.
+ * 사용자는 페이지를 저장하고, 저장한 페이지를 조회하며, 저장한 페이지를 삭제할 수 있습니다.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor

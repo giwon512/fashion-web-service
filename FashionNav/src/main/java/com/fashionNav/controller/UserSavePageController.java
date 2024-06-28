@@ -12,7 +12,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * UserSavePageController 클래스는 사용자가 저장한 페이지와 관련된 API를 제공합니다.
+ * 이 클래스는 사용자가 특정 뉴스를 저장하고, 저장된 뉴스를 조회하며, 저장된 뉴스를 삭제하는 기능을 포함합니다.
+ * 각 엔드포인트는 인증된 사용자만 접근할 수 있습니다.
+ */
 @Tag(name = "UserSavePage", description = "저장한 페이지")
 @Slf4j
 @RestController

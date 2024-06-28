@@ -27,7 +27,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-
+/**
+ * UserController 클래스는 사용자 관련 API를 제공합니다.
+ * 이 클래스는 사용자 등록, 인증, 정보 조회 및 수정, 탈퇴 등의 기능을 포함합니다.
+ * 사용자 인증 및 권한 부여를 위해 JWT 토큰을 사용하며, 특정 엔드포인트는 인증된 사용자나 관리자만 접근할 수 있습니다.
+ */
 @Slf4j
 @Tag(name = "User API", description = "사용자 관련 API")
 @RestController

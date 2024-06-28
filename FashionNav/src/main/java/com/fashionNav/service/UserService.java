@@ -32,6 +32,11 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Optional;
 
+
+/**
+ * UserService 클래스는 사용자 등록, 인증, 업데이트, 삭제 등의 기능을 제공하는 서비스입니다.
+ * Google OAuth2 로그인을 처리하며, JWT 토큰의 생성 및 검증을 담당합니다.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {

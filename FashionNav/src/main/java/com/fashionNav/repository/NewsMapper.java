@@ -9,6 +9,13 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+
+/**
+ * NewsMapper
+ *
+ * 이 인터페이스는 MyBatis를 사용하여 데이터베이스와 상호작용하는 News 관련 쿼리 메서드를 정의합니다.
+ * 뉴스 및 배너 관련 데이터베이스 작업을 수행합니다.
+ */
 public interface NewsMapper {
 
 
@@ -45,6 +52,8 @@ public interface NewsMapper {
             "ORDER BY published_date DESC LIMIT 3")
     List<RawNews> findTop3NewsByCategory(String category);
 
+    @Select("SELECT img_content FROM test_image WHERE news_id = #{newsId}")
+    String getImageByNewsId(@Param("newsId") Long newsId);
 
     @Select("SELECT * FROM Raw_News where category = #{category}")
     List<RawNews> findByCategoryLists(String category);

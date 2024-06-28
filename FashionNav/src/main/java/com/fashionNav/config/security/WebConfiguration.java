@@ -19,6 +19,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+
+/**
+ * WebConfiguration
+ *
+ * 이 클래스는 Spring Security 설정을 정의합니다. JWT 인증 및 OAuth2 로그인 기능을 설정하고,
+ * 특정 엔드포인트에 대한 접근 권한을 설정하며, CORS 설정을 정의합니다.
+ */
 @Configuration
 @RequiredArgsConstructor
 @EnableMethodSecurity

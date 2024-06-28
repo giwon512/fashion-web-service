@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+/**
+ * UserService 클래스는 사용자 설문, 등록, 업데이트, 삭제 등의 기능을 제공하는 서비스입니다.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserSurveyService {
