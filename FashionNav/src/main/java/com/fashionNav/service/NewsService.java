@@ -4,6 +4,7 @@ import com.fashionNav.model.entity.Banner;
 import com.fashionNav.model.entity.RawNews;
 import com.fashionNav.repository.NewsCommentMapper;
 import com.fashionNav.repository.NewsMapper;
+import com.fashionNav.repository.UserSavePageMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class NewsService {
     private final NewsMapper newsMapper;
     private final NewsCommentMapper newsCommentMapper;
+    private final UserSavePageMapper userSavePageMapper;
 
     public Map<String, List<RawNews>> getTop3NewsByCategories() {
         Map<String, List<RawNews>> newsByCategory = new HashMap<>();
@@ -100,6 +102,8 @@ public class NewsService {
 
     @Transactional
     public void deleteRawNews(Long newsId) {
+
+        userSavePageMapper.deleteByNewsId(newsId);
         newsCommentMapper.deleteByNewsId(newsId);
         newsMapper.deleteRawNews(newsId);
 

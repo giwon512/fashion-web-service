@@ -37,6 +37,8 @@ public interface UserSavePageMapper {
 
 	@Delete("DELETE FROM UserSavedPage WHERE user_Id = #{userId} AND news_Id = #{newsId}")
     void deleteUserPageByUserIdAndNewsId(@Param("userId") Long userId, @Param("newsId") Long newsId);
-	
-	
+
+
+	@Delete("DELETE FROM UserSavedPage WHERE news_Id = #{newsId}")
+    void deleteByNewsId(@Param("newsId") Long newsId);
 }

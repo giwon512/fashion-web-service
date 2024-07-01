@@ -47,7 +47,7 @@ public interface UserMapper {
      *
      * @param user 사용자 객체
      */
-    @Insert("INSERT INTO USER (password, name, email, gender, phone_number, birthdate, role, created_at, updated_at) " +
+    @Insert("INSERT INTO USER (password, name, email, gender, phoneNumber, birthdate, role, created_at, updated_at) " +
             "VALUES (#{password}, #{name}, #{email}, #{gender}, #{phoneNumber}, #{birthdate}, #{role}, #{createdAt}, #{updatedAt})")
     @Options(useGeneratedKeys = true, keyProperty = "userId")
     void insert(User user);
