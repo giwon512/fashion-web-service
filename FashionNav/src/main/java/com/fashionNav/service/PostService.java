@@ -56,6 +56,10 @@ public class PostService {
         return response;
     }
 
+    public File getFileById(int fileId) {
+        return fileMapper.findFileById(fileId);
+    }
+
     public Post getPostById(int postId) {
         Post post = postMapper.findPostById(postId);
         User user = postMapper.findUserById(post.getUserId());
@@ -120,7 +124,6 @@ public class PostService {
         }
         commentMapper.updateComment(comment);
     }
-
     public void deleteComment(int commentId, Authentication authentication) {
         Long userId = ((User) authentication.getPrincipal()).getUserId();
         Comment comment = commentMapper.findCommentById(commentId);
@@ -137,20 +140,33 @@ public class PostService {
         return fileMapper.findFilesByPostId(postId);
     }
 
-    public void createFile(int postId, MultipartFile file) {
+    public void createFile(int postId, MultipartFile file, Authentication authentication) {
+        Long userId = ((User) authentication.getPrincipal()).getUserId();
+        Post post = postMapper.findPostById(postId);
+        if (post.getUserId() != userId) {
+            throw new IllegalArgumentException("You do not have permission to upload files for this post");
+        }
         saveFile(postId, file);
     }
 
-    public void updateFile(int fileId, MultipartFile file) {
+    public void updateFile(int fileId, MultipartFile file, Authentication authentication) {
         File existingFile = fileMapper.findFileById(fileId);
-        if (existingFile == null) {
-            throw new IllegalArgumentException("File not found");
+        Post post = postMapper.findPostById(existingFile.getPostId());
+        Long userId = ((User) authentication.getPrincipal()).getUserId();
+        if (post.getUserId() != userId) {
+            throw new IllegalArgumentException("You do not have permission to update files for this post");
         }
         saveFile(existingFile.getPostId(), file);
-        fileMapper.updateFile(fileId, existingFile.getFileName(), existingFile.getFilePath());
+        fileMapper.updateFile(fileId, file.getOriginalFilename(), existingFile.getFilePath());
     }
 
-    public void deleteFile(int fileId) {
+    public void deleteFile(int fileId, Authentication authentication) {
+        File file = fileMapper.findFileById(fileId);
+        Post post = postMapper.findPostById(file.getPostId());
+        Long userId = ((User) authentication.getPrincipal()).getUserId();
+        if (post.getUserId() != userId) {
+            throw new IllegalArgumentException("You do not have permission to delete files for this post");
+        }
         fileMapper.deleteFile(fileId);
     }
 

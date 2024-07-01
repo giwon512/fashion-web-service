@@ -9,11 +9,17 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -131,22 +137,43 @@ public class PostController {
 
     @Operation(summary = "파일 업로드", description = "특정 게시물에 파일을 업로드합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/{postId}/files")
-    public ResponseEntity<String> uploadFile(@PathVariable("postId") int postId, @RequestParam("file") MultipartFile file) {
-        postService.createFile(postId, file);
+    public ResponseEntity<String> uploadFile(@PathVariable("postId") int postId, @RequestParam("file") MultipartFile file, Authentication authentication) {
+        postService.createFile(postId, file, authentication);
         return ResponseEntity.ok("File uploaded successfully");
     }
 
     @Operation(summary = "파일 수정", description = "특정 게시물에 대한 파일을 수정합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{postId}/files/{fileId}")
-    public ResponseEntity<String> updateFile(@PathVariable("postId") int postId, @PathVariable("fileId") int fileId, @RequestParam("file") MultipartFile file) {
-        postService.updateFile(fileId, file);
+    public ResponseEntity<String> updateFile(@PathVariable("postId") int postId, @PathVariable("fileId") int fileId, @RequestParam("file") MultipartFile file, Authentication authentication) {
+        postService.updateFile(fileId, file, authentication);
         return ResponseEntity.ok("File updated successfully");
     }
 
     @Operation(summary = "파일 삭제", description = "특정 게시물에 대한 파일을 삭제합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @DeleteMapping("/{postId}/files/{fileId}")
-    public ResponseEntity<String> deleteFile(@PathVariable("postId") int postId, @PathVariable("fileId") int fileId) {
-        postService.deleteFile(fileId);
+    public ResponseEntity<String> deleteFile(@PathVariable("postId") int postId, @PathVariable("fileId") int fileId, Authentication authentication) {
+        postService.deleteFile(fileId, authentication);
         return ResponseEntity.ok("File deleted successfully");
+    }
+
+    @Operation(summary = "파일 다운로드", description = "특정 파일을 다운로드합니다.")
+    @GetMapping("/files/download/{fileId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable("fileId") int fileId) {
+        File file = postService.getFileById(fileId);
+        Path path = Paths.get(file.getFilePath());
+        Resource resource;
+        try {
+            resource = new UrlResource(path.toUri());
+            if (!resource.exists()) {
+                throw new RuntimeException("File not found: " + file.getFilePath());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("File not found: " + file.getFilePath(), e);
+        }
+
+        String encodedFileName = UriUtils.encode(file.getFileName(), "UTF-8");
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedFileName + "\"")
+                .body(resource);
     }
 }
