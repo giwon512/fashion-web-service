@@ -21,4 +21,5 @@ import lombok.NoArgsConstructor;
 public class UserAuthenticationResponse {
     private String accessToken;
     private String refreshToken;
+    private boolean newUser; // 필드명 변경
 }

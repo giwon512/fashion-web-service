@@ -51,7 +51,7 @@ public class UserController {
 
     @Operation(summary = "회원 가입", description = "새로운 사용자를 등록합니다.")
     @PostMapping("/register")
-    public Api<UserResponse> createUser(@RequestBody UserRegisterRequest request) {
+    public Api<UserResponse> createUser(@Valid @RequestBody UserRegisterRequest request) {
         UserRegistrationResponse response = userService.register(request);
         return Api.OK(UserResponse.builder()
                 .userId(response.getUserId())

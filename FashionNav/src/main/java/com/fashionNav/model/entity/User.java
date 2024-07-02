@@ -76,16 +76,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    // of 메서드 추가
-    public static User of(String password, String name, String email, String role) {
-        LocalDateTime now = LocalDateTime.now();
-        return User.builder()
-                .password(password)
-                .name(name)
-                .email(email)
-                .createdAt(now)
-                .updatedAt(now)
-                .role(role)
-                .build();
-    }
 }

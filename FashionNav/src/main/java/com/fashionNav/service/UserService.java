@@ -17,6 +17,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +38,8 @@ import java.util.Optional;
  * UserService 클래스는 사용자 등록, 인증, 업데이트, 삭제 등의 기능을 제공하는 서비스입니다.
  * Google OAuth2 로그인을 처리하며, JWT 토큰의 생성 및 검증을 담당합니다.
  */
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
@@ -51,6 +54,7 @@ public class UserService implements UserDetailsService {
 
 
     public UserRegistrationResponse register(UserRegisterRequest request) {
+
         userMapper.findByEmail(request.getEmail()).ifPresent(user -> {
             throw new ApiException(UserErrorCode.USER_ALREADY_EXISTS);
         });
@@ -80,7 +84,7 @@ public class UserService implements UserDetailsService {
         if (passwordEncoder.matches(body.getPassword(), userEntity.getPassword())) {
             var accessToken = jwtService.generateAccessToken(userEntity);
             var refreshToken = jwtService.generateRefreshToken(userEntity);
-            return new UserAuthenticationResponse(accessToken, refreshToken);
+            return new UserAuthenticationResponse(accessToken, refreshToken,false);
         } else {
             throw new ApiException(UserErrorCode.INVALID_PASSWORD);
         }
@@ -92,6 +96,9 @@ public class UserService implements UserDetailsService {
     }
 
     public UserResponse updateUser(User currentUser, UserUpdateRequest request) {
+
+        log.info("login");
+
         var userEntity = userMapper.findById(currentUser.getUserId())
                 .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
 
@@ -139,7 +146,7 @@ public class UserService implements UserDetailsService {
             var username = jwtService.getUsername(refreshToken);
             var userEntity = getUserEntityByUserEmail(username);
             var newAccessToken = jwtService.generateAccessToken(userEntity);
-            return new UserAuthenticationResponse(newAccessToken, refreshToken);
+            return new UserAuthenticationResponse(newAccessToken, refreshToken,false);
         } else {
             throw new ApiException(TokenErrorCode.INVALID_TOKEN, "유효하지 않은 리프레시 토큰입니다.");
         }
@@ -175,6 +182,8 @@ public class UserService implements UserDetailsService {
 
         Optional<User> optionalUser = userMapper.findByEmail(email);
         User user;
+        boolean isNewUser;
+
         if (optionalUser.isEmpty()) {
             user = new User();
             user.setEmail(email);
@@ -184,16 +193,21 @@ public class UserService implements UserDetailsService {
             user.setCreatedAt(LocalDateTime.now());
             user.setUpdatedAt(LocalDateTime.now());
             userMapper.insert(user);
+            isNewUser = true; // 신규 가입
+            log.info("true");
         } else {
             user = optionalUser.get();
             user.setUpdatedAt(LocalDateTime.now());
             userMapper.update(user);
+            isNewUser = false; // 기존 사용자
+            log.info("false");
         }
 
         String jwt = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
-        return new UserAuthenticationResponse(jwt, refreshToken);
+        return new UserAuthenticationResponse(jwt, refreshToken, isNewUser);
     }
+
 
     private GoogleIdToken.Payload verifyGoogleToken(String token) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
