@@ -1,231 +1,210 @@
-create table fashiondb.CATEGORY
+create table Banner
 (
-    style varchar(50) not null
-        primary key
-);
-
-create table fashiondb.CONTENT_TYPE
-(
-    content_type varchar(50)  not null
+    banner_id    bigint auto_increment
         primary key,
-    description  varchar(200) null
+    title        varchar(255) null,
+    url          varchar(255) null,
+    image_url    varchar(255) null,
+    created_date timestamp    null,
+    description  varchar(255) null
 );
 
-create table fashiondb.CRAWLING_SITE
+create table Brand
 (
-    site_address    varchar(200) not null
+    brand_id bigint auto_increment
         primary key,
-    site_name       varchar(100) null,
-    last_crawled    datetime     null,
-    crawl_frequency varchar(20)  null
+    name     varchar(255) not null
 );
 
-create table fashiondb.IMAGES
+create table ProcessedNews
 (
-    image_id int auto_increment
+    news_id        bigint auto_increment
         primary key,
-    url      varchar(500) not null,
-    alt_text varchar(200) null,
-    caption  varchar(500) null
+    title          varchar(255)                      not null,
+    content        text                              not null,
+    image_url      varchar(255)                      null,
+    source         varchar(255)                      null,
+    author         varchar(255)                      null,
+    published_date timestamp                         null,
+    category       varchar(255)                      null,
+    gender         enum ('남', '여')                   null,
+    age_group      enum ('10대', '20대', '30대', '40대') null,
+    style          varchar(255)                      null,
+    brand          varchar(255)                      null
 );
 
-create table fashiondb.ITEM
+create table Raw_News
 (
-    item_id     int auto_increment
+    news_id        bigint auto_increment
         primary key,
-    name        varchar(100)   not null,
-    description varchar(500)   null,
-    price       decimal(10, 2) null,
-    brand       varchar(50)    null,
-    style       varchar(50)    null,
-    constraint ITEM_ibfk_1
-        foreign key (style) references fashiondb.CATEGORY (style)
+    title          varchar(255) null,
+    content        longtext     null,
+    image_url      varchar(255) null,
+    source         varchar(255) null,
+    author         varchar(255) null,
+    published_date timestamp    null,
+    category       varchar(255) null
 );
 
-create index style
-    on fashiondb.ITEM (style);
-
-create table fashiondb.ITEM_CATEGORY
+create table Style
 (
-    item_id int         not null,
-    style   varchar(50) not null,
-    primary key (item_id, style),
-    constraint ITEM_CATEGORY_ibfk_1
-        foreign key (item_id) references fashiondb.ITEM (item_id),
-    constraint ITEM_CATEGORY_ibfk_2
-        foreign key (style) references fashiondb.CATEGORY (style)
-);
-
-create index style
-    on fashiondb.ITEM_CATEGORY (style);
-
-create table fashiondb.ITEM_IMAGE
-(
-    item_id  int                  not null,
-    image_id int                  not null,
-    is_main  tinyint(1) default 0 null,
-    primary key (item_id, image_id),
-    constraint ITEM_IMAGE_ibfk_1
-        foreign key (item_id) references fashiondb.ITEM (item_id),
-    constraint ITEM_IMAGE_ibfk_2
-        foreign key (image_id) references fashiondb.IMAGES (image_id)
-);
-
-create index image_id
-    on fashiondb.ITEM_IMAGE (image_id);
-
-create table fashiondb.NEWS_TYPE
-(
-    type             varchar(50)  not null
+    style_id bigint auto_increment
         primary key,
-    type_description varchar(200) null
+    name     varchar(255) not null
 );
 
-create table fashiondb.NEWS
+create table USER
 (
-    news_id        int auto_increment
+    user_id     bigint auto_increment
         primary key,
-    title          varchar(200)  not null,
-    content        text          null,
-    type           varchar(50)   null,
-    source         varchar(100)  null,
-    author         varchar(50)   null,
-    published_date date          null,
-    modified_date  date          null,
-    visit_count    int default 0 null,
-    like_count     int default 0 null,
-    style          varchar(50)   null,
-    constraint NEWS_ibfk_1
-        foreign key (type) references fashiondb.NEWS_TYPE (type),
-    constraint NEWS_ibfk_2
-        foreign key (style) references fashiondb.CATEGORY (style)
-);
-
-create index style
-    on fashiondb.NEWS (style);
-
-create index type
-    on fashiondb.NEWS (type);
-
-
-create table fashiondb.PAGE
-(
-    page_id      int auto_increment
-        primary key,
-    url          varchar(200)                         not null,
-    title        varchar(100)                         null,
-    description  varchar(500)                         null,
-    created_at   datetime default current_timestamp() null,
-    content_type varchar(50)                          not null,
-    constraint PAGE_ibfk_1
-        foreign key (content_type) references fashiondb.CONTENT_TYPE (content_type)
-);
-
-create index content_type
-    on fashiondb.PAGE (content_type);
-
-create table fashiondb.SURVEY
-(
-    survey_id   int auto_increment
-        primary key,
-    title       varchar(100)                         not null,
-    description varchar(500)                         null,
-    created_at  datetime default current_timestamp() null
-);
-
-create table fashiondb.SURVEY_QUESTION
-(
-    question_id   int auto_increment
-        primary key,
-    survey_id     int          null,
-    question_text varchar(500) not null,
-    constraint SURVEY_QUESTION_ibfk_1
-        foreign key (survey_id) references fashiondb.SURVEY (survey_id)
-);
-
-create table fashiondb.SURVEY_OPTION
-(
-    option_id   int auto_increment
-        primary key,
-    question_id int          null,
-    option_text varchar(500) not null,
-    constraint SURVEY_OPTION_ibfk_1
-        foreign key (question_id) references fashiondb.SURVEY_QUESTION (question_id)
-);
-
-create index question_id
-    on fashiondb.SURVEY_OPTION (question_id);
-
-create index survey_id
-    on fashiondb.SURVEY_QUESTION (survey_id);
-
-create table fashiondb.USER
-(
-    user_id    int auto_increment
-        primary key,
-    password   varchar(255)                             not null,
-    name       varchar(50)                              not null,
-    email      varchar(100)                             not null,
-    created_at datetime     default current_timestamp() null,
-    updated_at datetime                                 null,
-    role       varchar(255) default 'ROLE_USER'         not null,
+    password    varchar(255)                             not null,
+    name        varchar(50)                              not null,
+    email       varchar(100)                             not null,
+    created_at  datetime     default current_timestamp() null,
+    updated_at  datetime                                 null,
+    role        varchar(255) default 'ROLE_USER'         not null,
+    birthdate   date                                     null,
+    gender      enum ('male', 'female')                  null,
+    phoneNumber varchar(20)                              null,
     constraint email
         unique (email)
 );
 
-create table fashiondb.USER_PAGE
+create table NewsComments
 (
-    user_id  int                                  not null,
-    page_id  int                                  not null,
-    saved_at datetime default current_timestamp() null,
-    primary key (user_id, page_id),
-    constraint USER_PAGE_ibfk_1
-        foreign key (user_id) references fashiondb.USER (user_id),
-    constraint USER_PAGE_ibfk_2
-        foreign key (page_id) references fashiondb.PAGE (page_id)
+    comment_id bigint auto_increment
+        primary key,
+    news_id    bigint                                not null,
+    user_id    bigint                                not null,
+    content    text                                  not null,
+    created_at timestamp default current_timestamp() null,
+    updated_at timestamp default current_timestamp() null on update current_timestamp(),
+    constraint fk_news_comments_news
+        foreign key (news_id) references Raw_News (news_id),
+    constraint fk_news_comments_user
+        foreign key (user_id) references USER (user_id)
 );
 
-create index page_id
-    on fashiondb.USER_PAGE (page_id);
-
-create table fashiondb.USER_PAGE_IMAGE
+create table UserSavedPage
 (
-    user_id  int not null,
-    page_id  int not null,
-    image_id int not null,
-    primary key (user_id, page_id, image_id),
-    constraint USER_PAGE_IMAGE_ibfk_1
-        foreign key (user_id) references fashiondb.USER (user_id),
-    constraint USER_PAGE_IMAGE_ibfk_2
-        foreign key (page_id) references fashiondb.PAGE (page_id),
-    constraint USER_PAGE_IMAGE_ibfk_3
-        foreign key (image_id) references fashiondb.IMAGES (image_id)
+    saved_page_id bigint auto_increment
+        primary key,
+    user_id       bigint                                not null,
+    news_id       bigint                                not null,
+    saved_date    timestamp default current_timestamp() null,
+    constraint UserSavedPage_ibfk_1
+        foreign key (user_id) references USER (user_id),
+    constraint UserSavedPage_ibfk_2
+        foreign key (news_id) references Raw_News (news_id)
 );
 
-create index image_id
-    on fashiondb.USER_PAGE_IMAGE (image_id);
+create index news_id
+    on UserSavedPage (news_id);
 
-create index page_id
-    on fashiondb.USER_PAGE_IMAGE (page_id);
+create index user_id
+    on UserSavedPage (user_id);
 
-create table fashiondb.USER_SURVEY_RESPONSE
+create table UserSurvey
 (
-    user_id       int                                  not null,
-    question_id   int                                  not null,
-    option_id     int                                  not null,
-    response_date datetime default current_timestamp() null,
-    primary key (user_id, question_id, option_id),
-    constraint USER_SURVEY_RESPONSE_ibfk_1
-        foreign key (user_id) references fashiondb.USER (user_id),
-    constraint USER_SURVEY_RESPONSE_ibfk_2
-        foreign key (question_id) references fashiondb.SURVEY_QUESTION (question_id),
-    constraint USER_SURVEY_RESPONSE_ibfk_3
-        foreign key (option_id) references fashiondb.SURVEY_OPTION (option_id)
+    survey_id bigint auto_increment
+        primary key,
+    user_id   bigint                            not null,
+    gender    enum ('남', '여')                   not null,
+    age_group enum ('10대', '20대', '30대', '40대') not null,
+    constraint UserSurvey_ibfk_1
+        foreign key (user_id) references USER (user_id)
 );
 
-create index option_id
-    on fashiondb.USER_SURVEY_RESPONSE (option_id);
+create index user_id
+    on UserSurvey (user_id);
 
-create index question_id
-    on fashiondb.USER_SURVEY_RESPONSE (question_id);
+create table UserSurveyBrand
+(
+    survey_id bigint not null,
+    brand_id  bigint not null,
+    primary key (survey_id, brand_id),
+    constraint UserSurveyBrand_ibfk_1
+        foreign key (survey_id) references UserSurvey (survey_id),
+    constraint UserSurveyBrand_ibfk_2
+        foreign key (brand_id) references Brand (brand_id)
+);
 
+create index brand_id
+    on UserSurveyBrand (brand_id);
+
+create table UserSurveyStyle
+(
+    survey_id bigint not null,
+    style_id  bigint not null,
+    primary key (survey_id, style_id),
+    constraint UserSurveyStyle_ibfk_1
+        foreign key (survey_id) references UserSurvey (survey_id),
+    constraint UserSurveyStyle_ibfk_2
+        foreign key (style_id) references Style (style_id)
+);
+
+create index style_id
+    on UserSurveyStyle (style_id);
+
+create table posts
+(
+    post_id        int auto_increment
+        primary key,
+    board_type     varchar(50)                           null,
+    user_id        bigint                                null,
+    title          varchar(255)                          null,
+    content        text                                  null,
+    created_at     timestamp default current_timestamp() null,
+    updated_at     timestamp default current_timestamp() null on update current_timestamp(),
+    parent_post_id int                                   null,
+    constraint posts_ibfk_1
+        foreign key (user_id) references USER (user_id)
+);
+
+create table comments
+(
+    comment_id        int auto_increment
+        primary key,
+    post_id           int                                   null,
+    user_id           bigint                                null,
+    content           text                                  null,
+    created_at        timestamp default current_timestamp() null,
+    updated_at        timestamp default current_timestamp() null on update current_timestamp(),
+    parent_comment_id int                                   null,
+    constraint comments_ibfk_1
+        foreign key (post_id) references posts (post_id),
+    constraint comments_ibfk_2
+        foreign key (user_id) references USER (user_id)
+);
+
+create index post_id
+    on comments (post_id);
+
+create index user_id
+    on comments (user_id);
+
+create table files
+(
+    file_id     int auto_increment
+        primary key,
+    post_id     int                                   null,
+    file_name   varchar(255)                          null,
+    file_path   varchar(255)                          null,
+    uploaded_at timestamp default current_timestamp() null,
+    constraint files_ibfk_1
+        foreign key (post_id) references posts (post_id)
+);
+
+create index post_id
+    on files (post_id);
+
+create index user_id
+    on posts (user_id);
+
+create table images
+(
+    img_id      bigint auto_increment
+        primary key,
+    img_content mediumblob null,
+    news_id     bigint     null
+);
