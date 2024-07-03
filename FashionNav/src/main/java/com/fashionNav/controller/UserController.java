@@ -106,7 +106,6 @@ public class UserController {
     @GetMapping("/me")
     public Api<UserResponseMe> findByMe(Authentication authentication) {
         var response = userService.getUserMe(authentication);
-        log.info("호출");
         return Api.OK(response);
     }
 
