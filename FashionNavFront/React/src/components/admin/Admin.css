@@ -59,7 +59,7 @@
     margin-top: 20px;
 }
 
-.admin-pagination .admin-button {
+.admin-pagination .admin-pagination-button {
     margin: 0 5px;
     padding: 10px 20px;
     border: 1px solid #ddd;
@@ -70,12 +70,12 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
-.admin-pagination .admin-active {
+.admin-pagination .admin-pagination-active {
     background-color: #007bff;
     color: #fff;
 }
 
-.admin-pagination .admin-button:hover:not(.admin-active) {
+.admin-pagination .admin-pagination-button:hover:not(.admin-pagination-active) {
     background-color: #f1f1f1;
 }
 

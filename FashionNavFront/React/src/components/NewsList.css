@@ -1,5 +1,5 @@
 .news-list {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -17,49 +17,57 @@
 
 .news-items {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .news-item {
-  flex: 1 1 calc(30% - 20px); /* 아이템 크기를 줄여서 30%로 조정 */
-  max-width: calc(30% - 20px); /* 최대 너비도 30%로 설정 */
-  margin: 10px;
+  flex: 1 1 365px; /* Flex 아이템이 같은 비율로 증가/감소할 수 있도록 설정 */
+  min-width: 365px; /* 최소 너비 설정 */
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 1px solid #ad4242;
+  box-sizing: border-box; */
+  margin-right: 15px;
+}
+
+.news-item:last-child {
+  margin-right: 0; 
 }
 
 .news-item img {
-  width: 100%;
-  height: 120px; /* 이미지 높이 */
+  min-width: 365px;
+  height: 200px; /* 이미지 높이 고정 */
   object-fit: cover; /* 이미지 비율을 유지하며 컨테이너에 맞춤 */
-  border-radius: 5px;
+  border-radius: 2px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.news-title {
+.news-item h3 {
+  width: 95%;
   font-size: 18px;
-  margin-top: 10px;
+  margin: 0 auto;
+  margin-top: 10px; 
   text-align: center;
-}
-
-.news-content {
-  font-size: 14px;
-  color: #555;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* 원하는 줄 수 */
+  -webkit-line-clamp: 1; /* 원하는 줄 수 */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-top: 5px;
-  text-align: center;
+  line-height: 1.5em; /* 각 줄의 높이를 설정 */
+  max-height: 1.5em; /* 한 줄의 높이 */
+  /* border: 1px solid #00fff2; */
+  word-wrap: break-word; /* 줄바꿈 */
 }
 
 .more-link {
   text-align: right;
   margin-top: 10px;
   font-size: 14px;
+  text-decoration: none;
 }
 
 .more-button {
@@ -69,10 +77,35 @@
   border: 1px solid #000;
   border-radius: 3px;
   background-color: #f0f0f0;
-  text-decoration: none;
   color: #000;
   cursor: pointer;
 }
+
 .more-button:hover {
   background-color: #ddd;
+  text-decoration: underline;
+}
+
+/* 반응형 */
+@media (max-width: 1190px) {
+  .news-item {
+    flex: 1 1 calc(33.33% - 20px);
+    min-width: calc(33.33% - 20px); /* 최소 너비 설정 */
+  }
+
+  .news-item img {
+    min-width: calc(33.33% - 20px);
+  }
+}
+
+
+@media (max-width: 550px) {
+  .news-item {
+    flex: 1 1 calc(100% - 20px);
+    width: 440px; 
+  }
+
+  .news-item img {
+    min-width: 440px;
+  }
 }

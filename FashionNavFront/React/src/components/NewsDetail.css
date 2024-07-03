@@ -1,83 +1,192 @@
 .news-detail-container {
-    width: 80%;
-    margin: 0 auto;
+    max-width: 1150px;
+    width: 100%;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
 }
 
 .news-detail {
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
+    padding: 20px 50px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.news-title {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #333;
+.news-detail-wrap {
+    width: 80%;
+    margin: 0 auto;
 }
 
-.news-meta {
-    font-size: 0.9em;
-    color: #999;
-    margin-bottom: 20px;
-}
-
-.news-meta .news-author,
-.news-meta .news-date {
-    margin-right: 10px;
-}
-
-.news-content {
-    line-height: 1.6;
-    font-size: 1.1em;
-    color: #333;
-}
-
-.navigation-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.previous-button,
-.next-button,
-.list-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.previous-button:disabled,
-.next-button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-}
-
-.previous-button:hover,
-.next-button:hover,
-.list-button:hover {
-    background-color: #0056b3;
+.news-detail img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .edit-button-container {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: 10px;
 }
 
 .edit-button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: #fff;
+    background-color:  #414141;
+    color: white;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
+    border-radius: 2px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .edit-button:hover {
-    background-color: #218838;
+    background-color: #0056b3;
+}
+
+.bookmark-button {
+    background-color:  #414141;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.bookmark-button:hover {
+    background-color: #e6b800;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.navigation-buttons button {
+    background-color:  #414141;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navigation-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.navigation-buttons button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.comments-section {
+    margin-top: 20px;
+}
+
+.comments-section h3 {
+    margin-bottom: 10px;
+    cursor: pointer; /* 클릭 가능하도록 커서 변경 */
+}
+
+.comments-section form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.comments-section textarea {
+    padding: 10px;
+    border-radius: 2px;
+    border: 1px solid #cccccc;
+    margin-bottom: 10px;
+    resize: none;
+    height: 100px;
+}
+
+.comments-section button {
+    background-color:  #414141;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    /* border-radius: 5px; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comments-section button:hover {
+    background-color: #0056b3;
+}
+
+.comments-list .comment {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.comments-list .comment p {
+    margin: 0;
+}
+
+.comments-list .comment small {
+    display: block;
+    margin-top: 5px;
+    color: #666666;
+}
+
+.comments-list .delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.comments-list .delete-button:hover {
+    background-color: #cc0000;
+}
+
+/* 반응형 디자인 추가 */
+@media (max-width: 768px) {
+    .news-detail-container {
+        padding: 10px;
+    }
+
+    .news-detail {
+        padding: 10px;
+    }
+
+    .edit-button, .bookmark-button, .navigation-buttons button, .comments-section button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .comments-section textarea {
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navigation-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navigation-buttons button {
+        margin-bottom: 10px;
+        width: 100%;
+    }
 }

@@ -68,10 +68,10 @@ const ManageSurveys = () => {
         ],
     });
 
-    const genderData = createChartData(genderCounts, "Gender Distribution");
-    const ageGroupData = createChartData(ageGroupCounts, "Age Group Distribution");
-    const styleData = createChartData(styleCounts, "Style Preferences");
-    const brandData = createChartData(brandCounts, "Brand Preferences");
+    const genderData = createChartData(genderCounts, "성별");
+    const ageGroupData = createChartData(ageGroupCounts, "나이");
+    const styleData = createChartData(styleCounts, "Style");
+    const brandData = createChartData(brandCounts, "Brand");
 
     if (loading) {
         return <div>Loading...</div>;

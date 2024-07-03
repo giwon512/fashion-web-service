@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import api from "../../api";
 import "./Admin.css";
 
@@ -40,42 +38,9 @@ const ManageBanners = () => {
         }
     };
 
-    const handleContentChange = (value) => {
-        setSelectedBanner((prevBanner) => ({
-            ...prevBanner,
-            description: value,
-        }));
-    };
-
-    const quillModules = {
-        toolbar: [
-            [{ header: "1" }, { header: "2" }, { header: "3" }, { font: [] }],
-            [{ size: [] }],
-            ["bold", "italic", "underline", "strike", "blockquote"],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["link", "image"],
-            ["clean"],
-        ],
-    };
-
-    const quillFormats = [
-        "header",
-        "font",
-        "size",
-        "bold",
-        "italic",
-        "underline",
-        "strike",
-        "blockquote",
-        "list",
-        "bullet",
-        "link",
-        "image",
-    ];
-
     return (
         <div className="admin-section">
-            <h2>Manage Banners</h2>
+            <div className="banner-header">Manage Banners</div>
             {isLoading ? (
                 <div>Loading...</div> // 로딩 중일 때 표시할 내용
             ) : (
@@ -102,7 +67,7 @@ const ManageBanners = () => {
             )}
             {selectedBanner && (
                 <div className="admin-editor-container">
-                    <h2>Edit Banner</h2>
+                    <div className="editor-header">Edit Banner</div>
                     <label>
                         Title:
                         <input
@@ -135,13 +100,13 @@ const ManageBanners = () => {
                     </label>
                     <label>
                         Description:
-                        <ReactQuill
+                        <textarea
                             value={selectedBanner.description}
-                            onChange={handleContentChange}
-                            modules={quillModules}
-                            formats={quillFormats}
+                            onChange={(e) =>
+                                setSelectedBanner({ ...selectedBanner, description: e.target.value })
+                            }
                         />
-                  a  </label>
+                    </label>
                     <button className="admin-button" onClick={handleSaveBanner}>Save</button>
                     <button className="admin-button" onClick={() => setSelectedBanner(null)}>Cancel</button>
                 </div>

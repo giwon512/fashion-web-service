@@ -1,9 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
-import api from '../api'; // API 호출을 위한 모듈
+import api from '../api';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './Slider.css'; // 커스텀 CSS 파일
+import './Slider.css';
+
+const CustomPrevArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={`${className} custom-prev-arrow`}
+            style={{ ...style }}
+            onClick={onClick}
+        >
+            ‹
+        </div>
+    );
+};
+
+const CustomNextArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+        <div
+            className={`${className} custom-next-arrow`}
+            style={{ ...style }}
+            onClick={onClick}
+        >
+            ›
+        </div>
+    );
+};
 
 const CustomSlider = () => {
     const [banners, setBanners] = useState([]);
@@ -11,7 +37,7 @@ const CustomSlider = () => {
     useEffect(() => {
         const fetchBanners = async () => {
             try {
-                const response = await api.get('/banners'); // 배너 데이터를 가져오는 API 엔드포인트
+                const response = await api.get('/banners');
                 setBanners(response.data);
             } catch (error) {
                 console.error('Error fetching banners:', error);
@@ -28,6 +54,15 @@ const CustomSlider = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
+        arrows: true,
+        prevArrow: <CustomPrevArrow />,
+        nextArrow: <CustomNextArrow />
+    };
+
+    const handleBannerClick = (url) => {
+        if (url) {
+            window.location.href = url;
+        }
     };
 
     return (
@@ -37,7 +72,18 @@ const CustomSlider = () => {
                     <div key={banner.bannerId} className="slide">
                         <img src={banner.imageUrl} alt={banner.title} className="slide-image" />
                         <div className="slide-caption">
-                            <h2>{banner.title}</h2>
+                            <h1
+                                className="clickable"
+                                onClick={() => handleBannerClick(banner.url)}
+                            >
+                                {banner.title}
+                            </h1>
+                            <div
+                                className="clickable"
+                                onClick={() => handleBannerClick(banner.url)}
+                            >
+                                <h2>{banner.description}</h2>
+                            </div>
                         </div>
                     </div>
                 ))}

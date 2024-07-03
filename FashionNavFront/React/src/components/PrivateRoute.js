@@ -6,6 +6,7 @@ export const PrivateRoute = ({ children, isAuthenticated }) => {
 
     if (!isAuthenticated) {
         return <Navigate to="/login" state={{ from: location }} />;
+        alert(location);
     }
 
     return children;
@@ -13,6 +14,9 @@ export const PrivateRoute = ({ children, isAuthenticated }) => {
 
 export const AdminRoute = ({ children, isAuthenticated, isAdmin }) => {
     const location = useLocation();
+
+    console.log('AdminRoute - isAuthenticated:', isAuthenticated);
+    console.log('AdminRoute - isAdmin:', isAdmin);
 
     if (!isAuthenticated) {
         return <Navigate to="/login" state={{ from: location }} />;

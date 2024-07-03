@@ -21,6 +21,7 @@ const ManageNews = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
     const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+    const [pageGroup, setPageGroup] = useState(0); // 페이지 그룹 상태 추가
 
     const categories = ["celeb", "brand", "trend"]; // 카테고리 목록
 
@@ -53,6 +54,7 @@ const ManageNews = () => {
         try {
             const response = await api.get(`/raw-news?pageNum=1&pageSize=1000`);
             setAllNewsList(response.data.content);
+            console.log('allNewsList:', response.data.content);
         } catch (error) {
             console.error("Error fetching all news:", error);
         }
@@ -64,6 +66,7 @@ const ManageNews = () => {
             const response = await api.get(`/raw-news?pageNum=${page}&pageSize=10`);
             setRawNewsList(response.data.content);
             setTotalPages(response.data.totalPages);
+            console.log('rawNewsList:', response.data.content);
         } catch (error) {
             console.error("Error fetching raw news:", error);
         }
@@ -131,6 +134,7 @@ const ManageNews = () => {
 
         setFilteredNewsList(filtered.slice((currentPage - 1) * 10, currentPage * 10));
         setTotalPages(Math.ceil(filtered.length / 10));
+        console.log('filteredNewsList:', filtered.slice((currentPage - 1) * 10, currentPage * 10));
     };
 
     const handleSearchChange = (e) => {
@@ -174,6 +178,23 @@ const ManageNews = () => {
         "image",
     ];
 
+    const pagesPerGroup = 10; // 페이지 그룹당 페이지 수
+
+    const handleNextGroup = () => {
+        if ((pageGroup + 1) * pagesPerGroup < totalPages) {
+            setPageGroup(pageGroup + 1);
+        }
+    };
+
+    const handlePrevGroup = () => {
+        if (pageGroup > 0) {
+            setPageGroup(pageGroup - 1);
+        }
+    };
+
+    const startPage = pageGroup * pagesPerGroup + 1;
+    const endPage = Math.min(startPage + pagesPerGroup - 1, totalPages);
+
     return (
         <div className="admin-section">
             <h2>Manage Raw News</h2>
@@ -214,15 +235,29 @@ const ManageNews = () => {
                         </tbody>
                     </table>
                     <div className="admin-pagination">
-                        {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            className="admin-pagination-button"
+                            onClick={handlePrevGroup}
+                            disabled={pageGroup === 0}
+                        >
+                            Previous
+                        </button>
+                        {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
                             <button
                                 key={index}
-                                className={`admin-button ${index + 1 === currentPage ? "admin-active" : ""}`}
-                                onClick={() => handlePageChange(index + 1)}
+                                className={`admin-pagination-button ${index + startPage === currentPage ? "admin-pagination-active" : ""}`}
+                                onClick={() => handlePageChange(index + startPage)}
                             >
-                                {index + 1}
+                                {index + startPage}
                             </button>
                         ))}
+                        <button
+                            className="admin-pagination-button"
+                            onClick={handleNextGroup}
+                            disabled={endPage === totalPages}
+                        >
+                            Next
+                        </button>
                     </div>
                 </>
             )}
@@ -302,5 +337,4 @@ const ManageNews = () => {
         </div>
     );
 };
-
 export default ManageNews;

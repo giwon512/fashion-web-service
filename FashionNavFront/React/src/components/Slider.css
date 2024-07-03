@@ -1,7 +1,25 @@
+/* Font face */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF_HambakSnow';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .slider-container {
     max-width: 100%;
+    max-height: 500px ;
     margin: auto;
     overflow: hidden;
+    /* border:1px solid red; */
 }
 
 .slide {
@@ -13,19 +31,47 @@
     width: 100%;
     height: auto;
     max-height: 500px; /* 최대 높이를 설정 */
-    object-fit: contain; /* 이미지가 잘리지 않고 화면에 맞게 표시됨 */
+    /* object-fit: contain; 이미지가 잘리지 않고 화면에 맞게 표시됨 */
+    object-fit: cover; /* 이미지 영역기준 꽉차게 비율은유지 */
 }
 
 .slide-caption {
     font-size: 10px;
     position: absolute;
-    bottom: 20px;
+    bottom: 50%;
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.1);
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 2px;
+    font-family: 'SUIT-Regular';
 }
 
+.clickable {
+    cursor: pointer;
+    text-decoration: none;
+}
 
+.clickable:hover {
+    text-decoration: underline;
+}
+
+/* Custom arrow styles */
+.slick-prev:before, .slick-next:before {
+    color: white; /* 화살표 색상 */
+}
+
+@media (max-width: 695px) {
+    .slider-container {
+        height: 350px ;
+    }
+}
+
+@media (max-width: 490px) {
+    .slider-container {
+        height: 300px ;
+    }
+}
+  
+  

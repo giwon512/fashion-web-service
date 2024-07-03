@@ -12,8 +12,8 @@ const CategoryNews = ({ category }) => {
     useEffect(() => {
         const getNews = async () => {
             await api.get(`/top3?category=${category}`)
-            .then(response => setNewsList(response.data[category]))
-            .catch(error => console.error('Error fetching category news:', error));
+                .then(response => setNewsList(response.data[category]))
+                .catch(error => console.error('Error fetching category news:', error));
         }
 
         getNews();
@@ -24,8 +24,8 @@ const CategoryNews = ({ category }) => {
             let imgContent = []
             for (const news of newsList) {
                 await api.get(`/top3/${news.newsId}`)
-                .then(response => imgContent.push(response.data))
-                .catch(error => console.error('Error fetching news images', error));
+                    .then(response => imgContent.push(response.data))
+                    .catch(error => console.error('Error fetching news images', error));
             }
             setImgList(imgContent);
             setIsLoading(false);

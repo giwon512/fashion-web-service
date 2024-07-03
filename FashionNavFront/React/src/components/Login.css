@@ -1,11 +1,15 @@
 .login-container {
-  background-color: #d3d3d3; /* Gray background similar to the image */
-  padding: 20px;
-  width: 300px;
-  margin: 50px auto;
-  border: 1px solid #000;
-  border-radius: 5px;
-  position: relative;
+  background-color: #fff;
+  padding: 40px;
+  width: 400px;
+  max-width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.login-title {
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .login-form {
@@ -15,62 +19,102 @@
 
 .login-input-group {
   margin-bottom: 15px;
+  text-align: left;
 }
 
 .login-input-group label {
   display: block;
+  font-size: 14px;
+  color: #555;
   margin-bottom: 5px;
 }
 
 .login-input-group input {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  font-size: 14px;
   box-sizing: border-box;
 }
 
 .login-remember-me {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 14px;
 }
 
 .login-remember-me input {
-  margin-right: 5px;
+  margin-right: 10px;
+}
+
+.login-error {
+  color: #e74c3c;
+  margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .login-button {
-  background-color: #007bff; /* Blue background color */
+  background-color: #333333;
   color: #fff;
   border: none;
-  border-radius: 5px;
-  width: 100%;
-  height: 40px;
-  align-self: center;
+  padding: 12px;
+  border-radius: 2px;
   cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
   transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #858585;
 }
 
 .login-footer {
   display: flex;
-  justify-content: space-between; /* Adjusted to place items at the ends */
-  margin-top: 20px;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.signup-button, .find-idpw-button {
-  color: #000; /* Default color black */
+.login-find-idpw-button {
+  width: 380px;
+  background-color: #505050;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 20px;
+  border-radius: 2px;
   cursor: pointer;
-  transition: color 0.3s ease;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
-.signup-button:hover, .find-idpw-button:hover {
-  color: #007bff; /* Blue color on hover */
+.login-find-idpw-button:hover {
+  background-color: #9c9c9c;
 }
 
-.social-login {
-  text-align: center;
+.login-social-login {
   margin-top: 20px;
+}
+
+.login-social-login h3 {
+  margin-bottom: 20px;
+  color: #888;
+  font-size: 14px;
+}
+
+.login-social-login button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-social-login button:hover {
+  background-color: #f0f0f0;
 }
