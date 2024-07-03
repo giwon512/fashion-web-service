@@ -16,7 +16,7 @@ import com.fashionNav.model.entity.User;
 public interface UserCommentMapper {
 
 	// 유저 name 찾는 메서드
-	@Select("SELECT name FROM user WHERE user_id = #{userId}")
+	@Select("SELECT name FROM USER WHERE user_id = #{userId}")
 	String findUserName( @Param("userId") Long userId);
 
 	// 댓글 목록 보여주는 메서드
@@ -27,7 +27,7 @@ public interface UserCommentMapper {
 	        "UNION ALL " +
 	        "SELECT 'News' AS comment_type, nc.comment_id, nc.content, nc.created_at, nc.updated_at, NULL AS post_title, rn.title AS news_title, NULL AS post_id, rn.news_id AS news_id " +
 	        "FROM NewsComments nc " +
-	        "JOIN Raw_News rn ON nc.news_id = rn.news_id " +
+	        "JOIN ProcessedNews rn ON nc.news_id = rn.news_id " +
 	        "WHERE nc.user_id = #{userId} " +
 	        "ORDER BY created_at DESC " +
 	        "LIMIT #{pageSize} OFFSET #{offset}")
