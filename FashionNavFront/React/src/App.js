@@ -21,6 +21,10 @@ import Join from "./components/Join";
 import AddSurvey from "./components/AddSurvey";
 import SearchResults from "./components/SearchResults";
 
+import UserCommentList from "./components/UserCommentList"; // Import UserCommentList
+import './components/UserComment.css'; // Import UserCommentList CSS
+
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -85,6 +89,9 @@ const App = () => {
           <Route path="/edit-survey/:surveyId" element={<EditSurvey />} />
           <Route path="/all-news" element={<AllNews />} />
           <Route path="/search" element={<SearchResults />} /> {/* 추가 */}
+
+          <Route path="/mypage/my-comments" element={<PrivateRoute isAuthenticated={isLoggedIn}><UserCommentList /></PrivateRoute>} />
+          <Route path="/news/details/:newsId" element={<NewsDetail isAdmin={isAdmin} />} />
         </Routes>
       </GoogleOAuthProvider>
   );

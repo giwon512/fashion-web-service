@@ -1,0 +1,59 @@
+.comment {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.comment p {
+    margin: 0;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* src/components/UserCommentList.css */
+.user-comment-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.user-comment-list h2,
+.user-comment-list h3,
+.user-comment-list p {
+    text-align: center;
+}
+
+.user-comment-list table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.user-comment-list th,
+.user-comment-list td {
+    padding: 10px;
+    text-align: center;
+}
+
+.user-comment-list th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.user-comment-list tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
