@@ -72,7 +72,7 @@ public interface NewsMapper {
     List<ProcessedNews> findTop3NewsByCategory(String category);
 
 
-    @Select("SELECT img_content FROM test_image WHERE news_id = #{newsId}")
+    @Select("SELECT img_content FROM test_image WHERE img_id = #{newsId}")
     String getImageByNewsId(@Param("newsId") Long newsId);
 
     @Select("SELECT * FROM ProcessedNews where category = #{category}")
