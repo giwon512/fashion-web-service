@@ -27,7 +27,7 @@ public interface UserSavePageMapper {
 	
 	@Select("<script>"
             + "SELECT news_id AS newsId, title, image_url AS imageUrl "
-            + "FROM Raw_News "
+            + "FROM ProcessedNews "
             + "WHERE news_id IN "
             + "<foreach item='newsId' collection='newsIds' open='(' separator=',' close=')'>"
             + "#{newsId}"
