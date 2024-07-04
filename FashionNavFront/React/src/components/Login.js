@@ -3,12 +3,23 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../api';
 import { GoogleLogin } from '@react-oauth/google';
 import './Login.css';
+import Modal from './Modal'; // 모달 컴포넌트 import
 
 const Login = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState('');
+    const [showFindIdModal, setShowFindIdModal] = useState(false); // 아이디 찾기 모달 상태
+    const [showFindPwModal, setShowFindPwModal] = useState(false); // 비밀번호 찾기 모달 상태
+    const [step, setStep] = useState(1); // 비밀번호 찾기 단계
+    const [name, setName] = useState(''); // 이름 상태
+    const [phoneNumber, setPhoneNumber] = useState(''); // 휴대폰 번호 상태
+    const [verificationCode, setVerificationCode] = useState(''); // 인증 코드 상태
+    const [newPassword, setNewPassword] = useState(''); // 새 비밀번호 상태
+    const [findPwEmail, setFindPwEmail] = useState(''); // 비밀번호 찾기용 이메일 상태
+    const [findPwName, setFindPwName] = useState(''); // 비밀번호 찾기용 이름 상태
+
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
@@ -27,14 +38,11 @@ const Login = ({ onLogin }) => {
         try {
             const response = await api.post('/users/authenticate', { email, password });
             const { accessToken, refreshToken } = response.data.body;
-            console.log('AccessToken:', accessToken);
-            console.log('RefreshToken:', refreshToken);
             localStorage.setItem('token', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
             onLogin();
             navigate(from);
         } catch (error) {
-            console.error('Error during login', error);
             setError('Login failed. Please check your credentials and try again.');
         }
     };
@@ -43,13 +51,7 @@ const Login = ({ onLogin }) => {
         navigate('/signup');
     };
 
-    const handleFindIdPw = () => {
-        // 구현 필요시 추가
-    };
-
     const handleGoogleSuccess = async (response) => {
-        console.log('Login Success:', response);
-
         try {
             const res = await fetch('http://localhost:8080/api/users/oauth2/google', {
                 method: 'POST',
@@ -60,16 +62,13 @@ const Login = ({ onLogin }) => {
             });
 
             const data = await res.json();
-            console.log('Parsed JSON:', data);
 
             if (data.accessToken && data.refreshToken) {
-                console.log('AccessToken:', data.accessToken);
-                console.log('RefreshToken:', data.refreshToken);
                 localStorage.setItem('token', data.accessToken);
                 localStorage.setItem('refreshToken', data.refreshToken);
                 onLogin();
 
-                if (data.newUser) { //신규가입여부
+                if (data.newUser) {
                     navigate('/edit-profile'); // 신규 가입자인 경우 edit-profile 페이지로 이동
                 } else {
                     navigate(from); // 기존 사용자라면 원래 페이지로 이동
@@ -84,6 +83,46 @@ const Login = ({ onLogin }) => {
 
     const handleGoogleError = (error) => {
         console.log('Login Failed:', error);
+    };
+
+    // 아이디 찾기 핸들러
+    const handleFindId = async (name, phoneNumber) => {
+        try {
+            const response = await api.post('/users/find-email', { name, phoneNumber });
+            alert(`Your email is: ${response.data}`);
+            setShowFindIdModal(false);
+            setName(''); // 이름 상태 초기화
+            setPhoneNumber(''); // 휴대폰 번호 상태 초기화
+        } catch (error) {
+            alert('이메일 정보를 찾을 수 없습니다.');
+        }
+    };
+
+    // 비밀번호 찾기 요청 핸들러
+    const handleFindPw = async (email, name) => {
+        try {
+            await api.post('/users/request-password-reset', { email, name });
+            alert('비밀번호 재설정 코드가 이메일로 전송되었습니다.');
+            setStep(2); // 비밀번호 재설정 단계로 전환
+        } catch (error) {
+            alert('비밀번호 재설정을 요청실패');
+        }
+    };
+
+    // 비밀번호 재설정 핸들러
+    const handleResetPw = async (email, code, newPassword) => {
+        try {
+            await api.post('/users/reset-password', { email, code, newPassword });
+            alert('비밀번호가 성공적으로 재설정되었습니다.');
+            setShowFindPwModal(false);
+            setFindPwEmail(''); // 비밀번호 찾기용 이메일 상태 초기화
+            setFindPwName(''); // 비밀번호 찾기용 이름 상태 초기화
+            setVerificationCode(''); // 인증 코드 상태 초기화
+            setNewPassword(''); // 새 비밀번호 상태 초기화
+            setStep(1); // 초기 단계로 재설정
+        } catch (error) {
+            alert('재설정실패 다시 시도');
+        }
     };
 
     return (
@@ -124,12 +163,81 @@ const Login = ({ onLogin }) => {
             </form>
             <div className="login-footer">
                 <button className="signup-button" onClick={handleSignup}>회원가입</button>
-                <button className="login-find-idpw-button" onClick={handleFindIdPw}>아이디/비밀번호찾기</button>
+                <button className="login-find-idpw-button" onClick={() => setShowFindIdModal(true)}>아이디찾기</button>
+                <button className="login-find-idpw-button" onClick={() => {
+                    setShowFindPwModal(true);
+                    setStep(1); // 비밀번호 찾기 첫 단계로 설정
+                }}>비밀번호찾기</button>
             </div>
             <div className="login-social-login">
                 <h3>또는</h3>
                 <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
             </div>
+            {showFindIdModal && (
+                <Modal onClose={() => setShowFindIdModal(false)}>
+                    <h2>아이디 찾기</h2>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        handleFindId(name, phoneNumber);
+                    }}>
+                        <div>
+                            <label>이름</label>
+                            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+                        </div>
+                        <div>
+                            <label>휴대폰 번호</label>
+                            <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
+                        </div>
+                        <button type="submit">찾기</button>
+                    </form>
+                </Modal>
+            )}
+            {showFindPwModal && (
+                <Modal onClose={() => setShowFindPwModal(false)}>
+                    {step === 1 && ( // 첫 단계: 인증 코드 요청
+                        <>
+                            <h2>비밀번호 찾기</h2>
+                            <form onSubmit={(e) => {
+                                e.preventDefault();
+                                handleFindPw(findPwEmail, findPwName);
+                            }}>
+                                <div>
+                                    <label>이메일</label>
+                                    <input type="email" value={findPwEmail} onChange={(e) => setFindPwEmail(e.target.value)} required />
+                                </div>
+                                <div>
+                                    <label>이름</label>
+                                    <input type="text" value={findPwName} onChange={(e) => setFindPwName(e.target.value)} required />
+                                </div>
+                                <button type="submit">인증 코드 요청</button>
+                            </form>
+                        </>
+                    )}
+                    {step === 2 && ( // 두 번째 단계: 비밀번호 재설정
+                        <>
+                            <h2>비밀번호 재설정</h2>
+                            <form onSubmit={(e) => {
+                                e.preventDefault();
+                                handleResetPw(findPwEmail, verificationCode, newPassword);
+                            }}>
+                                <div>
+                                    <label>이메일</label>
+                                    <input type="email" value={findPwEmail} onChange={(e) => setFindPwEmail(e.target.value)} required />
+                                </div>
+                                <div>
+                                    <label>인증 코드</label>
+                                    <input type="text" value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} required />
+                                </div>
+                                <div>
+                                    <label>새 비밀번호</label>
+                                    <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+                                </div>
+                                <button type="submit">재설정</button>
+                            </form>
+                        </>
+                    )}
+                </Modal>
+            )}
         </div>
     );
 };
