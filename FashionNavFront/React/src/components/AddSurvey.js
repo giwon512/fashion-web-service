@@ -16,7 +16,7 @@ const AddSurvey = () => {
         setError('');
 
         try {
-            const response = await api.post('/surveys', {
+            await api.post('/surveys', {
                 gender,
                 ageGroup,
                 styles: styles.split(',').map(style => style.trim()),

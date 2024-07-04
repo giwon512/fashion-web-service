@@ -1,3 +1,4 @@
+/* Font face */
 @font-face {
     font-family: 'SUIT-Regular';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
@@ -5,96 +6,133 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'SF_HambakSnow';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Header styles */
 .header {
     width: 100%;
-    height: 210px;
     background-color: #fff;
+    /* position: fixed; */
+    top: 0; /* 상단에 고정 */
+    left: 0; /* 왼쪽에 고정 */
+    z-index: 1000; /* 다른 요소들보다 위에 표시되도록 z-index 설정 */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    font-family: 'SUIT-Regular', sans-serif; /* 폰트 적용 */
 }
 
 .header_topbar {
     background-color: #252525;
-    height: 40px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .header_top {
-    width: 1150px;
+    width: 100%;
+    max-width: 1150px;
     color: white;
+    margin: 0 auto;
+    font-family: 'SUIT-Regular', sans-serif;
+}
+
+.header_top_txt {
+    font-size: 14px;
+}
+
+/* 로고와 메뉴를 하나의 컨테이너로 묶기 */
+.header_main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1150px;
+    height: 75px;
+    margin: 0 auto;
+    /* padding: 0 20px;  */
+    box-sizing: border-box; /* padding이 요소의 전체 크기에 포함되도록 */
 }
 
 .header_logo {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 110px;
+    margin-right: 20px; /* 로고와 메뉴 사이의 간격 조절 */
 }
 
-.header_logo_div {
-    font-size: 24px;
+.FASHION {
+    font-family: 'SF_HambakSnow', sans-serif;
+    font-size: 24px; /* 글꼴 크기 지정 */
+    color: #333; /* 글자 색상 지정 */
+    text-decoration: none; /* 밑줄 제거 */
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .header_menu {
-    width: 1150px;
-    height: 60px;
-    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-}
-
-.header_mainmenu {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: center; /* 가운데 정렬 */
+    flex: 1; /* 남은 공간을 모두 차지 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .header_mainmenu ul {
     display: flex;
     list-style: none;
-    justify-content: center;
-    align-items: center;
     padding: 0;
     margin: 0;
-    text-align: center;
 }
 
 .header_mainmenu li {
     position: relative;
-    display: flex;
-    align-items: center;
+    margin: 0 10px;
 }
 
 .header_mainmenu li a {
     text-decoration: none;
-    color: #000;
-    padding: 0 15px;
+    color: #333;
+    padding-right: 10px;
+    display: block;
+    font-size: 14px;
+    font-family: 'SUIT-Regular', sans-serif; 
+    letter-spacing: 2px;
 }
 
-.header_mainmenu li:hover > .dropdown-menu {
-    display: block;
+.header_mainmenu li:hover > a {
+    font-weight: bold;
 }
 
 .dropdown-menu {
-    display: none;
+    display: block;
     position: absolute;
     top: 100%;
     left: 0;
     background-color: #fff;
-    border: 1px solid #dee2e6;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    white-space: nowrap;
+    min-width: 150px;
 }
 
 .dropdown-menu li {
-    padding: 10px;
+    white-space: nowrap;
 }
 
 .dropdown-menu li a {
+    text-decoration: none;
     color: #333;
+    display: block;
+    padding: 10px;
+    font-family: 'SUIT-Regular', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.header_mainmenu li:hover .dropdown-menu {
+    display: block;
 }
 
 .header_rightmenu {
@@ -103,25 +141,95 @@
     gap: 15px;
 }
 
-.header_rightmenu .LOGIN,
-.header_rightmenu .JOIN,
-.header_rightmenu .LOGOUT,
-.header_rightmenu .ADMIN,
-.header_rightmenu .MY_PAGE {
-    text-decoration: none;
-    color: #007bff;
+.header_rightmenu span {
+    font-size: 14px;
     cursor: pointer;
+    font-family: 'SUIT-Regular', sans-serif;
+    letter-spacing: 1px;
 }
 
-.header_rightmenu .LOGIN:hover,
-.header_rightmenu .JOIN:hover,
-.header_rightmenu .LOGOUT:hover,
-.header_rightmenu .ADMIN:hover,
-.header_rightmenu .MY_PAGE:hover {
+.header_rightmenu span:hover {
     text-decoration: underline;
+    color: black;
+}
+
+.header_rightmenu span a {
+    color: #333;
+    text-decoration: none;
 }
 
 ._icon {
-    margin-left: 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
     cursor: pointer;
 }
+
+.search-input {
+    position: absolute;
+    top: 135%;
+    right: 0;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    z-index: 1000;
+}
+
+.search-input input {
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 14px;
+    width: 200px;
+    border-radius: 4px;
+    font-family: 'SUIT-Regular', sans-serif; /* 폰트 적용 */
+}
+
+.search-input button {
+    width: 100%;
+    background-color: #3f3f3f;
+    border: none;
+    color: white;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.search-input button:hover {
+    background-color: #0056b3;
+}
+
+@media screen and (max-width: 800px) {
+    .header_main {
+        flex-direction: column;
+        height: auto;
+        padding: 10px; /* 좌우 여백 추가 */
+        
+    }
+
+    .header_logo {
+        margin: 20px;
+    }
+
+    .header_menu {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .header_mainmenu li {
+        margin: 0;
+    }
+
+    .header_rightmenu {
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+}
+

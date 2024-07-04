@@ -41,7 +41,7 @@ const NewsList = () => {
                 className="news-item"
                 onClick={() => handleNewsClick(news.newsId)}
               >
-                <img src={news.imageUrl} className="news-image" />
+                <img src={news.imageUrl} className="news-image" alt="newsImg"/>
                 <h3 className="news-title">{news.title}</h3>
                 <p className="news-content">{news.content}</p>
               </div>
