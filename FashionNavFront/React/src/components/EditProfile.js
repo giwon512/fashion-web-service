@@ -11,10 +11,13 @@ const EditProfile = () => {
         gender: 'male',
         phoneNumber: '',
         birthdate: '',
+    });
+    const [passwordData, setPasswordData] = useState({
         currentPassword: '',
         newPassword: '',
         confirmPassword: ''
     });
+    const [phoneError, setPhoneError] = useState(''); // 전화번호 에러 메시지 상태 추가
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -23,23 +26,15 @@ const EditProfile = () => {
                 const userData = response.data.body;
                 setUser(userData);
 
-                // Console log to check the retrieved data
-                console.log("Fetched user data: ", userData);
-
                 setFormData({
                     name: userData.name || '',
                     email: userData.email || '',
                     gender: userData.gender || 'male',
-                    phoneNumber: userData.phoneNumber || '',
+                    phoneNumber: formatPhoneNumber(userData.phoneNumber) || '',
                     birthdate: userData.birthdate || '',
-                    currentPassword: '',
-                    newPassword: '',
-                    confirmPassword: ''
                 });
 
-                // 구글 사용자 여부를 서버에서 받아온 정보로 설정
                 setIsGoogleUser(userData.googleUser);
-                console.log("isGoogleUser: ", userData.googleUser); // 확인용 로그
             } catch (error) {
                 console.error('Failed to fetch user info', error);
                 alert('Failed to fetch user info: ' + (error.response?.data?.result?.resultMessage || 'Unknown error'));
@@ -49,6 +44,38 @@ const EditProfile = () => {
         fetchUser();
     }, []);
 
+    const formatPhoneNumber = (phoneNumber) => {
+        if (!phoneNumber) return '';
+        return phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+    };
+
+    const handlePhoneNumberChange = (event) => {
+        let input = event.target.value.replace(/[^0-9]/g, '');
+
+        if (input.length <= 3) {
+            setFormData((prevData) => ({
+                ...prevData,
+                phoneNumber: input
+            }));
+        } else if (input.length <= 7) {
+            setFormData((prevData) => ({
+                ...prevData,
+                phoneNumber: `${input.slice(0, 3)}-${input.slice(3)}`
+            }));
+        } else {
+            setFormData((prevData) => ({
+                ...prevData,
+                phoneNumber: `${input.slice(0, 3)}-${input.slice(3, 7)}-${input.slice(7, 11)}`
+            }));
+        }
+    };
+
+    const validatePhoneNumber = (phoneNumber) => {
+        // 한국 휴대전화 형식(010-XXXX-XXXX) 검증
+        const phoneRegex = /^010-\d{4}-\d{4}$/;
+        return phoneRegex.test(phoneNumber);
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -57,26 +84,32 @@ const EditProfile = () => {
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handlePasswordChange = (e) => {
+        const { name, value } = e.target;
+        setPasswordData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+    const handleProfileSubmit = async (e) => {
         e.preventDefault();
-        if (!isGoogleUser && formData.newPassword !== formData.confirmPassword) {
-            alert('New password and confirmation do not match');
+        // 전화번호 검증 로직 추가
+        if (!validatePhoneNumber(formData.phoneNumber)) {
+            setPhoneError('올바른 전화번호 형식이 아닙니다. (010-XXXX-XXXX)');
             return;
+        } else {
+            setPhoneError('');
         }
+
         try {
             const requestData = {
                 name: formData.name,
                 email: formData.email,
                 gender: formData.gender,
-                phoneNumber: formData.phoneNumber,
+                phoneNumber: formData.phoneNumber.replace(/-/g, ''), // 전화번호에서 '-' 제거
                 birthdate: formData.birthdate,
-                googleUser: isGoogleUser // 구글 사용자 여부를 포함
             };
-
-            if (!isGoogleUser) {
-                if (formData.currentPassword) requestData.currentPassword = formData.currentPassword;
-                if (formData.newPassword) requestData.newPassword = formData.newPassword;
-            }
 
             await api.put('/users/me', requestData);
             alert('Profile updated successfully');
@@ -86,97 +119,128 @@ const EditProfile = () => {
         }
     };
 
+    const handlePasswordSubmit = async (e) => {
+        e.preventDefault();
+        if (passwordData.newPassword !== passwordData.confirmPassword) {
+            alert('New password and confirmation do not match');
+            return;
+        }
+        try {
+            const requestData = {
+                currentPassword: passwordData.currentPassword,
+                newPassword: passwordData.newPassword
+            };
+
+            await api.put('/users/me/password', requestData);
+            alert('Password updated successfully');
+        } catch (error) {
+            console.error('Failed to update password', error);
+            alert('Failed to update password: ' + (error.response?.data?.result?.resultMessage || 'Unknown error'));
+        }
+    };
+
     return (
         <div className="edit-profile-container">
             <h2>Edit Profile</h2>
             {user && (
-                <form onSubmit={handleSubmit} className="edit-profile-form">
-                    <div className="form-group">
-                        <label>Name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Gender</label>
-                        <select
-                            name="gender"
-                            value={formData.gender}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label>Phone Number</label>
-                        <input
-                            type="text"
-                            name="phoneNumber"
-                            value={formData.phoneNumber}
-                            onChange={handleChange}
-                            placeholder="010-1234-5678"
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Birthdate</label>
-                        <input
-                            type="date"
-                            name="birthdate"
-                            value={formData.birthdate}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+                <>
+                    <form onSubmit={handleProfileSubmit} className="edit-profile-form">
+                        <div className="form-group">
+                            <label>Name</label>
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Gender</label>
+                            <select
+                                name="gender"
+                                value={formData.gender}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Phone Number</label>
+                            <input
+                                type="text"
+                                name="phoneNumber"
+                                value={formData.phoneNumber}
+                                onChange={handlePhoneNumberChange}
+                                placeholder="010-1234-5678"
+                                required
+                            />
+                            {phoneError && <p className="error">{phoneError}</p>}
+                        </div>
+                        <div className="form-group">
+                            <label>Birthdate</label>
+                            <input
+                                type="date"
+                                name="birthdate"
+                                value={formData.birthdate}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <button type="submit">Update Profile</button>
+                    </form>
+
                     {!isGoogleUser && (
                         <>
-                            <div className="form-group">
-                                <label>Current Password</label>
-                                <input
-                                    type="password"
-                                    name="currentPassword"
-                                    value={formData.currentPassword}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>New Password</label>
-                                <input
-                                    type="password"
-                                    name="newPassword"
-                                    value={formData.newPassword}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Confirm New Password</label>
-                                <input
-                                    type="password"
-                                    name="confirmPassword"
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange}
-                                />
-                            </div>
+                            <h2>Change Password</h2>
+                            <form onSubmit={handlePasswordSubmit} className="edit-password-form">
+                                <div className="form-group">
+                                    <label>Current Password</label>
+                                    <input
+                                        type="password"
+                                        name="currentPassword"
+                                        value={passwordData.currentPassword}
+                                        onChange={handlePasswordChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>New Password</label>
+                                    <input
+                                        type="password"
+                                        name="newPassword"
+                                        value={passwordData.newPassword}
+                                        onChange={handlePasswordChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Confirm New Password</label>
+                                    <input
+                                        type="password"
+                                        name="confirmPassword"
+                                        value={passwordData.confirmPassword}
+                                        onChange={handlePasswordChange}
+                                        required
+                                    />
+                                </div>
+                                <button type="submit">Change Password</button>
+                            </form>
                         </>
                     )}
-                    <button type="submit">Update Profile</button>
-                </form>
+                </>
             )}
         </div>
     );
