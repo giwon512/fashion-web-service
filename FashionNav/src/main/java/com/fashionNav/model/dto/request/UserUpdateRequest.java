@@ -47,7 +47,6 @@ public class UserUpdateRequest {
     private String gender;
 
     @NotBlank(message = "전화번호는 필수 입력 값입니다.")
-    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "올바른 전화번호 형식이 아닙니다. (010-1234-5678)")
     private String phoneNumber;
 
     @NotBlank(message = "생년월일은 필수 입력 값입니다.")
