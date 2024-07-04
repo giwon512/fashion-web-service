@@ -93,10 +93,10 @@ const Header = ({ isLoggedIn, isAdmin, onLogout }) => {
                 onMouseEnter={() => handleMouseEnter('news')}
                 onMouseLeave={() => handleMouseLeave('news')}
               >
-                <Link to="/newsPage">NEWS</Link>
+                <Link to="/news/best">NEWS</Link>
                 {isNewsDropdownVisible && (
                   <ul className="dropdown-menu">
-                    <li><Link to="/news_best">BEST NEWS</Link></li>
+                    <li><Link to="/news/best">BEST NEWS</Link></li>
                     <li><Link to="/news/brand">BRAND NEWS</Link></li>
                     <li><Link to="/news/celeb">CELEB NEWS</Link></li>
                     <li><Link to="/news/trend">TREND NEWS</Link></li>

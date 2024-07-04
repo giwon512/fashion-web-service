@@ -72,6 +72,7 @@ public class PostController {
         return ResponseEntity.ok("Post created successfully");
     }
 
+
     @Operation(summary = "댓글 생성", description = "특정 게시물에 대한 댓글을 생성합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping("/{postId}/replies")
     public ResponseEntity<String> createReply(

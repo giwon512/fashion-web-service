@@ -16,9 +16,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 
 /**
@@ -100,19 +99,45 @@ public class PostService {
     }
 
     public List<Comment> getCommentsByPostId(int postId) {
-        List<Comment> comments = commentMapper.findCommentsByPostId(postId);
-        comments.forEach(comment -> {
+        List<Comment> allComments = commentMapper.findCommentTreeByPostId(postId);
+        Map<Integer, Comment> commentMap = new HashMap<>();
+
+        for (Comment comment : allComments) {
+            commentMap.put(comment.getCommentId(), comment);
             User user = commentMapper.findUserById(comment.getUserId());
             comment.setUserName(user.getName());
-            List<Comment> replies = commentMapper.findRepliesByCommentId(comment.getCommentId());
-            comment.setReplies(replies);
-        });
-        return comments;
+            comment.setReplies(new ArrayList<>());
+        }
+
+        List<Comment> rootComments = new ArrayList<>();
+        for (Comment comment : allComments) {
+            if (comment.getParentCommentId() == null) {
+                rootComments.add(comment);
+            } else {
+                Comment parentComment = commentMap.get(comment.getParentCommentId());
+                if (parentComment != null) {
+                    parentComment.getReplies().add(comment);
+                }
+            }
+        }
+
+        return rootComments;
     }
 
     public void createComment(Comment comment, Authentication authentication) {
-        Long userId = ((User) authentication.getPrincipal()).getUserId();  // 현재 로그인된 사용자 ID 설정
-        comment.setUserId(userId);
+        User currentUser = (User) authentication.getPrincipal();
+        comment.setUserId(currentUser.getUserId());
+        comment.setUserName(currentUser.getName());
+        comment.setCreatedAt(LocalDateTime.now());
+        comment.setUpdatedAt(LocalDateTime.now());
+
+        if (comment.getParentCommentId() != null) {
+            Comment parentComment = commentMapper.findCommentById(comment.getParentCommentId());
+            if (parentComment == null || parentComment.getPostId() != comment.getPostId()) {
+                throw new IllegalArgumentException("Invalid parent comment");
+            }
+        }
+
         commentMapper.insertComment(comment);
     }
 

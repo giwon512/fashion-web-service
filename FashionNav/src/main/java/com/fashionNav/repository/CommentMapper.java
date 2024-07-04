@@ -13,8 +13,9 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
-    @Select("SELECT * FROM comments WHERE post_id = #{postId} AND parent_comment_id IS NULL")
-    List<Comment> findCommentsByPostId(@Param("postId") int postId);
+    @Select("WITH RECURSIVE comment_tree AS (SELECT * FROM comments WHERE post_id = #{postId} AND parent_comment_id IS NULL UNION ALL SELECT c.* FROM comments c JOIN comment_tree ct ON c.parent_comment_id = ct.comment_id) SELECT * FROM comment_tree")
+    List<Comment> findCommentTreeByPostId(@Param("postId") int postId);
+
 
     @Select("SELECT * FROM comments WHERE parent_comment_id = #{commentId}")
     List<Comment> findRepliesByCommentId(@Param("commentId") int commentId);
@@ -25,7 +26,7 @@ public interface CommentMapper {
     @Select("SELECT * FROM USER WHERE user_id = #{userId}")
     User findUserById(@Param("userId") Long userId);
 
-    @Insert("INSERT INTO comments (post_id, user_id, content, created_at, updated_at, parent_comment_id) VALUES (#{postId}, #{userId}, #{content}, now(), now(), #{parentCommentId})")
+    @Insert("INSERT INTO comments (post_id, user_id, user_name, content, created_at, updated_at, parent_comment_id) VALUES (#{postId}, #{userId},#{userName}, #{content}, now(), now(), #{parentCommentId})")
     @Options(useGeneratedKeys = true, keyProperty = "commentId")
     void insertComment(Comment comment);
 
