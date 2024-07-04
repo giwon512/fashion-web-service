@@ -3,6 +3,7 @@ package com.fashionNav.service;
 import com.fashionNav.common.error.TokenErrorCode;
 import com.fashionNav.common.error.UserErrorCode;
 import com.fashionNav.exception.ApiException;
+import com.fashionNav.model.dto.request.PasswordUpdateRequest;
 import com.fashionNav.model.dto.request.UserLoginRequest;
 import com.fashionNav.model.dto.request.UserRegisterRequest;
 import com.fashionNav.model.dto.request.UserUpdateRequest;
@@ -100,31 +101,10 @@ public class UserService implements UserDetailsService {
     }
 
     public UserResponse updateUser(User currentUser, UserUpdateRequest request) {
-
-        log.info("login");
-
         var userEntity = userMapper.findById(currentUser.getUserId())
                 .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
 
         boolean emailChanged = !userEntity.getEmail().equals(request.getEmail());
-
-        // 구글 사용자 여부 확인
-        boolean isGoogleUser = userEntity.getPassword() == null || userEntity.getPassword().isEmpty();
-
-        // 구글 사용자가 아니고, 비밀번호 변경을 시도하는 경우에만 비밀번호 관련 처리
-        if (!isGoogleUser && (request.getCurrentPassword() != null || request.getNewPassword() != null)) {
-            if (request.getCurrentPassword() == null || request.getCurrentPassword().isEmpty()) {
-                throw new ApiException(UserErrorCode.INVALID_PASSWORD, "현재 비밀번호는 필수 입력 값입니다.");
-            }
-
-            if (!passwordEncoder.matches(request.getCurrentPassword(), userEntity.getPassword())) {
-                throw new ApiException(UserErrorCode.INVALID_PASSWORD);
-            }
-
-            if (request.getNewPassword() != null && !request.getNewPassword().isEmpty()) {
-                userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
-            }
-        }
 
         userEntity.setName(request.getName());
         userEntity.setEmail(request.getEmail());
@@ -143,6 +123,28 @@ public class UserService implements UserDetailsService {
         }
 
         return UserResponse.from(userEntity, newToken, newRefreshToken);
+    }
+
+    public UserResponse updatePassword(User currentUser, PasswordUpdateRequest request) {
+        var userEntity = userMapper.findById(currentUser.getUserId())
+                .orElseThrow(() -> new ApiException(UserErrorCode.USER_NOT_FOUND));
+
+        // 구글 사용자 여부 확인
+        boolean isGoogleUser = userEntity.getPassword() == null || userEntity.getPassword().isEmpty();
+
+        if (isGoogleUser) {
+            throw new ApiException(UserErrorCode.INVALID_PASSWORD, "구글 사용자 계정은 비밀번호를 변경할 수 없습니다.");
+        }
+
+        if (!passwordEncoder.matches(request.getCurrentPassword(), userEntity.getPassword())) {
+            throw new ApiException(UserErrorCode.INVALID_PASSWORD);
+        }
+
+        userEntity.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userEntity.setUpdatedAt(LocalDateTime.now());
+        userMapper.update(userEntity);
+
+        return UserResponse.from(userEntity, null, null);
     }
 
     public UserAuthenticationResponse refreshToken(String refreshToken) {

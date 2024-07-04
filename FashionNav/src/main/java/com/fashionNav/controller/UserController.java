@@ -97,15 +97,6 @@ public class UserController {
         return Api.OK(response);
     }
 
-    @Operation(summary = "회원 정보 수정", description = "현재 인증된 사용자의 정보를 수정합니다.",security = @SecurityRequirement(name = "bearerAuth"))
-    @PutMapping("/me")
-    public Api<UserResponse> updateUser(Authentication authentication, @Valid @RequestBody UserUpdateRequest request) {
-        var response = userService.updateUser((User)authentication.getPrincipal(), request);
-
-
-        return Api.OK(response);
-    }
-
     @Operation(summary = "회원 정보 불러오기", description = "현재 인증된 사용자의 정보를 불러옵니다.",security = @SecurityRequirement(name = "bearerAuth"))
     @GetMapping("/me")
     public Api<UserResponseMe> findByMe(Authentication authentication) {
@@ -155,6 +146,27 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 인증 코드입니다.");
         }
     }
+
+
+    @Operation(summary = "회원 정보 수정", description = "현재 인증된 사용자의 정보를 수정합니다.", security = @SecurityRequirement(name = "bearerAuth"))
+    @PutMapping("/me")
+    public Api<UserResponse> updateUser(Authentication authentication, @Valid @RequestBody UserUpdateRequest request) {
+        var response = userService.updateUser((User)authentication.getPrincipal(), request);
+        return Api.OK(response);
+    }
+
+    @Operation(summary = "비밀번호 수정", description = "마이페이지 내에서 현재 인증된 사용자의 비밀번호를 수정합니다.", security = @SecurityRequirement(name = "bearerAuth"))
+    @PutMapping("/me/password")
+    public Api<UserResponse> updatePassword(Authentication authentication, @Valid @RequestBody PasswordUpdateRequest request) {
+        var response = userService.updatePassword((User)authentication.getPrincipal(), request);
+        return Api.OK(response);
+    }
+
+
+
+
+
+
 }
 
 
