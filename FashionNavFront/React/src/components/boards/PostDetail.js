@@ -127,6 +127,7 @@ const PostDetail = () => {
             const newCommentReply = {
                 content: replyContent,
                 parentCommentId: replyCommentId,
+                postId: postId, // Ensure postId is set
             };
             await api.post(`/posts/${postId}/comments`, newCommentReply);
             setReplyCommentId(null);
@@ -213,15 +214,15 @@ const PostDetail = () => {
                             <p>작성자: {comment.userName}</p>
                             <p>작성일: {new Date(comment.createdAt).toLocaleString()}</p>
                         </div>
-                        {comment.userId === userId && (
-                            <div className="comment-actions">
-                                <button onClick={() => handleReplyComment(comment.commentId)}>대댓글</button>
+                        <div className="comment-actions">
+                            <button onClick={() => handleReplyComment(comment.commentId)}>대댓글</button>
+                            {comment.userId === userId && (
                                 <button onClick={() => handleDeleteComment(comment.commentId)}>삭제</button>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 )}
-                {comment.replies && renderComments(comment.replies, level + 1)}
+                {comment.replies && comment.replies.length > 0 && renderComments(comment.replies, level + 1)}
             </div>
         ));
     };
