@@ -5,6 +5,7 @@ import './LatestArticles.css';
 
 const LatestArticles = () => {
     const [articles, setArticles] = useState([]);
+    const [imgList, setImgList] = useState({});
 
     useEffect(() => {
         api.get(`/processed-news?pageNum=1&pageSize=9`)
@@ -12,6 +13,7 @@ const LatestArticles = () => {
                 const newsData = response.data.content;
                 if (Array.isArray(newsData)) {
                     setArticles(newsData);
+                    setImgList(response.data.imgContent);
                 } else {
                     console.error('Invalid data format:', newsData);
                 }
@@ -30,7 +32,7 @@ const LatestArticles = () => {
                 {articles.map(article => (
                     <Link to={`/news/details/${article.newsId}`} key={article.newsId} className="article-link">
                         <div className="article-card">
-                            <img src={article.imageUrl} alt={article.title} className="article-image" />
+                            <img src={"data:image/jpg;base64,"+ imgList[article.newsId]} alt={article.title} className="article-image" />
                             <div className="article-content">
                                 <h3>{article.title}</h3>
                                 <p>{article.summary}</p>
