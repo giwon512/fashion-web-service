@@ -14,16 +14,16 @@ import java.util.List;
 public interface CommentMapper {
 
     @Select("SELECT * FROM comments WHERE post_id = #{postId} AND parent_comment_id IS NULL")
-    List<Comment> findCommentsByPostId(int postId);
+    List<Comment> findCommentsByPostId(@Param("postId") int postId);
 
     @Select("SELECT * FROM comments WHERE parent_comment_id = #{commentId}")
-    List<Comment> findRepliesByCommentId(int commentId);
+    List<Comment> findRepliesByCommentId(@Param("commentId") int commentId);
 
     @Select("SELECT * FROM comments WHERE comment_id = #{commentId}")
-    Comment findCommentById(int commentId);
+    Comment findCommentById(@Param("commentId") int commentId);
 
     @Select("SELECT * FROM USER WHERE user_id = #{userId}")
-    User findUserById(Long userId);
+    User findUserById(@Param("userId") Long userId);
 
     @Insert("INSERT INTO comments (post_id, user_id, content, created_at, updated_at, parent_comment_id) VALUES (#{postId}, #{userId}, #{content}, now(), now(), #{parentCommentId})")
     @Options(useGeneratedKeys = true, keyProperty = "commentId")
@@ -33,11 +33,11 @@ public interface CommentMapper {
     void updateComment(Comment comment);
 
     @Delete("DELETE FROM comments WHERE comment_id = #{commentId}")
-    void deleteComment(int commentId);
+    void deleteComment(@Param("commentId") int commentId);
 
     @Delete("DELETE FROM comments WHERE parent_comment_id = #{commentId}")
-    void deleteRepliesByCommentId(int commentId);
+    void deleteRepliesByCommentId(@Param("commentId") int commentId);
 
     @Delete("DELETE FROM comments WHERE post_id = #{postId}")
-    void deleteCommentsByPostId(int postId);
+    void deleteCommentsByPostId(@Param("postId") int postId);
 }

@@ -49,7 +49,6 @@ public class NewsController {
         return ResponseEntity.ok(newsService.getCategoryList(category));
     }
 
-    //변경점 1
     @Operation(summary = "가공전 전체 뉴스 조회 (페이징)", description = "페이징을 통해 전체 뉴스를 조회합니다 (admin 뉴스관리에 필요함)")
     @GetMapping("/raw-news")
     public ResponseEntity<Map<String, Object>> getAllRawNews(
@@ -59,7 +58,6 @@ public class NewsController {
         return ResponseEntity.ok(newsService.getAllRawNews(pageNum, pageSize));
     }
 
-    //변경점 2
     @Operation(summary = "가공 후 전체 뉴스 조회 (페이징)", description = "페이징을 통해 전체 뉴스를 조회합니다.")
     @GetMapping("/processed-news")
     public ResponseEntity<Map<String, Object>> getAllProcessedNews(
@@ -83,11 +81,11 @@ public class NewsController {
     public ResponseEntity<Map<String, List<ProcessedNews>>> getTop3NewsByCategories() {
         return ResponseEntity.ok(newsService.getTop3NewsByCategories());
     }
-    
+
     @Operation(summary = "뉴스 아이디에 해당하는 이미지 조회", description = "뉴스 아이디에 해당하는 이미지의 base64URL을 조회합니다.")
     @GetMapping("/top3/{newsId}")
     public ResponseEntity<String> getImgByNewsId(@PathVariable("newsId") Long newsId){
-    	return ResponseEntity.ok(newsService.getImageByNewsId(newsId));
+        return ResponseEntity.ok(newsService.getImageByNewsId(newsId));
     }
 
     @Operation(summary = "상위 5개 배너 조회", description = "상위 5개의 배너를 조회합니다.")
@@ -96,7 +94,6 @@ public class NewsController {
         return ResponseEntity.ok(newsService.getTop5Banners());
     }
 
-    //가공된 뉴스 업데이트
     @Operation(summary = "가공된 뉴스 업데이트", description = "가공된 뉴스를 업데이트합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/processed-news/{newsId}")
@@ -120,7 +117,6 @@ public class NewsController {
         newsService.deleteRawNews(newsId);
         log.info("가공전 뉴스 삭제");
         return ResponseEntity.ok().build();
-
     }
 
     @Operation(summary = "가공된 뉴스 삭제", description = "가공된 뉴스를 삭제합니다.", security = @SecurityRequirement(name = "bearerAuth"))
@@ -130,7 +126,6 @@ public class NewsController {
         newsService.deleteProcessedNews(newsId);
         log.info("가공된 뉴스 삭제");
         return ResponseEntity.ok().build();
-
     }
 
     @Operation(summary = "가공된 뉴스 검색", description = "키워드를 통해 가공된 뉴스를 검색합니다.")

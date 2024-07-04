@@ -40,9 +40,9 @@ public class PostController {
     @Operation(summary = "게시물 목록 조회", description = "게시판 유형에 따라 게시물 목록을 페이지네이션하여 조회합니다.")
     @GetMapping
     public ResponseEntity<Map<String, Object>> getPostsByBoardType(
-            @RequestParam String boardType,
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam("boardType") String boardType,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
         Map<String, Object> response = postService.getPostsByBoardTypeWithPagination(boardType, page, size);
         log.info("페이징 호출");
         return ResponseEntity.ok(response);
@@ -85,7 +85,10 @@ public class PostController {
 
     @Operation(summary = "게시물 수정", description = "특정 게시물을 수정합니다.", security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{postId}")
-    public ResponseEntity<String> updatePost(@PathVariable("postId") int postId, @RequestBody Post post, Authentication authentication) {
+    public ResponseEntity<String> updatePost(
+            @PathVariable("postId") int postId,
+            @RequestBody Post post,
+            Authentication authentication) {
         post.setPostId(postId);
         postService.updatePost(post, authentication);
         return ResponseEntity.ok("Post updated successfully");
