@@ -73,6 +73,9 @@ public class NewsController {
             @PathVariable("category") String category,
             @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+    	if("best".equals(category)) {
+    		return ResponseEntity.ok(newsService.getAllProcessedNews(1, 10));
+    	}
         return ResponseEntity.ok(newsService.getProcessedNewsByCategoryAndPage(category, pageNum, pageSize));
     }
 
