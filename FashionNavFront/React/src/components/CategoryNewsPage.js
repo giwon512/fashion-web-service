@@ -9,6 +9,7 @@ const CategoryNewsPage = () => {
     const [newsList, setNewsList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [imgList, setImgList] = useState({});
     const pageSize = 10; // 한 페이지에 보여줄 뉴스 항목 수
 
     useEffect(() => {
@@ -23,6 +24,7 @@ const CategoryNewsPage = () => {
                 setNewsList(data.content);
                 setCurrentPage(data.currentPage);
                 setTotalPages(data.totalPages);
+                setImgList(data.imgContent);
                 console.log(totalPages);
             } else {
                 setNewsList([]);
@@ -45,7 +47,7 @@ const CategoryNewsPage = () => {
                     newsList.map(news => (
                         <Link to={`/news/details/${news.newsId}`} key={news.newsId} className="cnp-news-item-link">
                             <div className="cnp-news-item">
-                                <img src={news.imageUrl} alt={news.title} className="cnp-news-image" />
+                                <img src={"data:image/jpg;base64,"+ imgList[news.newsId]} alt={news.title} className="cnp-news-image" />
                                 <div className="cnp-news-text">
                                     <h3 className="cnp-news-title">{news.title}</h3>
                                     <p className="cnp-news-summary">{news.summary}</p>
