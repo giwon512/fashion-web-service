@@ -25,9 +25,9 @@ const MyPage = () => {
             </div>
             <div className="menu-section">
                 <ul>
-                    <li>내 정보 관리</li>
+                    <li><Link to="/edit-profile">내 정보 관리</Link></li>
                     <li>favorite</li>
-                    <li>저장한 콘텐츠</li>
+                    <li><Link to="/mypage/saved-content">저장한 콘텐츠</Link></li>
                     <li><Link to="/mypage/my-comments">내가 쓴 댓글</Link></li>
                     <li>
                         <Link to="/survey-management">설문 관리</Link>

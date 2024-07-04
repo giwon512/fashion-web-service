@@ -28,4 +28,16 @@
     border-radius: 5px;
 }
 
+.clickable {
+    cursor: pointer;
+    text-decoration: none;
+}
 
+.clickable:hover {
+    text-decoration: underline;
+}
+
+/* Custom arrow styles */
+.slick-prev:before, .slick-next:before {
+    color: white; /* 화살표 색상 */
+}

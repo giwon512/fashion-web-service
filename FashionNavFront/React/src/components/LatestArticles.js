@@ -7,7 +7,7 @@ const LatestArticles = () => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        api.get(`/raw-news?pageNum=1&pageSize=9`)
+        api.get(`/processed-news?pageNum=1&pageSize=9`)
             .then(response => {
                 const newsData = response.data.content;
                 if (Array.isArray(newsData)) {

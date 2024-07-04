@@ -4,7 +4,8 @@ import axios from 'axios';
 import './SearchResults.css';
 
 const api = axios.create({
-  baseURL: 'http://192.168.0.124:8080', // 실제 서버 주소로 변경
+  // baseURL: 'http://192.168.0.124:8080', // 실제 서버 주소로 변경
+  baseURL: 'http://localhost:8080', // 실제 서버 주소로 변경
 });
 
 api.interceptors.request.use(config => {
@@ -38,7 +39,7 @@ const SearchResults = () => {
 
     const fetchResults = async () => {
       try {
-        const response = await api.get('/api/search', { params: { keyword, page, size, type: searchType } });
+        const response = await api.get('api/processed-news/search', { params: { keyword, page, size, type: searchType } });
         setResults(response.data.content);
         setTotalPages(response.data.totalPages);
       } catch (error) {

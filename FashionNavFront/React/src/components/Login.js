@@ -68,7 +68,12 @@ const Login = ({ onLogin }) => {
                 localStorage.setItem('token', data.accessToken);
                 localStorage.setItem('refreshToken', data.refreshToken);
                 onLogin();
-                navigate('/');
+
+                if (data.newUser) { //신규가입여부
+                    navigate('/edit-profile'); // 신규 가입자인 경우 edit-profile 페이지로 이동
+                } else {
+                    navigate(from); // 기존 사용자라면 원래 페이지로 이동
+                }
             } else {
                 console.error('Login failed, no access token in response:', data);
             }
@@ -83,6 +88,7 @@ const Login = ({ onLogin }) => {
 
     return (
         <div className="login-container">
+            <h2 className="login-title">로그인</h2>
             <form className="login-form" onSubmit={handleLogin}>
                 <div className="login-input-group">
                     <label htmlFor="email">아이디</label>
@@ -113,14 +119,14 @@ const Login = ({ onLogin }) => {
                     />
                     <label htmlFor="rememberMe">아이디 저장</label>
                 </div>
-                {error && <p className="error">{error}</p>}
+                {error && <p className="login-error">{error}</p>}
                 <button type="submit" className="login-button">로그인</button>
             </form>
             <div className="login-footer">
                 <button className="signup-button" onClick={handleSignup}>회원가입</button>
-                <button className="find-idpw-button" onClick={handleFindIdPw}>아이디/비밀번호찾기</button>
+                <button className="login-find-idpw-button" onClick={handleFindIdPw}>아이디/비밀번호찾기</button>
             </div>
-            <div className="social-login">
+            <div className="login-social-login">
                 <h3>또는</h3>
                 <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
             </div>

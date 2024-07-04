@@ -14,7 +14,7 @@ const AllNews = () => {
 
     const fetchNews = async (page) => {
         try {
-            const response = await api.get(`/raw-news?pageNum=${page}&pageSize=10`);
+            const response = await api.get(`/processed-news?pageNum=${page}&pageSize=10`);
             setNewsList(response.data.content);
             setTotalPages(response.data.totalPages);
         } catch (error) {
