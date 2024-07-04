@@ -1,7 +1,7 @@
 /* src/components/CategoryNewsPage.css */
 .category-news-page {
-    padding: 20px;
-    max-width: 1200px;
+    /* padding: 20px; */
+    max-width: 1150px;
     margin: 0 auto;
 }
 
@@ -56,3 +56,4 @@
     font-size: 12px;
     color: #999;
 }
+
