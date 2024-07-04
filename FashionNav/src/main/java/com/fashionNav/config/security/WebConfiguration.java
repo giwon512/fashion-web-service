@@ -79,6 +79,7 @@ public class WebConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/users/oauth2/google").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/processed-news/**").permitAll()
 //                        .requestMatchers(HttpMethod.POST,"/api/users/oauth2/naver").permitAll()
 //                        .requestMatchers(HttpMethod.POST,"/api/users/oauth2/kakao").permitAll()
 

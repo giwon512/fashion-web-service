@@ -74,12 +74,18 @@ public class NewsService {
         int offset = (pageNum - 1) * pageSize;
         List<ProcessedNews> processedNewsList = newsMapper.findProcessedNewsByPagination(offset, pageSize);
         long total = newsMapper.countProcessedNewsAll();
+        Map<Long, String> imgContent = new HashMap<>(); 
+        for(ProcessedNews news : processedNewsList) {
+        	String img = newsMapper.getImageByNewsId(news.getNewsId());
+        	imgContent.put(news.getNewsId(), img);
+        }
 
         Map<String, Object> response = new HashMap<>();
         response.put("content", processedNewsList);
         response.put("currentPage", pageNum);
         response.put("totalItems", total);
         response.put("totalPages", (int) Math.ceil((double) total / pageSize));
+        response.put("imgContent", imgContent);
         return response;
     }
 
