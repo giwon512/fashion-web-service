@@ -59,7 +59,7 @@ public class UserSurveyController {
 
 
     @GetMapping("/{surveyId}")
-    public Api<UserSurveyResponse> getUserSurveyById(@PathVariable Long surveyId) {
+    public Api<UserSurveyResponse> getUserSurveyById(@PathVariable("surveyId") Long surveyId) {
 
         UserSurvey userSurvey = userSurveyService.getUserSurveyById(surveyId);
         List<Style> styles = userSurveyService.findStylesBySurveyId(surveyId);
@@ -72,7 +72,7 @@ public class UserSurveyController {
     }
 
     @PutMapping("/{surveyId}")
-    public Api<Void> updateUserSurvey(@PathVariable Long surveyId, @RequestBody UserSurveyRequest request) {
+    public Api<Void> updateUserSurvey(@PathVariable("surveyId") Long surveyId, @RequestBody UserSurveyRequest request) {
         UserSurvey userSurvey = request.getUserSurvey();
         userSurvey.setSurveyId(surveyId); // Set the surveyId to the correct value
         userSurveyService.updateUserSurvey(userSurvey, request.getStyleIds(), request.getBrandIds());
@@ -80,7 +80,7 @@ public class UserSurveyController {
     }
 
     @DeleteMapping("/{surveyId}")
-    public Api<Void> deleteUserSurvey(@PathVariable Long surveyId) {
+    public Api<Void> deleteUserSurvey(@PathVariable("surveyId") Long surveyId) {
         userSurveyService.deleteUserSurvey(surveyId);
         return Api.OK(SuccessCode.OK);
     }
