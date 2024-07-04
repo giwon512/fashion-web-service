@@ -77,6 +77,9 @@ dependencies {
 	implementation 'com.google.oauth-client:google-oauth-client-jetty:1.32.1'
 	implementation 'com.google.http-client:google-http-client-gson:1.40.1'
 
+	//google
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 
 }
 
