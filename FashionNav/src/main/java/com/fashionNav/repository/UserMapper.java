@@ -13,9 +13,14 @@ import java.util.Optional;
 @Mapper
 public interface UserMapper {
 
-    static void deleteUser(User user) {
-    }
+    @Select("SELECT email FROM USER WHERE name = #{name} AND phoneNumber = #{phoneNumber}")
+    Optional<String> findEmailByNameAndPhoneNumber(String name, String phoneNumber);
 
+    @Select("SELECT * FROM USER WHERE email = #{email} AND name = #{name}")
+    Optional<User> findUserByEmailAndName(String email, String name);
+
+    @Update("UPDATE USER SET password = #{password}, updated_at = NOW() WHERE email = #{email}")
+    void updatePasswordByEmail(String email, String password);
     /**
      * 주어진 이메일에 해당하는 사용자를 조회합니다.
      *
@@ -75,8 +80,6 @@ public interface UserMapper {
 
     @Select("SELECT * FROM USER WHERE user_id = #{userId}")
     User findUserById(Long userId);
-
-
 
 
 }

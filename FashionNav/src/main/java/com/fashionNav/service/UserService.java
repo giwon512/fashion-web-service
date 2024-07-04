@@ -31,6 +31,8 @@ import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -44,9 +46,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
+    private final EmailService emailService;
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final Map<String, String> verificationCodes = new HashMap<>();
 
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
@@ -225,5 +229,31 @@ public class UserService implements UserDetailsService {
         } catch (GeneralSecurityException | IOException e) {
             throw new ApiException(TokenErrorCode.INVALID_TOKEN, "Failed to verify token");
         }
+    }
+    public Optional<String> findEmailByNameAndPhoneNumber(String name, String phoneNumber) {
+        return userMapper.findEmailByNameAndPhoneNumber(name, phoneNumber);
+    }
+
+    public Optional<User> findUserByEmailAndName(String email, String name) {
+        return userMapper.findUserByEmailAndName(email, name);
+    }
+
+    public void updatePasswordByEmail(String email, String newPassword) {
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        userMapper.updatePasswordByEmail(email, encodedPassword);
+    }
+
+    public void sendVerificationCode(String email) {
+        String code = generateVerificationCode();
+        verificationCodes.put(email, code);
+        emailService.sendEmail(email, "Verification Code", "Your verification code is: " + code);
+    }
+
+    public boolean verifyCode(String email, String code) {
+        return code.equals(verificationCodes.get(email));
+    }
+
+    private String generateVerificationCode() {
+        return String.valueOf((int)(Math.random() * 9000) + 1000); // 4자리 랜덤 코드 생성
     }
 }
