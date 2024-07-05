@@ -30,5 +30,4 @@ public interface NewsBannersMapper {
 	@Insert("INSERT INTO Banner ( title, image_url, url, description, created_date ) VALUES ( #{title}, #{imageUrl}, #{url}, #{description}, #{createdDate} )")
 	void insertBanner(NewsBannerRequest dto);
 
-	
 }

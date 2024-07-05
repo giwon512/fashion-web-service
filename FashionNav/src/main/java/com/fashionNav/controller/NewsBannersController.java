@@ -31,45 +31,45 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class NewsBannersController {
 
-    private final NewsBannersService newsBannersService;
+	private final NewsBannersService newsBannersService;
 
-    // 가공된 뉴스를 배너에 넣는 기능
-    @Operation(summary = "Banner 저장", description = "뉴스를 가공해 배너에 넣는 기능")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping
-    public Api<String> insertProcessedBanner(@RequestBody NewsBannerRequest dto) {
-        newsBannersService.insertProcessedBanner(dto);
+	// 가공된 뉴스를 배너에 넣는 기능
+	@Operation(summary = "Banner 저장", description = "뉴스를 가공해 배너에 넣는 기능")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PostMapping
+	public Api<String> insertProcessedBanner(@RequestBody NewsBannerRequest dto) {
+		newsBannersService.insertProcessedBanner(dto);
 
-        return Api.OK("배너로 저장 성공");
-    }
+		return Api.OK("배너로 저장 성공");
+	}
 
-    // 배너 뉴스 목록
-    @Operation(summary = "Banner 목록", description = "배너 목록 보여주는 기능")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping
-    public Api<List<NewsBannersResponse>> NewsBannersList() {
-        List<NewsBannersResponse> banners = newsBannersService.NewsBannersList();
+	// 배너 뉴스 목록
+	@Operation(summary = "Banner 목록", description = "배너 목록 보여주는 기능")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping
+	public Api<List<NewsBannersResponse>> NewsBannersList() {
+		List<NewsBannersResponse> banners = newsBannersService.NewsBannersList();
 
-        return Api.OK(banners);
-    }
+		return Api.OK(banners);
+	}
 
-    // 배너 업데이트
-    @Operation(summary = "Banner 수정", description = "배너 수정하는 기능")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/{bannerId}")
-    public Api<String> updatedBanner(@PathVariable("bannerId") Long bannerId, @RequestBody NewsBannerRequest dto) {
-        newsBannersService.updatedBanner(bannerId, dto);
+	// 배너 업데이트
+	@Operation(summary = "Banner 수정", description = "배너 수정하는 기능")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PutMapping("/{bannerId}")
+	public Api<String> updatedBanner(@PathVariable("bannerId") Long bannerId, @RequestBody NewsBannerRequest dto) {
+		newsBannersService.updatedBanner(bannerId, dto);
 
-        return Api.OK("배너 업데이트 완료");
-    }
+		return Api.OK("배너 업데이트 완료");
+	}
 
-    // 배너 삭제
-    @Operation(summary = "Banner 삭제", description = "배너 삭제하는 기능")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/{bannerId}/delete")
-    public Api<String> deleteBanner(@PathVariable("bannerId") Long bannerId) {
-        newsBannersService.deleteBanner(bannerId);
-        return Api.OK("배너 삭제 완료");
-    }
-    
+	// 배너 삭제
+	@Operation(summary = "Banner 삭제", description = "배너 삭제하는 기능")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PostMapping("/{bannerId}/delete")
+	public Api<String> deleteBanner(@PathVariable("bannerId") Long bannerId) {
+		newsBannersService.deleteBanner(bannerId);
+		return Api.OK("배너 삭제 완료");
+	}
+
 }
