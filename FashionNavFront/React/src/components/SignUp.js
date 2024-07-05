@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './SignUp.css'; // SignUp.css 파일 import 추가
+import './SignUp.css';
 import api from '../api';
 
 const SignUp = () => {
@@ -14,6 +14,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
+  const [phoneError, setPhoneError] = useState(''); // 전화번호 에러 상태 추가
   const navigate = useNavigate();
 
   const handlePasswordChange = (event) => {
@@ -48,9 +49,22 @@ const SignUp = () => {
     setEmail(event.target.value);
   };
 
-  // 전화번호 입력을 위한 핸들러 함수
   const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
+    let input = event.target.value.replace(/[^0-9]/g, ''); // 숫자 외의 문자 제거
+
+    if (input.length <= 3) {
+      setPhoneNumber(input);
+    } else if (input.length <= 7) {
+      setPhoneNumber(`${input.slice(0, 3)}-${input.slice(3)}`);
+    } else {
+      setPhoneNumber(`${input.slice(0, 3)}-${input.slice(3, 7)}-${input.slice(7, 11)}`);
+    }
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    // 한국 휴대전화 형식(010-XXXX-XXXX) 검증
+    const phoneRegex = /^010-\d{4}-\d{4}$/;
+    return phoneRegex.test(phoneNumber);
   };
 
   const handleSubmit = async (event) => {
@@ -61,7 +75,16 @@ const SignUp = () => {
       return;
     }
 
+    // 전화번호 검증 로직 추가
+    if (!validatePhoneNumber(phoneNumber)) {
+      setPhoneError('올바른 전화번호 형식이 아닙니다. (010-XXXX-XXXX)');
+      return;
+    } else {
+      setPhoneError('');
+    }
+
     const birthdate = `${year}-${month}-${day}`;
+    const cleanedPhoneNumber = phoneNumber.replace(/-/g, ''); // 전화번호에서 '-' 제거
 
     const registerRequest = {
       name: name,
@@ -69,7 +92,7 @@ const SignUp = () => {
       password: password,
       birthdate: birthdate,
       gender: gender,
-      phoneNumber: phoneNumber,
+      phoneNumber: cleanedPhoneNumber,
     };
 
     try {
@@ -216,7 +239,6 @@ const SignUp = () => {
             </select>
           </div>
 
-          {/* 전화번호 입력 필드 */}
           <div className="form-group">
             <label>전화번호:</label>
             <input
@@ -224,8 +246,10 @@ const SignUp = () => {
                 value={phoneNumber}
                 onChange={handlePhoneNumberChange}
                 placeholder="전화번호를 입력하세요"
+                required
             />
           </div>
+          {phoneError && <p className="error">{phoneError}</p>}
 
           <button type="submit">가입하기</button>
         </form>
