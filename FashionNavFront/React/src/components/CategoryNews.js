@@ -4,16 +4,23 @@ import { Link } from 'react-router-dom';
 import api from '../api';
 import './CategoryNews.css';
 
-const CategoryNews = ({ category }) => {
+const CategoryNews = ({ category, isLoggedIn }) => {
     const [newsList, setNewsList] = useState([]);
     const [imgList, setImgList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const getNews = async () => {
-            await api.get(`/top3?category=${category}`)
-                .then(response => setNewsList(response.data[category]))
-                .catch(error => console.error('Error fetching category news:', error));
+            if(!isLoggedIn){
+                await api.get(`/top3?category=${category}`)
+                    .then(response => setNewsList(response.data[category]))
+                    .catch(error => console.error('Error fetching category news:', error));
+            }
+            else{
+                await api.get(`/top3/prefer?category=${category}`)
+                    .then(response => setNewsList(response.data))
+                    .catch(error => console.error('Error fetching category news:', error));
+            }
         }
 
         getNews();
@@ -58,7 +65,7 @@ const CategoryNews = ({ category }) => {
                     </div>
                 ))}
             </div>
-        </div>
+        </div>  
     );
 };
 
