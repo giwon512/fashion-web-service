@@ -14,4 +14,5 @@ public class NewsBannersResponse {
 	private String title;
 	private LocalDateTime createdDate;
 
+	
 }

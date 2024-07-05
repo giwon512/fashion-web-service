@@ -84,4 +84,5 @@ public class NewsBannersService {
 		bannersMapper.deleteBanner(bannerId);
 	}
 
+	
 }
