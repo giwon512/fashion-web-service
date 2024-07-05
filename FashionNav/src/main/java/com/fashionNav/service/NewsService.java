@@ -55,6 +55,9 @@ public class NewsService {
     	
     	//해당 유저의 설문조사 결과 가져오기
     	List<UserSurvey> userSurveys = userSurveyService.getUserSurveysByUserId(userId);
+    	if(userSurveys.size() == 0) {
+    		return newsList.subList(0, 3);
+    	}
     	List<Style> styleList = userSurveyService.findStylesBySurveyId(userSurveys.get(0).getSurveyId());
     	List<Brand> brandList = userSurveyService.findBrandsBySurveyId(userSurveys.get(0).getSurveyId());
     	
