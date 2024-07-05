@@ -1,11 +1,11 @@
 package com.fashionNav.repository;
 
-
 import com.fashionNav.model.entity.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Optional;
+
 /**
  * UserMapper 인터페이스는 사용자 데이터를 관리하는 MyBatis 매퍼 인터페이스입니다.
  * 이 인터페이스는 사용자 데이터를 조회, 삽입, 업데이트 및 삭제하는 메서드를 제공합니다.
@@ -14,13 +14,14 @@ import java.util.Optional;
 public interface UserMapper {
 
     @Select("SELECT email FROM USER WHERE name = #{name} AND phoneNumber = #{phoneNumber}")
-    Optional<String> findEmailByNameAndPhoneNumber(String name, String phoneNumber);
+    Optional<String> findEmailByNameAndPhoneNumber(@Param("name") String name, @Param("phoneNumber") String phoneNumber);
 
     @Select("SELECT * FROM USER WHERE email = #{email} AND name = #{name}")
-    Optional<User> findUserByEmailAndName(String email, String name);
+    Optional<User> findUserByEmailAndName(@Param("email") String email, @Param("name") String name);
 
     @Update("UPDATE USER SET password = #{password}, updated_at = NOW() WHERE email = #{email}")
-    void updatePasswordByEmail(String email, String password);
+    void updatePasswordByEmail(@Param("email") String email, @Param("password") String password);
+
     /**
      * 주어진 이메일에 해당하는 사용자를 조회합니다.
      *
@@ -28,7 +29,7 @@ public interface UserMapper {
      * @return 사용자의 Optional 객체
      */
     @Select("SELECT * FROM USER WHERE email = #{email}")
-    Optional<User> findByEmail(String email);
+    Optional<User> findByEmail(@Param("email") String email);
 
     /**
      * 모든 사용자를 조회합니다.
@@ -45,7 +46,7 @@ public interface UserMapper {
      * @return 사용자 객체
      */
     @Select("SELECT * FROM USER WHERE user_id = #{userId}")
-    Optional<User> findById(Long userId);
+    Optional<User> findById(@Param("userId") Long userId);
 
     /**
      * 새로운 사용자를 USER 테이블에 삽입합니다.
@@ -56,7 +57,6 @@ public interface UserMapper {
             "VALUES (#{password}, #{name}, #{email}, #{gender}, #{phoneNumber}, #{birthdate}, #{role}, #{createdAt}, #{updatedAt})")
     @Options(useGeneratedKeys = true, keyProperty = "userId")
     void insert(User user);
-
 
     /**
      * 기존 사용자의 정보를 업데이트합니다.
@@ -73,13 +73,11 @@ public interface UserMapper {
      * @param userId 사용자의 ID
      */
     @Delete("DELETE FROM USER WHERE user_id = #{userId}")
-    void deleteUser(Long userId);
+    void deleteUser(@Param("userId") Long userId);
 
     @Select("SELECT name FROM USER WHERE user_id = #{userId}")
-    String findUserNameById(Long userId);
+    String findUserNameById(@Param("userId") Long userId);
 
     @Select("SELECT * FROM USER WHERE user_id = #{userId}")
-    User findUserById(Long userId);
-
-
+    User findUserById(@Param("userId") Long userId);
 }
