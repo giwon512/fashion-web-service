@@ -15,4 +15,5 @@ public class NewsBannerRequest {
     private String url; // 추가된 필드
     private String description; // 추가된 필드
     private LocalDateTime createdDate;
+    
 }
