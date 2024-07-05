@@ -71,6 +71,4 @@ public class NewsBannersController {
         newsBannersService.deleteBanner(bannerId);
         return Api.OK("배너 삭제 완료");
     }
-
-    
 }

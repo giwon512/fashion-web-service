@@ -23,10 +23,10 @@ public class NewsBannersService {
 	// 가공된 뉴스 배너에 넣는 기능
 	public void insertProcessedBanner(NewsBannerRequest dto) {
 		// created_date 값이 null인 경우 현재 시간으로 설정
-	    if (dto.getCreatedDate() == null) {
-	        dto.setCreatedDate(LocalDateTime.now());
-	    }
-		
+		if (dto.getCreatedDate() == null) {
+			dto.setCreatedDate(LocalDateTime.now());
+		}
+
 		// 넘어온 데이터가 하나라도 없으면 에러
 		for (Field field : dto.getClass().getDeclaredFields()) {
 			field.setAccessible(true);
@@ -84,5 +84,4 @@ public class NewsBannersService {
 		bannersMapper.deleteBanner(bannerId);
 	}
 
-	
 }
