@@ -73,9 +73,10 @@ const NewsDetail = ({ isAdmin }) => {
         }
     };
 
+    //수정된 부분
     const handleEditClick = () => {
         const currentPage = Math.ceil((allNewsList.findIndex(news => news.newsId === parseInt(newsId)) + 1) / 10);
-        navigate(`/admin/news?editNewsId=${newsId}&page=${currentPage}`);
+        navigate(`/admin/processed-news?editNewsId=${newsId}&page=${currentPage}`);
     };
 
     const handleBookmarkToggle = async () => {
