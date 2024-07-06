@@ -84,7 +84,7 @@ const App = () => {
       <GoogleOAuthProvider clientId="123145919395-6b789bgir2efl0o2r83vjvhicshs3avi.apps.googleusercontent.com">
         <Header isLoggedIn={isLoggedIn} isAdmin={isAdmin} onLogout={handleLogout} />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} />} />
           <Route path="/news" element={<NewsList />} />
           <Route path="/news/:category" element={<CategoryNewsPage />} />
           <Route path="/news/details/:newsId" element={<NewsDetail isAdmin={isAdmin} />} />

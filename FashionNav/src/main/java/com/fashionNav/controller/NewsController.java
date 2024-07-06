@@ -1,20 +1,32 @@
 package com.fashionNav.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.fashionNav.model.entity.Banner;
 import com.fashionNav.model.entity.ProcessedNews;
 import com.fashionNav.model.entity.RawNews;
+import com.fashionNav.model.entity.User;
 import com.fashionNav.service.NewsService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * NewsController 클래스는 뉴스와 관련된 API를 제공합니다.
@@ -79,10 +91,16 @@ public class NewsController {
         return ResponseEntity.ok(newsService.getProcessedNewsByCategoryAndPage(category, pageNum, pageSize));
     }
 
-    @Operation(summary = "카테고리별 상위 3개 뉴스 조회", description = "각 카테고리의 상위 3개 뉴스를 조회합니다.")
+    @Operation(summary = "카테고리별 상위 3개 뉴스 조회(로그인되지 않은 상태)", description = "각 카테고리의 상위 3개 뉴스를 조회합니다.")
     @GetMapping("/top3")
     public ResponseEntity<Map<String, List<ProcessedNews>>> getTop3NewsByCategories() {
         return ResponseEntity.ok(newsService.getTop3NewsByCategories());
+    }
+    
+    @Operation(summary = "카테고리별 선호도 적용된 상위 3개 뉴스 조회(로그인된 상태)", description = "각 카테고리에서 사용자의 선호도가 적용된 상위 3개 뉴스를 조회합니다.")
+    @GetMapping("/top3/prefer")
+    public ResponseEntity<List<ProcessedNews>> getTop3NewsByCategoriesAndPreference(Authentication authentication, @RequestParam("category") String category) {
+    	return ResponseEntity.ok(newsService.getTop3NewsByCategoriesAndPreference(category, (User)authentication.getPrincipal()));
     }
 
     @Operation(summary = "뉴스 아이디에 해당하는 이미지 조회", description = "뉴스 아이디에 해당하는 이미지의 base64URL을 조회합니다.")

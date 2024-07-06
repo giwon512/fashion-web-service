@@ -1,18 +1,25 @@
 package com.fashionNav.service;
 
-import com.fashionNav.model.entity.Banner;
-import com.fashionNav.model.entity.ProcessedNews;
-import com.fashionNav.model.entity.RawNews;
-import com.fashionNav.repository.NewsCommentMapper;
-import com.fashionNav.repository.NewsMapper;
-import com.fashionNav.repository.UserSavePageMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fashionNav.model.entity.Banner;
+import com.fashionNav.model.entity.Brand;
+import com.fashionNav.model.entity.ProcessedNews;
+import com.fashionNav.model.entity.RawNews;
+import com.fashionNav.model.entity.Style;
+import com.fashionNav.model.entity.User;
+import com.fashionNav.model.entity.UserSurvey;
+import com.fashionNav.repository.NewsCommentMapper;
+import com.fashionNav.repository.NewsMapper;
+import com.fashionNav.repository.UserSavePageMapper;
+
+import lombok.RequiredArgsConstructor;
 
 
 /**
@@ -27,6 +34,7 @@ public class NewsService {
     private final NewsMapper newsMapper;
     private final NewsCommentMapper newsCommentMapper;
     private final UserSavePageMapper userSavePageMapper;
+    private final UserSurveyService userSurveyService;
 
     public Map<String, List<ProcessedNews>> getTop3NewsByCategories() {
         Map<String, List<ProcessedNews>> newsByCategory = new HashMap<>();
@@ -40,6 +48,46 @@ public class NewsService {
         return newsByCategory;
     }
 
+    public List<ProcessedNews> getTop3NewsByCategoriesAndPreference(String category, User currentUser) {
+    	Long userId = currentUser.getUserId();
+    	//해당 카테고리의 뉴스 1000개 가져옴
+    	List<ProcessedNews> newsList = newsMapper.findProcessedNewsByCategory(category, 0, 1000);
+    	
+    	//해당 유저의 설문조사 결과 가져오기
+    	List<UserSurvey> userSurveys = userSurveyService.getUserSurveysByUserId(userId);
+    	if(userSurveys.size() == 0) {
+    		return newsList.subList(0, 3);
+    	}
+    	List<Style> styleList = userSurveyService.findStylesBySurveyId(userSurveys.get(0).getSurveyId());
+    	List<Brand> brandList = userSurveyService.findBrandsBySurveyId(userSurveys.get(0).getSurveyId());
+    	
+    	//관심있는 스타일, 브랜드의 키워드를 가지고 있는 뉴스 필터링
+    	List<ProcessedNews> filteredList = newsList.stream().filter(news -> {
+    		for(Style style : styleList) {
+    			if(news.getTitle().contains(style.getName()) || news.getContent().contains(style.getName())) {
+    				return true;
+    			}
+    		}
+    		for(Brand brand : brandList) {
+    			if(news.getTitle().contains(brand.getName()) || news.getContent().contains(brand.getName())) {
+    				return true;
+    			}
+    		}
+    		return false;
+    	}).collect(Collectors.toList());
+    	
+    	//리턴할 리스트의 크기 3개로 맞춰서 리턴해주기
+    	if(filteredList.size() >= 3) {
+    		return filteredList.subList(0, 3);
+    	}
+    	else {
+    		int add = 3 - filteredList.size();
+    		for(int i = 0; i < add; i++) {
+    			filteredList.add(newsList.get(i));
+    		}
+    		return filteredList;
+    	}
+    }
 
     //가공된 뉴스 저장
     public void saveProcessedNews(RawNews rawNews) {
