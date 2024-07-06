@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -20,6 +20,8 @@ const ManageProcessedNews = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [pageGroup, setPageGroup] = useState(0);
   const [selectedBanner, setSelectedBanner] = useState(null);
+
+  const quillRef = useRef(null);
 
   useEffect(() => {
     fetchProcessedNews(currentPage);
@@ -63,8 +65,8 @@ const ManageProcessedNews = () => {
   const handleSaveNews = async () => {
     if (selectedNews) {
       try {
-        const editor = document.querySelector('.ql-editor');
-        const updatedContent = editor.innerHTML;
+        const editor = quillRef.current.getEditor();
+        const updatedContent = editor.root.innerHTML;
         await api.put(`/processed-news/${selectedNews.newsId}`, {
           ...selectedNews,
           content: updatedContent,
@@ -91,6 +93,20 @@ const ManageProcessedNews = () => {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
     navigate(`/admin/processed-news?page=${newPage}`);
+  };
+
+  const handleAutoAlign = () => {
+    const editor = quillRef.current.getEditor();
+    if (editor) {
+      editor.root.querySelectorAll('img').forEach(img => {
+        img.style.display = 'block';
+        img.style.margin = '0 auto';
+        img.style.maxWidth = '100%';
+      });
+      editor.root.querySelectorAll('p').forEach(p => {
+        p.style.margin = '10px 0';
+      });
+    }
   };
 
   const pagesPerGroup = 10;
@@ -206,6 +222,7 @@ const ManageProcessedNews = () => {
               <label>
                 Content:
                 <ReactQuill
+                    ref={quillRef}
                     value={content}
                     onChange={handleContentChange}
                 />
@@ -258,6 +275,7 @@ const ManageProcessedNews = () => {
               </label>
               <button className="admin-button" onClick={handleSaveNews}>Save</button>
               <button className="admin-button" onClick={() => setSelectedNews(null)}>Cancel</button>
+              <button className="admin-button" onClick={handleAutoAlign}>Auto Align</button> {/* 자동 정렬 버튼 추가 */}
             </div>
         )}
         {selectedBanner && (
