@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from database import News, insert_data, dbConnect, test_insert_data, test_insert_image, test_select_id
+from database import News, insert_data, dbConnect, insert_image, test_select_id
 import base64
 
 def create_soup(url):
@@ -71,7 +71,7 @@ def scrape_news():
             conn = dbConnect()
             insert_data(conn, news_obj)
             newsId = test_select_id(conn)
-            test_insert_image(conn, encoded_image, newsId)
+            insert_image(conn, encoded_image, newsId)
 
 
 if __name__ == "__main__":

@@ -16,12 +16,17 @@ def search_data(conn):
     #     print(results[i])
     return results
 
-# db 수정 전이므로 일단 subtitle, link, img_url 생략
 def insert_data(conn, news):
     cur = conn.cursor()
-    sql = "insert into Raw_News(title, content, published_date) \
-        values(%s, %s, SYSDATE())"
-    cur.execute(sql, (news.title, news.content))
+    sql = "insert into Raw_News(title, content, published_date, subtitle) \
+        values(%s, %s, SYSDATE(), %s)"
+    cur.execute(sql, (news.title, news.content, news.subtitle))
+    conn.commit()
+
+def insert_image(conn, imageData, newsId):
+    cur = conn.cursor()
+    sql = "insert into images(img_content, news_id) values(%s, %s)"
+    cur.execute(sql, (imageData, newsId))
     conn.commit()
     
 def test_insert_data(conn, news):

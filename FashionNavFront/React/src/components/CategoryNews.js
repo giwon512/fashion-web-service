@@ -52,7 +52,7 @@ const CategoryNews = ({ category, isLoggedIn }) => {
                 <Link to={`/news/${category}`} className="more-link">MORE &gt;&gt;</Link>
             </div>
             <div className="news-items">
-                {newsList.map((news, index) => (
+                {newsList.length != 0 && newsList.map((news, index) => (
                     <div key={news.newsId} className="news-item">
                         <Link to={`/news/details/${news.newsId}`}>
                             <div className="news-image">

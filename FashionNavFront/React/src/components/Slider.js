@@ -70,7 +70,7 @@ const CustomSlider = () => {
             <Slider {...settings}>
                 {banners.map((banner) => (
                     <div key={banner.bannerId} className="slide">
-                        <img src={banner.imageUrl} alt={banner.title} className="slide-image" />
+                        <img src={"data:image/jpg;base64," + banner.imageUrl} alt={banner.title} className="slide-image" />
                         <div className="slide-caption">
                             <h1
                                 className="clickable"
