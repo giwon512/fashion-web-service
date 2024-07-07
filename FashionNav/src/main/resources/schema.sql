@@ -1,3 +1,12 @@
+-- create database fashiondb;
+
+-- CREATE USER 'fashiondbuser'@'localhost' IDENTIFIED BY 'fashiondbuser';
+-- CREATE USER 'fashiondbuser'@'%' IDENTIFIED BY 'fashiondbuser';
+
+-- GRANT ALL PRIVILEGES ON fashiondb.* TO 'fashiondbuser'@'localhost';
+-- GRANT ALL PRIVILEGES ON fashiondb.* TO 'fashiondbuser'@'%';
+
+
 create table Banner
 (
     banner_id    bigint auto_increment
@@ -22,6 +31,7 @@ create table ProcessedNews
         primary key,
     title          varchar(255)                      not null,
     content        text                              not null,
+    subtitle       varchar(255)                      null,
     image_url      varchar(255)                      null,
     source         varchar(255)                      null,
     author         varchar(255)                      null,
@@ -38,6 +48,7 @@ create table Raw_News
     news_id        bigint auto_increment
         primary key,
     title          varchar(255) null,
+    subtitle       varchar(255) null,
     content        longtext     null,
     image_url      varchar(255) null,
     source         varchar(255) null,
@@ -208,3 +219,36 @@ create table images
     img_content mediumblob null,
     news_id     bigint     null
 );
+
+-- 관리자 페이지의 크롤링 버튼 활용해서 Raw_News, images 테이블 알아서 채워짐
+-- brand, style 테이블 데이터 들어가 있어야 함.
+
+INSERT INTO brand VALUES(1,'구찌');
+INSERT INTO brand VALUES(2,'나이키');
+INSERT INTO brand VALUES(3,'자라');
+INSERT INTO brand VALUES(4,'폴로');
+INSERT INTO brand VALUES(5,'스투시');
+
+INSERT INTO style VALUES(1,'미니멀');
+INSERT INTO style VALUES(2,'클래식');
+INSERT INTO style VALUES(3,'스트릿');
+INSERT INTO style VALUES(4,'아메카지');
+INSERT INTO style VALUES(5,'캐쥬얼');
+INSERT INTO style VALUES(6,'빈티지');
+
+
+-- 맨 처음 만들 때 edit 해주기 귀찮은 사람들이 쓰는 쿼리
+INSERT INTO ProcessedNews (news_id, title, subtitle, content, published_date, category) 
+SELECT news_id, title, subtitle, content, published_date, 'trend'
+FROM raw_news 
+WHERE news_id BETWEEN 1 AND 10;
+
+INSERT INTO ProcessedNews (news_id, title, subtitle, content, published_date, category) 
+SELECT news_id, title, subtitle, content, published_date, 'brand'
+FROM raw_news 
+WHERE news_id BETWEEN 11 AND 20;
+
+INSERT INTO ProcessedNews (news_id, title, subtitle, content, published_date, category) 
+SELECT news_id, title, subtitle, content, published_date, 'celeb'
+FROM raw_news 
+WHERE news_id BETWEEN 21 AND 30;

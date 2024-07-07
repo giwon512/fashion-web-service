@@ -1,5 +1,5 @@
 import requests
-from database import News, insert_data, dbConnect, test_insert_data, test_insert_image, test_select_id
+from database import News, insert_data, dbConnect, insert_image, test_select_id
 from bs4 import BeautifulSoup, Tag
 import base64
 
@@ -68,7 +68,7 @@ def scrape_news():
             conn = dbConnect()
             insert_data(conn, news_obj)
             newsId = test_select_id(conn)
-            test_insert_image(conn, encoded_image, newsId)
+            insert_image(conn, encoded_image, newsId)
             
             # print("////////////////////////////////////////////////////")
 

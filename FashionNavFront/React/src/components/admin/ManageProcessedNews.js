@@ -20,6 +20,7 @@ const ManageProcessedNews = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [pageGroup, setPageGroup] = useState(0);
   const [selectedBanner, setSelectedBanner] = useState(null);
+  const [imgList, setImgList] = useState([]);
 
   const quillRef = useRef(null);
 
@@ -43,6 +44,7 @@ const ManageProcessedNews = () => {
       const response = await api.get(`/processed-news?pageNum=${page}&pageSize=10`);
       setProcessedNewsList(response.data.content);
       setTotalPages(response.data.totalPages);
+      setImgList(response.data.imgContent);
     } catch (error) {
       console.error("Error fetching processed news:", error);
     }
@@ -129,7 +131,7 @@ const ManageProcessedNews = () => {
   const categories = ["celeb", "brand", "trend"];
 
   const handleAddToBanner = (news) => {
-    setSelectedBanner(news);
+    setSelectedBanner({...news, description : news.subtitle, imageUrl : imgList[news.newsId]});
   };
 
   const handleSaveBanner = async () => {

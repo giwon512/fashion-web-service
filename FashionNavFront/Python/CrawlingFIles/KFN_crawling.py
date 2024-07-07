@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import NoSuchElementException
-from database import News, insert_data, dbConnect, test_insert_data, test_insert_image, test_select_id
+from database import News, insert_data, dbConnect, insert_image, test_select_id
 import base64
 import requests
 
@@ -79,7 +79,7 @@ def scrape_news():
                 conn = dbConnect()
                 insert_data(conn, news_obj)
                 newsId = test_select_id(conn)
-                test_insert_image(conn, encoded_image, newsId)
+                insert_image(conn, encoded_image, newsId)
         finally:
             browser.quit()
 
