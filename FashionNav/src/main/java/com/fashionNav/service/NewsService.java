@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fashionNav.controller.NewsController;
 import com.fashionNav.model.entity.Banner;
 import com.fashionNav.model.entity.Brand;
 import com.fashionNav.model.entity.ProcessedNews;
@@ -20,6 +21,7 @@ import com.fashionNav.repository.NewsMapper;
 import com.fashionNav.repository.UserSavePageMapper;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -28,6 +30,7 @@ import lombok.RequiredArgsConstructor;
  * 다양한 카테고리의 뉴스와 배너를 가져오고, 페이징 처리 및 검색 기능을 지원합니다.
  */
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class NewsService {
@@ -52,11 +55,19 @@ public class NewsService {
     	Long userId = currentUser.getUserId();
     	//해당 카테고리의 뉴스 1000개 가져옴
     	List<ProcessedNews> newsList = newsMapper.findProcessedNewsByCategory(category, 0, 1000);
+    	if(newsList.size() == 0) {
+    		return null;
+    	}
     	
     	//해당 유저의 설문조사 결과 가져오기
     	List<UserSurvey> userSurveys = userSurveyService.getUserSurveysByUserId(userId);
+    	
+    	//설문조사가 없을 때 예외처리
     	if(userSurveys.size() == 0) {
-    		return newsList.subList(0, 3);
+    		if(newsList.size() >= 3)
+    			return newsList.subList(0, 3);
+    		else
+    			return newsList.subList(0, newsList.size());
     	}
     	List<Style> styleList = userSurveyService.findStylesBySurveyId(userSurveys.get(0).getSurveyId());
     	List<Brand> brandList = userSurveyService.findBrandsBySurveyId(userSurveys.get(0).getSurveyId());
@@ -83,6 +94,10 @@ public class NewsService {
     	else {
     		int add = 3 - filteredList.size();
     		for(int i = 0; i < add; i++) {
+    			//전체 리스트에서도 게시글이 3개 이하인 경우 예외처리
+    			if(i == newsList.size())
+    				break;
+    			
     			filteredList.add(newsList.get(i));
     		}
     		return filteredList;

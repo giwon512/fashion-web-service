@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class RawNews {
     private Long newsId;
     private String title;
+    private String subtitle;
     private String content;
     private String imageUrl;
     private String source;

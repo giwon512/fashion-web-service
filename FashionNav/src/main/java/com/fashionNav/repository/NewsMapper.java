@@ -16,7 +16,7 @@ import java.util.List;
 @Mapper
 public interface NewsMapper {
 
-    @Insert("INSERT INTO ProcessedNews (news_id, title, content, image_url, source, author, published_date, category) VALUES (#{newsId}, #{title}, #{content}, #{imageUrl}, #{source}, #{author}, #{publishedDate}, #{category})")
+    @Insert("INSERT INTO ProcessedNews (news_id, title, subtitle, content, image_url, source, author, published_date, category) VALUES (#{newsId}, #{title}, #{subtitle}, #{content}, #{imageUrl}, #{source}, #{author}, #{publishedDate}, #{category})")
     void saveProcessedNews(RawNews rawNews);
 
     @Select("SELECT * FROM Raw_News ORDER BY published_date DESC LIMIT #{pageNum}, #{pageSize}")
@@ -55,7 +55,7 @@ public interface NewsMapper {
     @Select("SELECT * FROM ProcessedNews WHERE category = #{category} ORDER BY published_date DESC LIMIT 3")
     List<ProcessedNews> findTop3NewsByCategory(@Param("category") String category);
 
-    @Select("SELECT img_content FROM test_image WHERE img_id = #{newsId}")
+    @Select("SELECT img_content FROM images WHERE img_id = #{newsId}")
     String getImageByNewsId(@Param("newsId") Long newsId);
 
     @Select("SELECT * FROM ProcessedNews WHERE category = #{category}")
@@ -64,7 +64,7 @@ public interface NewsMapper {
     @Select("SELECT * FROM Banner ORDER BY created_date DESC LIMIT 5")
     List<Banner> findTop5Banners();
 
-    @Update("UPDATE ProcessedNews SET title = #{processedNews.title}, content = #{processedNews.content}, image_url = #{processedNews.imageUrl}, source = #{processedNews.source}, author = #{processedNews.author}, published_date = #{processedNews.publishedDate}, category = #{processedNews.category} WHERE news_id = #{newsId}")
+    @Update("UPDATE ProcessedNews SET title = #{processedNews.title}, subtitle = #{processedNews.subtitle}, content = #{processedNews.content}, image_url = #{processedNews.imageUrl}, source = #{processedNews.source}, author = #{processedNews.author}, published_date = #{processedNews.publishedDate}, category = #{processedNews.category} WHERE news_id = #{newsId}")
     void updateProcessedNews(@Param("newsId") Long newsId, @Param("processedNews") ProcessedNews processedNews);
 
     @Update("UPDATE Banner SET title = #{banner.title}, image_url = #{banner.imageUrl}, url = #{banner.url}, description = #{banner.description} WHERE banner_id = #{bannerId}")
