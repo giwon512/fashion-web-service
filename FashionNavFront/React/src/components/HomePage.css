@@ -3,3 +3,11 @@
     max-width: 1200px; /* 최대 너비를 설정하여 중앙에 정렬되도록 */
     margin: 0 auto; /* 중앙 정렬 */
 }
+
+.home-page-bottom {
+    display: flex;
+}
+
+.homepage-board {
+    width: 20%;
+}

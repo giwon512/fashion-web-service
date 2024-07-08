@@ -17,7 +17,7 @@
 .header {
     width: 100%;
     background-color: #fff;
-    /* position: fixed; */
+    position: fixed;
     top: 0; /* 상단에 고정 */
     left: 0; /* 왼쪽에 고정 */
     z-index: 1000; /* 다른 요소들보다 위에 표시되도록 z-index 설정 */

@@ -44,6 +44,11 @@
     /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); */
 }
 
+.news-item a {
+    text-decoration: none;
+    color : black;
+}
+
 .news-info {
     padding: 15px;
 }
