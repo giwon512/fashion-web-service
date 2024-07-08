@@ -51,7 +51,9 @@ public class UserService implements UserDetailsService {
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final Map<String, String> verificationCodes = new HashMap<>();
+    
+    
+    private static final Map<String, String> verificationCodes = new HashMap<>();
 
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
