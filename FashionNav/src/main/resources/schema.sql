@@ -13,7 +13,7 @@ create table Banner
         primary key,
     title        varchar(255) null,
     url          varchar(255) null,
-    image_url    varchar(255) null,
+    image_url    mediumblob null,
     created_date timestamp    null,
     description  varchar(255) null
 );
@@ -252,3 +252,16 @@ INSERT INTO ProcessedNews (news_id, title, subtitle, content, published_date, ca
 SELECT news_id, title, subtitle, content, published_date, 'celeb'
 FROM raw_news 
 WHERE news_id BETWEEN 21 AND 30;
+
+-- 자유게시판 게시글 세팅(최초 회원가입 후 사용)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+

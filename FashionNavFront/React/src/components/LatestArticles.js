@@ -23,11 +23,11 @@ const LatestArticles = () => {
 
     return (
         <div className="latest-articles-section">
+            <hr className="top-divider" /> {/* 구분선 */}
             <div className="section-header">
-                <hr className="top-divider" /> {/* 구분선 */}
+                <h2>Latest Articles</h2>
                 <Link to="/all-news" className="more-link">MORE>></Link>
             </div>
-            <h2>Latest Articles</h2>
             <div className="articles-container">
                 {articles.map(article => (
                     <Link to={`/news/details/${article.newsId}`} key={article.newsId} className="article-link">

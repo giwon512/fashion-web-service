@@ -34,6 +34,7 @@ import ManageProcessedNews from "./components/admin/ManageProcessedNews";
 import ManageSurveys from "./components/admin/ManageSurveys";
 import EditProfile from "./components/EditProfile";
 import SavedContent from "./components/SavedContent"; // Import UserCommentList CSS
+import Footer from "./components/Footer";
 
 
 const App = () => {
@@ -83,40 +84,43 @@ const App = () => {
   return (
       <GoogleOAuthProvider clientId="123145919395-6b789bgir2efl0o2r83vjvhicshs3avi.apps.googleusercontent.com">
         <Header isLoggedIn={isLoggedIn} isAdmin={isAdmin} onLogout={handleLogout} />
-        <Routes>
-          <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} />} />
-          <Route path="/news" element={<NewsList />} />
-          <Route path="/news/:category" element={<CategoryNewsPage />} />
-          <Route path="/news/details/:newsId" element={<NewsDetail isAdmin={isAdmin} />} />
-          <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/submit-survey" element={<SubmitSurvey onLogin={handleLogin} />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/edit-profile" element={<PrivateRoute isAuthenticated={isLoggedIn}><EditProfile /></PrivateRoute>} />
-          <Route path="/mypage/saved-content" element={<PrivateRoute isAuthenticated={isLoggedIn}><SavedContent /></PrivateRoute>} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/join-agree" element={<JoinAgree />} />
-          <Route path="/admin/*" element={<AdminRoute isAuthenticated={isLoggedIn} isAdmin={isAdmin}><Admin /></AdminRoute>} />
-          <Route path="/admin/surveys" element={<AdminRoute isAuthenticated={isLoggedIn} isAdmin={isAdmin}><ManageSurveys /></AdminRoute>} />
-          <Route path="/admin/processed-news" element={<AdminRoute isAuthenticated={isLoggedIn} isAdmin={isAdmin}><ManageProcessedNews /></AdminRoute>} />
-          <Route path="/add-survey" element={<AddSurvey />} />
-          <Route path="/survey-management" element={<PrivateRoute isAuthenticated={isLoggedIn}><UserSurveyManagement /></PrivateRoute>} />
-          <Route path="/edit-survey/:surveyId" element={<EditSurvey />} />
-          <Route path="/all-news" element={<AllNews />} />
-          <Route path="/search" element={<SearchResults />} />
-          <Route path="/boards/notice" element={<NoticeBoardPage />} />
-          <Route path="/boards/faq" element={<FAQBoardPage />} />
-          <Route path="/boards/event" element={<EventBoardPage />} />
-          <Route path="/boards/free" element={<FreeBoardPage />} />
-          <Route path="/boards/data" element={<DataBoardPage />} />
-          <Route path="/posts/:postId" element={<PostDetail />} />
-          <Route path="/posts/:postId/replies/write" element={<ReplyForm />} />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} />} />
+            <Route path="/news" element={<NewsList />} />
+            <Route path="/news/:category" element={<CategoryNewsPage />} />
+            <Route path="/news/details/:newsId" element={<NewsDetail isAdmin={isAdmin} />} />
+            <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/submit-survey" element={<SubmitSurvey onLogin={handleLogin} />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/edit-profile" element={<PrivateRoute isAuthenticated={isLoggedIn}><EditProfile /></PrivateRoute>} />
+            <Route path="/mypage/saved-content" element={<PrivateRoute isAuthenticated={isLoggedIn}><SavedContent /></PrivateRoute>} />
+            <Route path="/join" element={<Join />} />
+            <Route path="/join-agree" element={<JoinAgree />} />
+            <Route path="/admin/*" element={<AdminRoute isAuthenticated={isLoggedIn} isAdmin={isAdmin}><Admin /></AdminRoute>} />
+            <Route path="/admin/surveys" element={<AdminRoute isAuthenticated={isLoggedIn} isAdmin={isAdmin}><ManageSurveys /></AdminRoute>} />
+            <Route path="/admin/processed-news" element={<AdminRoute isAuthenticated={isLoggedIn} isAdmin={isAdmin}><ManageProcessedNews /></AdminRoute>} />
+            <Route path="/add-survey" element={<AddSurvey />} />
+            <Route path="/survey-management" element={<PrivateRoute isAuthenticated={isLoggedIn}><UserSurveyManagement /></PrivateRoute>} />
+            <Route path="/edit-survey/:surveyId" element={<EditSurvey />} />
+            <Route path="/all-news" element={<AllNews />} />
+            <Route path="/search" element={<SearchResults />} />
+            <Route path="/boards/notice" element={<NoticeBoardPage />} />
+            <Route path="/boards/faq" element={<FAQBoardPage />} />
+            <Route path="/boards/event" element={<EventBoardPage />} />
+            <Route path="/boards/free" element={<FreeBoardPage />} />
+            <Route path="/boards/data" element={<DataBoardPage />} />
+            <Route path="/posts/:postId" element={<PostDetail />} />
+            <Route path="/posts/:postId/replies/write" element={<ReplyForm />} />
 
 
 
-          <Route path="/mypage/my-comments" element={<PrivateRoute isAuthenticated={isLoggedIn}><UserCommentList /></PrivateRoute>} />
-          <Route path="/news/details/:newsId" element={<NewsDetail isAdmin={isAdmin} />} />
-        </Routes>
+            <Route path="/mypage/my-comments" element={<PrivateRoute isAuthenticated={isLoggedIn}><UserCommentList /></PrivateRoute>} />
+            <Route path="/news/details/:newsId" element={<NewsDetail isAdmin={isAdmin} />} />
+          </Routes>
+        </div>
+        <Footer />
       </GoogleOAuthProvider>
   );
 };
