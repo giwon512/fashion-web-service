@@ -10,7 +10,7 @@ export default function Footer () {
                 </div>
                 <div className='sitemap'>
                     <div className='sitemap-menu'>
-                        <div className="FASHION_footer">NEWS</div>
+                        <Link to="/news/best" className="FASHION_footer">NEWS</Link>
                         <ul>
                             <li><Link to="/news/best">BEST NEWS</Link></li>
                             <li><Link to="/news/brand">BRAND NEWS</Link></li>
@@ -19,32 +19,22 @@ export default function Footer () {
                         </ul>
                     </div>
                     <div className='sitemap-menu'>
-                        <div className="FASHION_footer">STYLE</div>
+                        <Link to="/boards/free" className="FASHION_footer">COMMUNITY</Link>
                         <ul>
-                            <li><Link to="/style_1">Style 1</Link></li>
-                            <li><Link to="/style_2">Style 2</Link></li>
-                            <li><Link to="/style_3">Style 3</Link></li>
-                            <li><Link to="/style_4">Style 4</Link></li>
+                            <li><Link to="/boards/notice">NOTICE BOARD</Link></li>
+                            <li><Link to="/boards/faq">FAQ BOARD</Link></li>
+                            <li><Link to="/boards/data">DATA BOARD</Link></li>
+                            <li><Link to="/boards/event">EVENT BOARD</Link></li>
+                            <li><Link to="/boards/free">FREE BOARD</Link></li>
                         </ul>
                     </div>
                     <div className='sitemap-menu'>
-                        <div className="FASHION_footer">ITEM</div>
-                        <ul>
-                            <li><Link to="/item_1">Item 1</Link></li>
-                            <li><Link to="/item_2">Item 2</Link></li>
-                            <li><Link to="/item_3">Item 3</Link></li>
-                            <li><Link to="/item_4">Item 4</Link></li>
-                        </ul>
+                        <Link to="/stylePage" className="FASHION_footer">STYLE</Link>
+                        
                     </div>
                     <div className='sitemap-menu'>
-                        <div className="FASHION_footer">COMMUNITY</div>
-                        <ul>
-                        <li><Link to="/boards/notice">Notice Board</Link></li>
-                        <li><Link to="/boards/faq">FAQ Board</Link></li>
-                        <li><Link to="/boards/data">Data Board</Link></li>
-                        <li><Link to="/boards/event">Event Board</Link></li>
-                        <li><Link to="/boards/free">Free Board</Link></li>
-                        </ul>
+                        <Link to="/itemPage" className="FASHION_footer">ITEM</Link>
+                        
                     </div>
                 </div>
             </div>

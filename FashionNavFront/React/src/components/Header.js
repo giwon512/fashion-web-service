@@ -135,7 +135,7 @@ const Header = ({ isLoggedIn, isAdmin, onLogout }) => {
                 onMouseEnter={() => handleMouseEnter('community')}
                 onMouseLeave={() => handleMouseLeave('community')}
               >
-                <Link to="/communityPage">COMMUNITY</Link>
+                <Link to="/boards/free">COMMUNITY</Link>
                 {isCommunityDropdownVisible && (
                   <ul className="dropdown-menu">
                     <li><Link to="/boards/notice">Notice Board</Link></li>
