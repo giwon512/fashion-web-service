@@ -31,11 +31,11 @@
     height: 280px;
     object-fit: cover;
     transition: transform 0.2s ease, filter 0.2s ease;
-    filter: grayscale(80%);
+    /* filter: grayscale(80%); */
 }
 
 .news-item img:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
     filter: grayscale(0%);
 }
 
