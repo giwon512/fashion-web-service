@@ -1,8 +1,9 @@
 package com.fashionNav.config.security;
 
-import com.fashionNav.service.CustomOAuth2UserService;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
@@ -17,7 +18,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
+import com.fashionNav.service.CustomOAuth2UserService;
+
+import lombok.RequiredArgsConstructor;
 
 
 /**
@@ -29,6 +32,7 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 @EnableMethodSecurity
+@ComponentScan(basePackages = {"com.fashionNav.controller", "com.fashionNav.service"})
 public class WebConfiguration {
 
     private final CustomOAuth2UserService customOAuth2UserService;
@@ -46,7 +50,7 @@ public class WebConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://127.0.0.1:3000","http://192.168.0.124:3000"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://127.0.0.1:3000","http://192.168.0.124:3000","https://web-fashion-web-lydr4cy5f698c981.sel5.cloudtype.app"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "DELETE", "PUT"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
