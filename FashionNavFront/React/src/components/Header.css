@@ -14,12 +14,12 @@
     font-display: swap;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @font-face {
-    font-family: "Bebas Neue", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: 'Bebas Neue';
     src: url(https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap) format('woff2');
-    font-display: swap;
+    font-weight: normal;
+    font-style: normal;
 }
 
   .noto-sans-kr {
