@@ -202,13 +202,11 @@ public class UserService implements UserDetailsService {
             user.setUpdatedAt(LocalDateTime.now());
             userMapper.insert(user);
             isNewUser = true; // 신규 가입
-            log.info("true");
         } else {
             user = optionalUser.get();
             user.setUpdatedAt(LocalDateTime.now());
             userMapper.update(user);
             isNewUser = false; // 기존 사용자
-            log.info("false");
         }
 
         String jwt = jwtService.generateAccessToken(user);

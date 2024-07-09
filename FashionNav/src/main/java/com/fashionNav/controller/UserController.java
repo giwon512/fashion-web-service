@@ -76,12 +76,9 @@ public class UserController {
     @Operation(summary = "리프레시 토큰", description = "리프레시 토큰을 사용해 새로운 액세스 토큰을 발급합니다.")
     @PostMapping("/refresh")
     public UserAuthenticationResponse refreshToken(@RequestHeader("Authorization") String authorizationHeader) {
-        log.info("리프레쉬 부분");
-        log.info("Authorization Header: " + authorizationHeader);
         String refreshToken;
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             refreshToken = authorizationHeader.substring(7); // "Bearer " 접두사 제거
-            log.info("Extracted Refresh Token: " + refreshToken);
         } else {
             throw new JwtException("Invalid refresh token format");
         }

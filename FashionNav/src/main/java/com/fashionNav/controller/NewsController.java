@@ -66,7 +66,6 @@ public class NewsController {
     public ResponseEntity<Map<String, Object>> getAllRawNews(
             @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        log.info("{},{}", pageNum, pageSize);
         return ResponseEntity.ok(newsService.getAllRawNews(pageNum, pageSize));
     }
 
@@ -75,7 +74,6 @@ public class NewsController {
     public ResponseEntity<Map<String, Object>> getAllProcessedNews(
             @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
             @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        log.info("{},{}", pageNum, pageSize);
         return ResponseEntity.ok(newsService.getAllProcessedNews(pageNum, pageSize));
     }
 
@@ -100,7 +98,6 @@ public class NewsController {
     @Operation(summary = "카테고리별 선호도 적용된 상위 3개 뉴스 조회(로그인된 상태)", description = "각 카테고리에서 사용자의 선호도가 적용된 상위 3개 뉴스를 조회합니다.")
     @GetMapping("/top3/prefer")
     public ResponseEntity<List<ProcessedNews>> getTop3NewsByCategoriesAndPreference(Authentication authentication, @RequestParam("category") String category) {
-    	log.debug("in top3/prefer={}", category);
     	return ResponseEntity.ok(newsService.getTop3NewsByCategoriesAndPreference(category, (User)authentication.getPrincipal()));
     }
 
@@ -137,7 +134,6 @@ public class NewsController {
     @DeleteMapping("/raw-news/{newsId}")
     public ResponseEntity<Void> deleteRawNews(@PathVariable("newsId") Long newsId) {
         newsService.deleteRawNews(newsId);
-        log.info("가공전 뉴스 삭제");
         return ResponseEntity.ok().build();
     }
 
@@ -146,7 +142,6 @@ public class NewsController {
     @DeleteMapping("/processed-news/{newsId}")
     public ResponseEntity<Void> deleteProcessedNews(@PathVariable("newsId") Long newsId) {
         newsService.deleteProcessedNews(newsId);
-        log.info("가공된 뉴스 삭제");
         return ResponseEntity.ok().build();
     }
 

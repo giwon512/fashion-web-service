@@ -44,8 +44,6 @@ public class PostController {
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
         Map<String, Object> response = postService.getPostsByBoardTypeWithPagination(boardType, page, size);
-        log.info("페이징 호출, {}, {}, {}", boardType, page, size);
-        System.out.println(response);
         return ResponseEntity.ok(response);
     }
 

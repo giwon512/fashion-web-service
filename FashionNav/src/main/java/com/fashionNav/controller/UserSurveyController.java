@@ -67,7 +67,6 @@ public class UserSurveyController {
         UserSurveyResponse response = new UserSurveyResponse(userSurvey, styles, brands);
 
 
-        log.info("{}",response);
         return Api.OK(response);
     }
 
@@ -94,7 +93,6 @@ public class UserSurveyController {
                         userSurveyService.findStylesBySurveyId(survey.getSurveyId()),
                         userSurveyService.findBrandsBySurveyId(survey.getSurveyId())))
                 .collect(Collectors.toList());
-        log.info("{}",responses);
         return Api.OK(responses);
     }
 }

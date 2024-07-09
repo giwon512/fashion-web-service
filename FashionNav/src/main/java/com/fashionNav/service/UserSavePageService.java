@@ -44,11 +44,9 @@ public class UserSavePageService {
 				.collect(Collectors.toList());
 
 		if (newsIds.isEmpty()) {
-			log.debug("No saved news found for user with id: {}", userId);
 			return Collections.emptyList(); // 빈 리스트 반환
 		}
 
-		log.debug("Fetching saved news for user with id: {} and news ids: {}", userId, newsIds);
 		return userSavePageMapper.findByNewsIds(newsIds);
 	}
 

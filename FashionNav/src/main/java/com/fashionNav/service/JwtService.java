@@ -56,7 +56,6 @@ public class JwtService {
             getSubject(token);
             return true;
         } catch (JwtException e) {
-            log.error("Invalid JWT token", e);
             return false;
         }
     }
@@ -82,7 +81,6 @@ public class JwtService {
                     .getPayload()
                     .getSubject();
         } catch (JwtException exception) {
-            log.error("JwtException", exception);
             throw exception;
         }
     }
