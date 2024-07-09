@@ -2,7 +2,7 @@ import pymysql
 
 
 def dbConnect():
-    conn = pymysql.connect(host='127.0.0.1', user='fashiondbuser', password='fashiondbuser',
+    conn = pymysql.connect(host='svc.sel5.cloudtype.app', port=30052, user='fashiondbuser', password='fashiondbuser',
                        db='fashiondb', charset='utf8')
     return conn
 
