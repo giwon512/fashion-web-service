@@ -53,7 +53,7 @@ const Login = ({ onLogin }) => {
 
     const handleGoogleSuccess = async (response) => {
         try {
-            const res = await fetch('http://https://port-0-fashion-web-service-lydr4cy5f698c981.sel5.cloudtype.app/api/users/oauth2/google', {
+            const res = await fetch('https://port-0-fashion-web-service-lydr4cy5f698c981.sel5.cloudtype.app/api/users/oauth2/google', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
