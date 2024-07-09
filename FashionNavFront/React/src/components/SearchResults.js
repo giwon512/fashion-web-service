@@ -5,7 +5,7 @@ import './SearchResults.css';
 
 const api = axios.create({
   // baseURL: 'http://192.168.0.124:8080', // 실제 서버 주소로 변경
-  baseURL: 'http://localhost:8080', // 실제 서버 주소로 변경
+  baseURL: 'https://port-0-fashion-web-service-lydr4cy5f698c981.sel5.cloudtype.app', // 실제 서버 주소로 변경
 });
 
 api.interceptors.request.use(config => {
