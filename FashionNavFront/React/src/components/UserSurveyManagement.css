@@ -1,11 +1,11 @@
 /* src/components/UserSurveyManagement.css */
 
 .survey-management-container {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 600px;
+    margin: 50px auto;
     padding: 20px;
     background-color: #f9f9f9;
-    border-radius: 8px;
+    border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -38,4 +38,33 @@
 .survey-management-container ul li p span {
     font-weight: bold;
     color: #333;
+}
+
+.no-surveys{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.start-survey-button {  
+    width: 30px;
+    height: 25px;
+    border: none;
+    background-color: #555;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.3s;
+    margin-left: 20px;
+    margin-top:13px;
+}
+.survey-management-container .del{
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    margin-left: 10px;
+    color: #888;
 }

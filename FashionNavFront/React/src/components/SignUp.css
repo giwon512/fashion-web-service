@@ -1,124 +1,139 @@
-/* SignUp.css */
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 .signup {
-  width: 400px;
+  background-color: #fff;
+  padding: 40px;
+  max-width: 1150px;
   margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: white;
-  font-family: Arial, sans-serif;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
 }
 
 .signup h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
+  /* width: 100%;
+  border-bottom: 1px solid #555555;
+  padding-bottom: 20px;
+  margin-bottom: 50px;
   color: #333;
+  text-align: left;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+   */
+  margin-bottom: 40px;
+  color: #333;
+  text-align: left;
+  width: 100%;
+  border-bottom: 1px solid #555555;
+  padding-bottom: 15px;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+  font-weight:bold;
+  letter-spacing: 1px;
 }
 
-.signup form {
+.form-container-wrapper {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between; /* 양옆에 나란히 배치 */
+  align-items: flex-end; /* 아래쪽 선에 맞추기 */
+  height: 100%; /* 부모 컨테이너의 전체 높이 사용 */
 }
 
-.signup .form-group {
-  display: flex;
-  align-items: center;
+.form-container {
+  width: 45%;
+  margin-bottom: 20px; /* 아래 여백 */
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+}
+
+.form-group {
   margin-bottom: 15px;
 }
 
-.signup .form-group label {
-  width: 120px;
-  text-align: right;
-  margin-right: 10px;
-  font-size: 14px;
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
   color: #555;
+  text-align: left;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
 }
 
-.signup .form-group input,
-.signup .form-group select {
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 30px;
+  padding: 0px 0;
+  border-bottom: 1px solid #ccc;
+  border-width: 0 0 1px;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+}
+
+.birthdate-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.birthdate-group .form-group {
   flex: 1;
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.signup .birthdate-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.signup .birthdate-group label {
-  width: 120px;
-  text-align: right;
   margin-right: 10px;
-  font-size: 14px;
-  color: #555;
 }
 
-.signup .birthdate-inputs {
+.birthdate-inputs {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  height: 20px;
+  padding-bottom: 23px;
 }
 
-.signup .birthdate-inputs select {
-  flex: 1.98;
-  padding: 8px;
+.birthdate-inputs select {
+  height: 37px;
+  margin-right: 20px;
+}
+
+.birthdate-inputs select:last-child {
+  margin-right: 0;
+}
+
+.error {
+  color: #e74c3c;
+  margin-bottom: 10px;
   font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
-  max-height: 160px;
-  overflow-y: auto;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
 }
 
-.signup .birthdate-inputs select:first-child {
-  flex: 0.87;
-  width: 80px;
-}
-
-.signup .birthdate-inputs select:nth-child(2),
-.signup .birthdate-inputs select:nth-child(3) {
-  flex: 0.87;
-  width: 80px;
-}
-
-.signup button[type="submit"] {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+.signup-button {
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  background-color: #777;
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 2px;
   cursor: pointer;
   font-size: 14px;
-}
-
-.signup button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-.signup .error {
-  color: red;
-  font-size: 14px;
+  transition: background-color 0.3s ease;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
   text-align: center;
-  margin-top: 10px;
+  white-space:nowrap
+  
 }
 
-.signup p {
-  text-align: center;
-  font-size: 14px;
-  color: #555;
+.signup-button:hover {
+  background-color: #9c9c9c;
 }
 
-.signup a {
-  color: #007bff;
-  text-decoration: none;
-}
+@media (max-width: 530px) {
+  .form-container-wrapper {
+    flex-direction: column; 
+  }
 
-.signup a:hover {
-  text-decoration: underline;
+  .form-container {
+    width: 100%;
+  }
 }

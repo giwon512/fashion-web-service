@@ -6,6 +6,7 @@
 .search-form {
   display: flex;
   justify-content: center;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -13,15 +14,25 @@
   width: 300px;
   padding: 10px;
   margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .search-form select {
   padding: 10px;
   margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .search-form button {
   padding: 10px 20px;
+  background-color: #3f3f3f;
+  border: none;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .search-results h2 {
@@ -47,24 +58,27 @@
 }
 
 .pagination {
-  display: flex;
-  justify-content: center;
+  text-align: center;
+  margin-top: 50px;
 }
 
 .pagination button {
-  padding: 10px 15px;
   margin: 0 5px;
-  border: 1px solid #ddd;
-  background-color: #fff;
+  padding: 10px 15px;
+  border: none;
+  background-color: #555;
+  text-align: center;
+  color: #fff;
   cursor: pointer;
 }
 
-.pagination button.active {
-  background-color: #007bff;
-  color: #fff;
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
-.pagination button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
+.pagination span {
+  margin: 10px;
+  margin-top: 8px;
+  font-size: 1em;
 }

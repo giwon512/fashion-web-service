@@ -7,22 +7,35 @@
 }
 
 @font-face {
-    font-family: 'SF_HambakSnow';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+    font-family: 'NanumMyeongjo';
+    font-weight: 300; 
+    font-style: normal; 
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/naver/NanumMyeongjo.woff2) format('woff2');
+    font-display: swap;
 }
+
+.bebas-neue-regular {
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .noto-sans-kr {
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
 
 /* Header styles */
 .header {
     width: 100%;
     background-color: #fff;
     position: fixed;
-    top: 0; /* 상단에 고정 */
-    left: 0; /* 왼쪽에 고정 */
-    z-index: 1000; /* 다른 요소들보다 위에 표시되도록 z-index 설정 */
+    top: 0;
+    left: 0;
+    z-index: 1000;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-    font-family: 'SUIT-Regular', sans-serif; /* 폰트 적용 */
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .header_topbar {
@@ -38,11 +51,14 @@
     max-width: 1150px;
     color: white;
     margin: 0 auto;
-    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .header_top_txt {
     font-size: 14px;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 100;
+    letter-spacing: 1px;
+    color: #ccc;
 }
 
 /* 로고와 메뉴를 하나의 컨테이너로 묶기 */
@@ -53,29 +69,32 @@
     max-width: 1150px;
     height: 75px;
     margin: 0 auto;
-    /* padding: 0 20px;  */
-    box-sizing: border-box; /* padding이 요소의 전체 크기에 포함되도록 */
+    box-sizing: border-box;
 }
 
 .header_logo {
     display: flex;
     align-items: center;
-    margin-right: 20px; /* 로고와 메뉴 사이의 간격 조절 */
+    margin-right: 20px;
 }
 
 .FASHION {
-    font-family: 'SF_HambakSnow', sans-serif;
-    font-size: 24px; /* 글꼴 크기 지정 */
-    color: #333; /* 글자 색상 지정 */
-    text-decoration: none; /* 밑줄 제거 */
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 30px; 
+    color: #16AA52; 
+    /* color: #0055FF; */
+    color: #333;
+    
+    text-decoration: none;
     font-weight: bold;
     white-space: nowrap;
+    letter-spacing:2px;
 }
 
 .header_menu {
     display: flex;
-    justify-content: center; /* 가운데 정렬 */
-    flex: 1; /* 남은 공간을 모두 차지 */
+    justify-content: center;
+    flex: 1;
     font-family: 'SUIT-Regular', sans-serif;
 }
 
@@ -125,7 +144,7 @@
     text-decoration: none;
     color: #333;
     display: block;
-    padding: 10px;
+    padding: 3px 10px;
     font-family: 'SUIT-Regular', sans-serif;
     font-size: 13px;
     letter-spacing: 1px;
@@ -173,10 +192,10 @@
     align-items: center;
     background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 2px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 5px;
-    z-index: 1000;
+    z-index: 999;
 }
 
 .search-input input {
@@ -198,10 +217,25 @@
     font-size: 14px;
     border-radius: 2px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .search-input button:hover {
     background-color: #0056b3;
+}
+
+@media screen and (max-width: 1175px) {
+    .header_top_txt {
+        padding: 0 20px;
+    }
+    .header_main {
+        padding: 0 20px;
+    }
+
+
 }
 
 @media screen and (max-width: 800px) {
@@ -209,27 +243,31 @@
         flex-direction: column;
         height: auto;
         padding: 10px; /* 좌우 여백 추가 */
-        
     }
 
     .header_logo {
-        margin: 20px;
+        margin: 15px;
     }
 
     .header_menu {
         flex-direction: column;
         align-items: center;
-        text-align: center;
     }
 
     .header_mainmenu li {
         margin: 0;
+        margin-right: 5px;
+    }
+
+    .header_mainmenu li:last-child {
+        margin-right: 0;
     }
 
     .header_rightmenu {
         align-items: center;
-        gap: 10px;
-        margin-top: 10px;
+        gap: 20px;
+        margin-top: 5px;
     }
 }
+
 

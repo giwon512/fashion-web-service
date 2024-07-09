@@ -1,18 +1,27 @@
-.admin-container {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.admin-section h1,p{
+text-align: center;
 }
 
 .admin-section {
+    padding: 20px;
+    max-width: 1150px;
+    margin: 0 auto;
     margin-bottom: 40px;
     background-color: #f9f9f9;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.admin-section h2 {
+    margin-bottom: 40px;
+    color: #333;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #555555;
+    padding-bottom: 15px;
+    color: #333;
+    font-family: 'SUIT-Regular', Arial, sans-serif;
+    font-weight:bold;
+    letter-spacing: 1px;
 }
 
 .admin-search-input {
@@ -92,9 +101,10 @@
 .admin-editor-container input {
     width: 100%;
     padding: 10px;
+    margin-top: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 2px;
     font-size: 16px;
     box-sizing: border-box;
 }
@@ -102,7 +112,7 @@
 .admin-editor-container .ql-container {
     border: 1px solid #ddd;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 2px;
     min-height: 200px;
     margin-bottom: 20px;
 }
@@ -112,10 +122,11 @@
     background-color: #fff;
     color: #333;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 2px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s, color 0.3s;
+    margin-right: 10px;
 }
 
 .admin-button:hover {

@@ -1,29 +1,53 @@
 /* Board.css */
 
 .board-page {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1150px;
+    margin: 0 auto 50px;
     padding: 20px;
+}
+
+.board-page h1 {
+    margin-bottom: 40px;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #555555;
+    padding-bottom: 15px;
+    color: #333;
+    font-family: 'SUIT-Regular', Arial, sans-serif;
+    font-weight:bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 24px;
 }
 
 .posts-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    table-layout: fixed; /* 테이블 레이아웃 고정! */
 }
 
-.posts-table th, .posts-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
+.posts-table th{
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 10px;
+    background-color: #f9f9f9;
     text-align: left;
 }
 
-.posts-table th {
-    background-color: #f9f9f9;
+.posts-table .date-column, .posts-table td:last-of-type {
+    /* text-align: right;  */
+    /* padding-left: 20%; */
+}
+
+.posts-table td {
+    border-bottom: 1px solid #ececec;
+    padding: 15px 10px;
+    text-align: left;
 }
 
 .posts-table tr:hover {
-    background-color: #f1f1f1;
+    background-color: #fafafa;
 }
 
 .reply-row .reply-title {
@@ -32,14 +56,15 @@
 
 .pagination {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .pagination button {
     margin: 0 5px;
-    padding: 10px 20px;
+    padding: 10px 15px;
     border: none;
-    background-color: #007bff;
+    background-color: #555;
+    text-align: center;
     color: #fff;
     cursor: pointer;
 }
@@ -50,12 +75,13 @@
 }
 
 .pagination span {
-    margin: 0 10px;
-    font-size: 1.2em;
+    margin: 10px;
+    margin-top: 8px;
+    font-size: 1em;
 }
 
 .post-form {
-    margin-top: 20px;
+    margin: 0 auto;
 }
 
 .post-form label {
@@ -66,11 +92,11 @@
 
 .post-form input[type="text"],
 .post-form textarea {
-    width: 100%;
+    width: 98%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .post-form input[type="file"] {
@@ -80,10 +106,10 @@
 .post-form button {
     padding: 10px 20px;
     border: none;
-    background-color: #28a745;
+    background-color: #555;
     color: #fff;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .post-form button:hover {

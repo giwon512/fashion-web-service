@@ -53,7 +53,7 @@ const UserSurveyManagement = () => {
                             <p>스타일: {survey.styles.length > 0 ? survey.styles.map(style => style.name).join(', ') : 'N/A'}</p>
                             <p>브랜드: {survey.brands.length > 0 ? survey.brands.map(brand => brand.name).join(', ') : 'N/A'}</p>
                             <Link to={`/edit-survey/${survey.userSurvey.surveyId}`}>수정</Link>
-                            <button onClick={() => handleDeleteSurvey(survey.userSurvey.surveyId)}>삭제</button>
+                            <button className="del" onClick={() => handleDeleteSurvey(survey.userSurvey.surveyId)}>삭제</button>
                         </li>
                     ))}
                 </ul>

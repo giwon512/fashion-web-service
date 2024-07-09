@@ -15,3 +15,9 @@ code {
 #root {
   padding-top: 105px;
 }
+
+@media (max-width: 800px) {
+  #root {
+    padding-top: 175px;
+  }
+}

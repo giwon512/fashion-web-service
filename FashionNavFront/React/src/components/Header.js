@@ -77,7 +77,7 @@ const Header = ({ isLoggedIn, isAdmin, onLogout }) => {
     <header className="header">
       <div className="header_topbar">
         <div className="header_top">
-          <span className="header_top_txt">Lorem Ipsum FASHION</span>
+          <span className="header_top_txt">Discover the latest fashion trends.</span>
         </div>
       </div>
 
@@ -175,7 +175,7 @@ const Header = ({ isLoggedIn, isAdmin, onLogout }) => {
           ) : (
             <>
               <span className="LOGIN"><Link to="/login">LOGIN</Link></span>
-              <span className="JOIN"><Link to="/join">JOIN</Link></span>
+              <span className="JOIN"><Link to="/join">SIGNUP</Link></span>
             </>
           )}
           <div className="_icon">

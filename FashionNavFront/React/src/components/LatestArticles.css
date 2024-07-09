@@ -1,15 +1,24 @@
 .latest-articles-section {
-    padding: 20px;
-    margin: 0 auto;
     max-width: 1150px;
-    width: 80%;
+    width: 75%;
 }
 
 .section-header {
+    width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+    padding-top: 15px;
+    border-bottom: 2px solid #333;
+}
+
+.section-header h2{
+    color: #333;
+    font-size: 20px;
+    font-family: 'SUIT-Regular', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .top-divider {
@@ -19,17 +28,10 @@
     border-top: 1px solid #ccc;
 }
 
-.latest-articles-section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
 .articles-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
 }
 
 .article-link {
@@ -38,11 +40,11 @@
 }
 
 .article-card {
-    width: 100%;
-    max-width: 280px;
+    /* width: 100%; */
+    width: 270px;
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 2px;
     overflow: hidden;
     transition: transform 0.3s ease;
 }
@@ -58,12 +60,17 @@
 }
 
 .article-content {
-    padding: 15px;
+    padding: 10px;
 }
 
 .article-content h3 {
     font-size: 18px;
     margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .article-content p {
@@ -84,13 +91,62 @@
     border-top: 1px solid #ccc;
 }
 
-.more-link {
-    display: block;
-    font-size: 16px;
-    color: #007bff;
-    text-decoration: none;
+@media (max-width: 1190px) {
+    .latest-articles-section {
+        width: 100%;
+        justify-content: flex-start;
+    }
 }
 
-.more-link:hover {
-    text-decoration: underline;
+@media (max-width: 890px) {
+    .latest-articles-section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .articles-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .article-card {
+        flex: 1 1 calc(50% - 20px); 
+        margin-bottom: 20px;
+    }
 }
+
+@media (max-width: 600px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .section-header h2 {
+        margin-bottom: 10px;
+    }
+
+    .articles-container {
+        gap: 10px;
+    }
+
+    .article-card {
+        min-width: 100%;
+    }
+
+    .article-content h3 {
+        font-size: 16px;
+    }
+
+    .article-content p {
+        font-size: 12px;
+    }
+
+    .article-date {
+        font-size: 10px;
+    }
+}
+  

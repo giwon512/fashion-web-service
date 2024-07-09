@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useNavigate, useParams } from 'react-router-dom';
+import "./SubmitSurvey.css";
 
 const EditSurvey = () => {
     const { surveyId } = useParams();
@@ -65,49 +66,81 @@ const EditSurvey = () => {
         }
     };
 
-
+    const handleToggle = (id, setState, state) => {
+        if (state.includes(id)) {
+            setState(state.filter((item) => item !== id));
+        } else {
+            setState([...state, id]);
+        }
+    };
 
     return (
         <form onSubmit={handleUpdate} className="survey-form">
-            <label>
-                성별:
-                <select value={gender} onChange={(e) => setGender(e.target.value)}>
-                    <option value="">선택하세요</option>
-                    <option value="남">남</option>
-                    <option value="여">여</option>
-                </select>
-            </label>
-            <br />
-            <label>
-                연령대:
-                <select value={ageGroup} onChange={(e) => setAgeGroup(e.target.value)}>
-                    <option value="">선택하세요</option>
-                    <option value="10대">10대</option>
-                    <option value="20대">20대</option>
-                    <option value="30대">30대</option>
-                    <option value="40대">40대</option>
-                </select>
-            </label>
-            <br />
-            <label>
-                스타일:
-                <select multiple value={styles} onChange={(e) => setStyles([...e.target.selectedOptions].map(o => parseInt(o.value)))}>
+            <div className="form-group">
+                <label>성별:</label>
+                <div className="options">
+                    <button
+                        type="button"
+                        className={`option ${gender === "남" ? "selected" : ""}`}
+                        onClick={() => setGender("남")}
+                    >
+                        남
+                    </button>
+                    <button
+                        type="button"
+                        className={`option ${gender === "여" ? "selected" : ""}`}
+                        onClick={() => setGender("여")}
+                    >
+                        여
+                    </button>
+                </div>
+            </div>
+            <div className="form-group">
+                <label>연령대:</label>
+                <div className="options">
+                    {["10대", "20대", "30대", "40대"].map((age) => (
+                        <button
+                            key={age}
+                            type="button"
+                            className={`option ${ageGroup === age ? "selected" : ""}`}
+                            onClick={() => setAgeGroup(age)}
+                        >
+                            {age}
+                        </button>
+                    ))}
+                </div>
+            </div>
+            <div className="form-group">
+                <label>스타일:</label>
+                <div className="options">
                     {availableStyles.map((style) => (
-                        <option key={style.styleId} value={style.styleId}>{style.name}</option>
+                        <button
+                            key={style.styleId}
+                            type="button"
+                            className={`option ${styles.includes(style.styleId) ? "selected" : ""}`}
+                            onClick={() => handleToggle(style.styleId, setStyles, styles)}
+                        >
+                            {style.name}
+                        </button>
                     ))}
-                </select>
-            </label>
-            <br />
-            <label>
-                브랜드:
-                <select multiple value={brands} onChange={(e) => setBrands([...e.target.selectedOptions].map(o => parseInt(o.value)))}>
+                </div>
+            </div>
+            <div className="form-group">
+                <label>브랜드:</label>
+                <div className="options">
                     {availableBrands.map((brand) => (
-                        <option key={brand.brandId} value={brand.brandId}>{brand.name}</option>
+                        <button
+                            key={brand.brandId}
+                            type="button"
+                            className={`option ${brands.includes(brand.brandId) ? "selected" : ""}`}
+                            onClick={() => handleToggle(brand.brandId, setBrands, brands)}
+                        >
+                            {brand.name}
+                        </button>
                     ))}
-                </select>
-            </label>
-            <br />
-            <button type="submit">Update</button>
+                </div>
+            </div>
+            <button type="submit" className="submit-button">저장</button>
         </form>
     );
 };

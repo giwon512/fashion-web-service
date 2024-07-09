@@ -1,7 +1,33 @@
+/* Font face */
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF_HambakSnow';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.noto-sans-kr {
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+
+
+/* ********************* */
+
 .slider-container {
     max-width: 100%;
+    max-height: 500px ;
     margin: auto;
     overflow: hidden;
+    /* border:1px solid red; */
 }
 
 .slide {
@@ -12,20 +38,35 @@
 .slide-image {
     width: 100%;
     height: auto;
-    max-height: 500px; /* 최대 높이를 설정 */
-    object-fit: contain; /* 이미지가 잘리지 않고 화면에 맞게 표시됨 */
+    max-height: 500px; 
+    object-fit: cover; 
 }
 
 .slide-caption {
-    font-size: 10px;
+    /* font-size: 10px; */
+    width: 85%;
     position: absolute;
-    bottom: 20px;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 2px;
+}
+
+.slide-caption h1 {
+    font-family: 'SUIT-Regular';
+    letter-spacing : 3px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.slide-caption h2 {
+    font-family: "Noto Sans KR", sans-serif;
+    letter-spacing : 3px;
+    font-size: 18px;
+    padding: 0 20px;
 }
 
 .clickable {
@@ -33,11 +74,23 @@
     text-decoration: none;
 }
 
-.clickable:hover {
-    text-decoration: underline;
-}
-
 /* Custom arrow styles */
 .slick-prev:before, .slick-next:before {
-    color: white; /* 화살표 색상 */
+    color: white; 
 }
+
+@media (max-width: 695px) {
+    .slider-container {
+        height: 350px ;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 490px) {
+    .slider-container {
+        height: 300px ;
+        object-fit: cover;
+    }
+}
+  
+  

@@ -62,22 +62,3 @@
     font-size: 12px;
     color: #999;
 }
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.pagination button {
-    border: none;
-    background: none;
-    font-size: 16px;
-    margin: 0 5px;
-    cursor: pointer;
-}
-
-.pagination button.active {
-    font-weight: bold;
-    text-decoration: underline;
-}
