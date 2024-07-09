@@ -178,6 +178,7 @@ create table comments
         primary key,
     post_id           int                                   null,
     user_id           bigint                                null,
+    user_name         varchar(25)                           null,
     content           text                                  null,
     created_at        timestamp default current_timestamp() null,
     updated_at        timestamp default current_timestamp() null on update current_timestamp(),
