@@ -1,13 +1,21 @@
 .home-page {
-    padding: 0 20px; /* 양쪽에 20px 여백 추가 */
-    max-width: 1200px; /* 최대 너비를 설정하여 중앙에 정렬되도록 */
-    margin: 0 auto; /* 중앙 정렬 */
+    padding: 0 20px;
+    max-width: 1150px;
+    margin: 0 auto;
 }
 
 .home-page-bottom {
     display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 50px;
+    margin-bottom: 150px;
 }
 
-.homepage-board {
-    width: 20%;
+@media (max-width: 890px) {
+    .home-page-bottom {
+      display: block;
+      margin-top: 50px;
+      margin-bottom: 150px;
+    }
 }

@@ -3,6 +3,7 @@ import api from "../../api";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import "./ManageSurveys.css";
+import "./Admin.css";
 
 const ManageSurveys = () => {
     const [surveys, setSurveys] = useState([]);
@@ -78,52 +79,54 @@ const ManageSurveys = () => {
     }
 
     return (
-        <div className="manage-surveys">
-            <h2>User Surveys Dashboard</h2>
-            <div className="charts">
-                <div className="chart">
-                    <h3>Gender Distribution</h3>
-                    <Bar data={genderData} />
+        <div className="admin-section">
+            <div className="manage-surveys">
+                <h2>User Surveys Dashboard</h2>
+                <div className="charts">
+                    <div className="chart">
+                        <h3>Gender Distribution</h3>
+                        <Bar data={genderData} />
+                    </div>
+                    <div className="chart">
+                        <h3>Age Group Distribution</h3>
+                        <Bar data={ageGroupData} />
+                    </div>
+                    <div className="chart">
+                        <h3>Style Preferences</h3>
+                        <Bar data={styleData} />
+                    </div>
+                    <div className="chart">
+                        <h3>Brand Preferences</h3>
+                        <Bar data={brandData} />
+                    </div>
                 </div>
-                <div className="chart">
-                    <h3>Age Group Distribution</h3>
-                    <Bar data={ageGroupData} />
-                </div>
-                <div className="chart">
-                    <h3>Style Preferences</h3>
-                    <Bar data={styleData} />
-                </div>
-                <div className="chart">
-                    <h3>Brand Preferences</h3>
-                    <Bar data={brandData} />
-                </div>
-            </div>
-            <div className="survey-list">
-                <h3>Survey Details</h3>
-                <table className="survey-table">
-                    <thead>
-                    <tr>
-                        <th>Survey ID</th>
-                        <th>User ID</th>
-                        <th>Gender</th>
-                        <th>Age Group</th>
-                        <th>Styles</th>
-                        <th>Brands</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {surveys.map((survey) => (
-                        <tr key={survey.userSurvey.surveyId}>
-                            <td>{survey.userSurvey.surveyId}</td>
-                            <td>{survey.userSurvey.userId}</td>
-                            <td>{survey.userSurvey.gender}</td>
-                            <td>{survey.userSurvey.ageGroup}</td>
-                            <td>{survey.styles.map((style) => style.name).join(", ")}</td>
-                            <td>{survey.brands.map((brand) => brand.name).join(", ")}</td>
+                <div className="survey-list">
+                    <h3>Survey Details</h3>
+                    <table className="survey-table">
+                        <thead>
+                        <tr>
+                            <th>Survey ID</th>
+                            <th>User ID</th>
+                            <th>Gender</th>
+                            <th>Age Group</th>
+                            <th>Styles</th>
+                            <th>Brands</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {surveys.map((survey) => (
+                            <tr key={survey.userSurvey.surveyId}>
+                                <td>{survey.userSurvey.surveyId}</td>
+                                <td>{survey.userSurvey.userId}</td>
+                                <td>{survey.userSurvey.gender}</td>
+                                <td>{survey.userSurvey.ageGroup}</td>
+                                <td>{survey.styles.map((style) => style.name).join(", ")}</td>
+                                <td>{survey.brands.map((brand) => brand.name).join(", ")}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

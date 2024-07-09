@@ -23,7 +23,7 @@ const LatestArticles = () => {
 
     return (
         <div className="latest-articles-section">
-            <hr className="top-divider" /> {/* 구분선 */}
+            {/* <hr className="top-divider" /> */}
             <div className="section-header">
                 <h2>Latest Articles</h2>
                 <Link to="/all-news" className="more-link">MORE>></Link>
@@ -42,7 +42,7 @@ const LatestArticles = () => {
                     </Link>
                 ))}
             </div>
-            <hr className="articles-divider" />
+            {/* <hr className="articles-divider" /> */}
         </div>
     );
 };

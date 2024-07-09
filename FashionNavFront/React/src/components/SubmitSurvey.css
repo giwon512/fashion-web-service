@@ -1,38 +1,54 @@
-/* SubmitSurvey.css */
+.noto-sans-kr {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
 .survey-form {
-  max-width: 600px;
-  margin: auto;
+  max-width: 600px; 
+  margin: 50px auto;
   padding: 20px;
   background-color: #f2f2f2;
-  border-radius: 10px;
+  border-radius: 2px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
+.survey-form .form-group {
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
 }
 
-label {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  display: block;
-  text-align: center;
+.survey-form label {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  margin-top: -15px;
+  text-align: left; 
+  flex: 1;
 }
 
-.options {
+.survey-form .options {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 10px;
+  flex: 4;
+  justify-content: flex-start; 
+  white-space : nowrap;
+  margin-bottom: 15px;
 }
 
 .option {
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  width: 70px;
+  background-color: #999;
+  color: #fff;
+  border: none;
+  padding: 3px;
+  border-radius: 2px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+  text-align: center;
 }
 
 .option.selected {
@@ -41,19 +57,18 @@ label {
   border-color: #007bff;
 }
 
-.submit-button {
+.survey-form .submit-button {
+  height: 50%;
   display: block;
   width: 100%;
-  padding: 15px;
   border: none;
-  background-color: #007bff;
+  background-color: #555;
   color: #fff;
-  font-size: 1.2em;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 2px;
   transition: background-color 0.3s;
 }
 
-.submit-button:hover {
+.survey-form .submit-button:hover {
   background-color: #0056b3;
 }

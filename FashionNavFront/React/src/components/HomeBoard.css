@@ -1,43 +1,75 @@
 .home-board {
-    padding-top: 20px;
-    margin: 0 auto;
     max-width: 1150px;
+    width: 100%;
 }
 
 .top-divider {
     flex-grow: 1;
-    margin-right: 10px;
     border: none;
     border-top: 1px solid #ccc;
 }
 
 .section-header {
+    width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 0px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-top: 15px;
+    border-bottom: 2px solid #333;
+    gap: 30px;
 }
 
+.section-header h3{
+    color: #333;
+    font-size: 20px;
+    font-family: 'SUIT-Regular', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space : nowrap;
+}
+
+@media (max-width: 600px) {
+    .section-header {
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center;
+    }
+}
 
 .board-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
     background-color: #ffffff;
+    position: relative;
 }
 
 .board-table td{
-    border: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     padding: 6px 12px;
     text-align: left;
 }
 
 .board-table a {
+    display: inline-block;
     text-decoration: none;
     color : black;
     font-size : 18px;
 }
 
+.board-table a:hover {
+    text-decoration: underline;
+}
+
 .board-table span {
     font-size: 12px;
 }
+
+.board-table span:last-of-type{
+    color:#5c5c5c;
+    position: absolute;
+    right: 10px;
+}
+

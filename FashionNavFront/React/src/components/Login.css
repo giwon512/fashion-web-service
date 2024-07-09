@@ -3,18 +3,27 @@
   padding: 40px;
   width: 400px;
   max-width: 100%;
-  text-align: center;
-  margin: 0 auto;
+  text-align: left;
+  margin: 5px auto;
 }
 
 .login-title {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   color: #333;
+  text-align: left;
+  width: 100%;
+  border-bottom: 1px solid #555555;
+  padding-bottom: 15px;
+  color: #333;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+  font-weight:bold;
+  letter-spacing: 1px;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
+  text-align: left; 
 }
 
 .login-input-group {
@@ -27,15 +36,16 @@
   font-size: 14px;
   color: #555;
   margin-bottom: 5px;
+  text-align: left; 
 }
 
 .login-input-group input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 2px;
-  font-size: 14px;
-  box-sizing: border-box;
+  height: 40px;
+  padding: 0px 0;
+  border-bottom: 1px solid #ccc;
+  border-width: 0 0 1px;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
 }
 
 .login-remember-me {
@@ -43,6 +53,7 @@
   align-items: center;
   margin-bottom: 20px;
   font-size: 14px;
+  text-align: left;
 }
 
 .login-remember-me input {
@@ -53,18 +64,20 @@
   color: #e74c3c;
   margin-bottom: 10px;
   font-size: 14px;
+  text-align: left;
 }
 
 .login-button {
-  background-color: #333333;
+  background-color: #555;
   color: #fff;
   border: none;
-  padding: 12px;
+  padding: 10px;
   border-radius: 2px;
   cursor: pointer;
   font-size: 16px;
   margin-bottom: 20px;
   transition: background-color 0.3s ease;
+  text-align: center;
 }
 
 .login-button:hover {
@@ -75,11 +88,13 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  text-align: left; 
 }
 
 .login-find-idpw-button {
-  width: 380px;
-  background-color: #505050;
+  width: 100%;
+  height: 55%;
+  background-color: #777;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -88,6 +103,8 @@
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s ease;
+  text-align: center; 
+  white-space:nowrap
 }
 
 .login-find-idpw-button:hover {
@@ -96,12 +113,14 @@
 
 .login-social-login {
   margin-top: 20px;
+  text-align: left;
 }
 
 .login-social-login h3 {
   margin-bottom: 20px;
   color: #888;
   font-size: 14px;
+  text-align: left;
 }
 
 .login-social-login button {
@@ -113,8 +132,56 @@
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  text-align: center;
 }
 
 .login-social-login button:hover {
   background-color: #f0f0f0;
+}
+
+/* modal */
+.modal h2{
+  margin-bottom: 30px;
+  color: #333;
+  text-align: left;
+  width: 100%;
+  border-bottom: 1px solid #555555;
+  padding-bottom: 15px;
+  color: #333;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+  font-weight:bold;
+  letter-spacing: 1px;
+}
+
+.modal label{
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  text-align: left;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.modal input{
+  width: 100%;
+  height: 30px;
+  padding: 0px 0;
+  border-bottom: 1px solid #ccc;
+  border-width: 0 0 1px;
+  font-family: 'SUIT-Regular', Arial, sans-serif;
+  margin-bottom: 20px;
+}
+
+.modal_button {
+  background-color: #333333;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+  text-align: center;
 }

@@ -158,107 +158,121 @@ const SignUp = () => {
   }
 
   return (
-      <div className="signup">
-        <h2>회원 가입</h2>
+    <div className="signup">
+        <h2>SIGNUP</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>이메일:</label>
-            <input
-                type="email"
-                value={email}
-                onChange={handleEmailChange}
-                required
-            />
-          </div>
-          <div className="form-group">
-            <label>비밀번호:</label>
-            <input
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-                required
-            />
-          </div>
-          <div className="form-group">
-            <label>비밀번호 확인:</label>
-            <input
-                type="password"
-                value={confirmPassword}
-                onChange={handleConfirmPasswordChange}
-                required
-            />
-          </div>
-          <div className="form-group">
-            <label>이름:</label>
-            <input
-                type="text"
-                value={name}
-                onChange={handleNameChange}
-                required
-            />
-          </div>
-          <div className="birthdate-group">
-            <label>생년월일:</label>
-            <div className="birthdate-inputs">
-              <select
-                  value={year}
-                  onChange={handleYearChange}
-                  required
-              >
-                <option value="">연도</option>
-                {yearOptions}
-              </select>
-              <select
-                  value={month}
-                  onChange={handleMonthChange}
-                  required
-              >
-                <option value="">월</option>
-                {monthOptions}
-              </select>
-              <select
-                  value={day}
-                  onChange={handleDayChange}
-                  required
-              >
-                <option value="">일</option>
-                {dayOptions}
-              </select>
+            <div className="form-container-wrapper">
+                <div className="form-container">
+                    <div className="form-group">
+                        <label>이름</label>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={handleNameChange}
+                            placeholder="이름을 입력해 주세요"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>이메일</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={handleEmailChange}
+                            placeholder="이메일을 입력해 주세요"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>비밀번호</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            placeholder="비밀번호를 입력해 주세요"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>비밀번호 확인</label>
+                        <input
+                            type="password"
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
+                            placeholder="비밀번호를 한 번 더 입력해 주세요"
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="form-container">
+                    <div className="form-group">
+                        <label>생년월일:</label>
+                        <div className="birthdate-group">
+
+                            <div className="birthdate-inputs">
+                                <select
+                                    value={year}
+                                    onChange={handleYearChange}
+                                    required
+                                >
+                                    <option value="">연도</option>
+                                    {yearOptions}
+                                </select>
+                                <select
+                                    value={month}
+                                    onChange={handleMonthChange}
+                                    required
+                                >
+                                    <option value="">월</option>
+                                    {monthOptions}
+                                </select>
+                                <select
+                                    value={day}
+                                    onChange={handleDayChange}
+                                    required
+                                >
+                                    <option value="">일</option>
+                                    {dayOptions}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>성별:</label>
+                        <select
+                            value={gender}
+                            onChange={handleGenderChange}
+                            required
+                        >
+                            <option value="">선택</option>
+                            <option value="male">남성</option>
+                            <option value="female">여성</option>
+                        </select>
+                    </div>
+
+                    {/* 전화번호 입력 필드 */}
+                    <div className="form-group">
+                        <label>전화번호:</label>
+                        <input
+                            type="text"
+                            value={phoneNumber}
+                            onChange={handlePhoneNumberChange}
+                            placeholder="전화번호를 입력하세요"
+                        />
+                    </div>
+                    {phoneError && <p className="error">{phoneError}</p>}
+                </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label>성별:</label>
-            <select
-                value={gender}
-                onChange={handleGenderChange}
-                required
-            >
-              <option value="">선택</option>
-              <option value="male">남성</option>
-              <option value="female">여성</option>
-            </select>
-          </div>
 
-          <div className="form-group">
-            <label>전화번호:</label>
-            <input
-                type="text"
-                value={phoneNumber}
-                onChange={handlePhoneNumberChange}
-                placeholder="전화번호를 입력하세요"
-                required
-            />
-          </div>
-          {phoneError && <p className="error">{phoneError}</p>}
-
-          <button type="submit">가입하기</button>
+            <button type="submit" className="signup-button">가입하기</button>
         </form>
         {error && <p className="error">{error}</p>}
         <p>
-          이미 회원이신가요? <Link to="/login">로그인 하러가기</Link>
+            이미 회원이신가요?  &nbsp;<Link to="/login"> 로그인 하러가기</Link>
         </p>
-      </div>
-  );
+    </div>
+);
 };
 
 export default SignUp;
+

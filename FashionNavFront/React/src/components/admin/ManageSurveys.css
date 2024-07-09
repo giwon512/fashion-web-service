@@ -1,10 +1,18 @@
 .manage-surveys {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.manage-surveys h2 {
+    margin-bottom: 40px;
+    color: #333;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #555555;
+    padding-bottom: 15px;
+    color: #333;
+    font-family: 'SUIT-Regular', Arial, sans-serif;
+    font-weight:bold;
+    letter-spacing: 1px;
 }
 
 .charts {

@@ -1,7 +1,7 @@
-/* ReplyForm.css */
+
 
 .reply-form-container {
-    max-width: 600px;
+    max-width: 1150px;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
@@ -11,8 +11,12 @@
 }
 
 .reply-form h2 {
-    margin-bottom: 20px;
     color: #333;
+    font-size: 20px;
+    font-family: 'SUIT-Regular', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
     font-size: 1.5em;
     text-align: center;
 }
@@ -28,9 +32,9 @@
     color: #555;
 }
 
-.form-group input,
+/* .form-group input, */
 .form-group textarea {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -60,16 +64,23 @@
 .cancel-button {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 2px;
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
 
-.submit-button {
-    background-color: #007bff;
+/* .submit-button {
+    background-color: #414141;
     color: #fff;
-}
+    padding: 10px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    font-family: 'SUIT-Regular', Arial, sans-serif;
+    text-align: center;
+} */
 
 .submit-button:hover {
     background-color: #0056b3;

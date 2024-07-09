@@ -55,7 +55,7 @@ const BoardPage = ({ boardType }) => {
                         <tr>
                             <th>제목</th>
                             <th>작성자</th>
-                            <th>작성일</th>
+                            <th className="date-column">작성일</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -74,7 +74,7 @@ const BoardPage = ({ boardType }) => {
                                             ㄴ <Link to={`/posts/${reply.postId}`}>{reply.title}</Link>
                                         </td>
                                         <td>{reply.userName}</td>
-                                        <td>{new Date(reply.createdAt).toLocaleString()}</td>
+                                        <td className="date-column">{new Date(reply.createdAt).toLocaleString()}</td>
                                     </tr>
                                 ))}
                             </React.Fragment>
@@ -83,11 +83,11 @@ const BoardPage = ({ boardType }) => {
                     </table>
                     <div className="pagination">
                         <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>
-                            Previous
+                            &lt;
                         </button>
                         <span>Page {page} of {totalPages}</span>
                         <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages}>
-                            Next
+                            &gt;
                         </button>
                     </div>
                 </>

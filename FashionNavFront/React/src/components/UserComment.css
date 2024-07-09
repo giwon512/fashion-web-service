@@ -25,13 +25,24 @@
 
 /* src/components/UserCommentList.css */
 .user-comment-list {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 1150px;
+    width: 100%;
     padding: 20px;
-    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin: 0 auto;
 }
 
-.user-comment-list h2,
+.user-comment-list h2 {
+    margin-bottom: 40px;
+    color: #333;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #555555;
+    padding-bottom: 15px;
+    font-family: 'SUIT-Regular', Arial, sans-serif;
+    font-weight:bold;
+    letter-spacing: 1px;
+}
 .user-comment-list h3,
 .user-comment-list p {
     text-align: center;

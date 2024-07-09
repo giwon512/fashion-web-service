@@ -127,7 +127,7 @@ const Login = ({ onLogin }) => {
 
     return (
         <div className="login-container">
-            <h2 className="login-title">로그인</h2>
+            <h2 className="login-title">LOGIN</h2>
             <form className="login-form" onSubmit={handleLogin}>
                 <div className="login-input-group">
                     <label htmlFor="email">아이디</label>
@@ -136,6 +136,7 @@ const Login = ({ onLogin }) => {
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        placeholder="아이디를 입력해 주세요"
                         required
                     />
                 </div>
@@ -146,6 +147,7 @@ const Login = ({ onLogin }) => {
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder="비밀번호를 입력해 주세요"
                         required
                     />
                 </div>
@@ -173,71 +175,89 @@ const Login = ({ onLogin }) => {
                 <h3>또는</h3>
                 <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
             </div>
-            {showFindIdModal && (
-                <Modal onClose={() => setShowFindIdModal(false)}>
-                    <h2>아이디 찾기</h2>
-                    <form onSubmit={(e) => {
-                        e.preventDefault();
-                        handleFindId(name, phoneNumber);
-                    }}>
-                        <div>
-                            <label>이름</label>
-                            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-                        </div>
-                        <div>
-                            <label>휴대폰 번호</label>
-                            <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required />
-                        </div>
-                        <button type="submit">찾기</button>
-                    </form>
-                </Modal>
-            )}
-            {showFindPwModal && (
-                <Modal onClose={() => setShowFindPwModal(false)}>
-                    {step === 1 && ( // 첫 단계: 인증 코드 요청
-                        <>
-                            <h2>비밀번호 찾기</h2>
-                            <form onSubmit={(e) => {
-                                e.preventDefault();
-                                handleFindPw(findPwEmail, findPwName);
-                            }}>
-                                <div>
-                                    <label>이메일</label>
-                                    <input type="email" value={findPwEmail} onChange={(e) => setFindPwEmail(e.target.value)} required />
-                                </div>
-                                <div>
-                                    <label>이름</label>
-                                    <input type="text" value={findPwName} onChange={(e) => setFindPwName(e.target.value)} required />
-                                </div>
-                                <button type="submit">인증 코드 요청</button>
-                            </form>
-                        </>
-                    )}
-                    {step === 2 && ( // 두 번째 단계: 비밀번호 재설정
-                        <>
-                            <h2>비밀번호 재설정</h2>
-                            <form onSubmit={(e) => {
-                                e.preventDefault();
-                                handleResetPw(findPwEmail, verificationCode, newPassword);
-                            }}>
-                                <div>
-                                    <label>이메일</label>
-                                    <input type="email" value={findPwEmail} onChange={(e) => setFindPwEmail(e.target.value)} required />
-                                </div>
-                                <div>
-                                    <label>인증 코드</label>
-                                    <input type="text" value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} required />
-                                </div>
-                                <div>
-                                    <label>새 비밀번호</label>
-                                    <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
-                                </div>
-                                <button type="submit">재설정</button>
-                            </form>
-                        </>
-                    )}
-                </Modal>
-            )}
+            <div className='modal'>
+                {showFindIdModal && (
+                    <Modal onClose={() => setShowFindIdModal(false)} >
+                        <h2>아이디 찾기</h2>
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            handleFindId(name, phoneNumber);
+                        }}>
+                            <div>
+                                <label>이름</label>
+                                <input type="text" 
+                                value={name} 
+                                onChange={(e) => setName(e.target.value)} 
+                                placeholder="이름을 입력해 주세요"
+                                required />
+                            </div>
+                            <div>
+                                <label>휴대폰 번호</label>
+                                <input type="text" 
+                                value={phoneNumber} 
+                                onChange={(e) => setPhoneNumber(e.target.value)} 
+                                placeholder="휴대폰 번호를 입력해 주세요"
+                                required />
+                            </div>
+                            <button className="modal_button" type="submit">찾기</button>
+                        </form>
+                    </Modal>
+                )}
+                {showFindPwModal && (
+                    <Modal onClose={() => setShowFindPwModal(false)}>
+                        {step === 1 && ( // 첫 단계: 인증 코드 요청
+                            <>
+                                <h2>비밀번호 찾기</h2>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleFindPw(findPwEmail, findPwName);
+                                }}>
+                                    <div>
+                                        <label>이메일</label>
+                                        <input type="email" 
+                                        value={findPwEmail} 
+                                        onChange={(e) => setFindPwEmail(e.target.value)} 
+                                        placeholder="이메일을 입력해 주세요"
+                                        required />
+                                    </div>
+                                    <div>
+                                        <label>이름</label>
+                                        <input type="text" 
+                                        value={findPwName} 
+                                        onChange={(e) => setFindPwName(e.target.value)} 
+                                        placeholder="이름을 입력해 주세요"
+                                        required />
+                                    </div>
+                                    <button className="modal_button" type="submit">인증 코드 요청</button>
+                                </form>
+                            </>
+                        )}
+                        {step === 2 && ( // 두 번째 단계: 비밀번호 재설정
+                            <>
+                                <h2>비밀번호 재설정</h2>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleResetPw(findPwEmail, verificationCode, newPassword);
+                                }}>
+                                    <div>
+                                        <label>이메일</label>
+                                        <input type="email" value={findPwEmail} onChange={(e) => setFindPwEmail(e.target.value)} required />
+                                    </div>
+                                    <div>
+                                        <label>인증 코드</label>
+                                        <input type="text" value={verificationCode} onChange={(e) => setVerificationCode(e.target.value)} required />
+                                    </div>
+                                    <div>
+                                        <label>새 비밀번호</label>
+                                        <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+                                    </div>
+                                    <button className="modal_button" type="submit">재설정</button>
+                                </form>
+                            </>
+                        )}
+                    </Modal>
+                )}
+            </div>
         </div>
     );
 };
