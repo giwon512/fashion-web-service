@@ -240,28 +240,42 @@ INSERT INTO style VALUES(6,'빈티지');
 -- 맨 처음 만들 때 edit 해주기 귀찮은 사람들이 쓰는 쿼리
 INSERT INTO ProcessedNews (news_id, title, subtitle, content, published_date, category) 
 SELECT news_id, title, subtitle, content, published_date, 'trend'
-FROM raw_news 
+FROM Raw_News 
 WHERE news_id BETWEEN 1 AND 10;
 
 INSERT INTO ProcessedNews (news_id, title, subtitle, content, published_date, category) 
 SELECT news_id, title, subtitle, content, published_date, 'brand'
-FROM raw_news 
+FROM Raw_News 
 WHERE news_id BETWEEN 11 AND 20;
 
 INSERT INTO ProcessedNews (news_id, title, subtitle, content, published_date, category) 
 SELECT news_id, title, subtitle, content, published_date, 'celeb'
-FROM raw_news 
+FROM Raw_News 
 WHERE news_id BETWEEN 21 AND 30;
 
 -- 자유게시판 게시글 세팅(최초 회원가입 후 사용)
 -- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
--- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+-- VALUES('free', 1, 'example1', 'example', now(), now(), 0)
 -- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
--- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+-- VALUES('free', 1, 'example2', 'example', now(), now(), 0)
 -- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
--- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+-- VALUES('free', 1, 'example3', 'example', now(), now(), 0)
 -- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
--- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+-- VALUES('free', 1, 'example4', 'example', now(), now(), 0)
 -- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
--- VALUES('free', 1, 'example', 'example', SYSDATE(), SYSDATE(), 0)
+-- VALUES('free', 1, 'example5', 'example', now(), now(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('free', 1, 'This is a very long title for a post', 'example', now(), now(), 0)
 
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('event', 1, 'example1', 'example', now(), now(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('event', 1, 'example2', 'example', now(), now(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('event', 1, 'example3', 'example', now(), now(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('event', 1, 'example4', 'example', now(), now(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('event', 1, 'example5', 'example', now(), now(), 0)
+-- INSERT posts(board_type, user_id, title, content, created_at, updated_at, parent_post_id)
+-- VALUES('event', 1, 'This is a very long title for a post', 'example', now(), now(), 0)
