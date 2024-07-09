@@ -80,12 +80,12 @@ ehthumbs.db
 Thumbs.db
 
 ### 개인화된 설정 ###
-application.properties
-application-local.properties
-application-local.yml
-application-personal.properties
-application-personal.yml
+# application.properties
+# application-local.properties
+# application-local.yml
+# application-personal.properties
+# application-personal.yml
 
 # Ignore application.properties file
-FashionNav/src/main/resources/application.propertiesFashionNav/src/main/resources/application.properties
-FashionNav/src/main/resources/application.properties
+# FashionNav/src/main/resources/application.propertiesFashionNav/src/main/resources/application.properties
+# FashionNav/src/main/resources/application.properties
