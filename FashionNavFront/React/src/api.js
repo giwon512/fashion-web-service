@@ -57,8 +57,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:8080/api",
-    // baseURL: "https://port-0-fashion-web-service-lydr4cy5f698c981.sel5.cloudtype.app/api",
+    // baseURL: "http://localhost:8080/api",
+    baseURL: "https://port-0-fashion-web-service-lydr4cy5f698c981.sel5.cloudtype.app/api",
     headers: {
         "Content-Type": "application/json",
     },
@@ -87,7 +87,7 @@ api.interceptors.response.use(
                 if (!refreshToken) {
                     throw new Error("No refresh token found");
                 }
-                const response = await axios.post("localhost:8080/api", null, {
+                const response = await axios.post("https://port-0-fashion-web-service-lydr4cy5f698c981.sel5.cloudtype.app/api", null, {
                     headers: { Authorization: `Bearer ${refreshToken}` },
                 });
                 const newAccessToken = response.data.accessToken;
