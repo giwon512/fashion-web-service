@@ -8,42 +8,19 @@
 - Crawling을 통하여 여러 사이트에 산개하여 있는 패션 트렌드 데이터들을 수집하여 분류체계 수립
 - 분류한 데이터를 기반으로 사용자에 맞는 패션 트렌드를 추천할 수 있는 웹 서비스 개발
 
+## 💾 프로젝트 상세 내용 PPT
+https://github.com/giwon512/fashion-web-service/blob/main/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%B5%9C%EC%A2%85.pptx
+
 # 📚 활용된 개발 언어 및 환경
 
-
-<p align="center">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/c6d1d0dc-eafd-4ecd-9621-366f36b4e1bb" align="center" width="32%">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/682e8c38-186b-477d-97d5-de70068b1236" align="center" width="32%">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/9ffaf2fa-a37f-45fc-a1ab-43ccd3502349" align="center" width="32%"> 
-</p>
-
-<p align="center">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/e5a2af88-080b-4d17-8887-4006d45d851e"
- align="center" width="32%">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/1a05b46a-cb68-4a28-997b-06b7d687e623" align="center" width="32%">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/54f9c9b0-2c56-4755-ac40-f279983a71dd" align="center" width="32%"> 
-</p>
-
-<p align="center">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/d8c8dbf5-826f-4440-b645-131046446b95"
- align="center" width="32%">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/8e5f78ac-1057-4965-95ae-52069f3d8554" align="center" width="32%">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/002d1471-ba11-4e2d-b74e-a53be3d4a1bd"
- align="center" width="32%"> 
-</p>
-
-<p align="center">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/c0243a09-79f7-42d3-b721-f573729bca1b"
- align="center" width="32%">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/ad83112a-cf70-48b7-bc35-804c0473a54a"
- align="center" width="32%">  
-  <img src="https://github.com/giwon512/order-management-service/assets/64604990/67ae47f3-14de-4ad6-9e35-63a6a2563e80" align="center" width="32%"> 
-</p>
+<img src="https://github.com/user-attachments/assets/14929a47-6501-4f24-a604-ed455f6ead68" />
 
 # 🗂️ 프로젝트 구조
 🗂️FashionNav - Spring Boot를 활용한 백엔드 로직
+
 🗂️FashionNavFront - React를 활용한 프론트엔드 로직 및 크롤링을 위한 파이썬 코드
-🗂️FashionTrend - 프로젝트 초기에 JSP로 제작한 목업 홈페이지 내
+
+🗂️FashionTrend - 프로젝트 초기에 JSP로 제작한 목업 홈페이지 코드
 
 # 📚 API 명세
 회원 관리를 위한 User API - https://giwon512.github.io/project/userAPI/
@@ -53,7 +30,7 @@
 메인 서비스 로직을 위한 User API - https://giwon512.github.io/project/surveyAPI/
 
 # 🗂️ 서비스 사이트맵 구조
-
+<img src="https://github.com/user-attachments/assets/886b8c5c-8fe5-4ce5-93e7-196d42799692" />
 
 ## 프로젝트 수행내용
 - Crawling을 이용하여 데이터 수집 및 분류체계 구성
