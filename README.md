@@ -37,3 +37,6 @@ https://github.com/giwon512/fashion-web-service/blob/main/%ED%94%84%EB%A1%9C%EC%
 - Spring boot 기반의 Web Project 구축
 - MariaDB를 주DB로 사용
 - Sprint Security를 사용하여 login 인증 처리
+
+## 추후 목표
+- 각 사용자의 뉴스 클릭 히스토리를 분석하여 그가 좋아할 것으로 예측되는 뉴스를 추천해주는 시스템 개발
