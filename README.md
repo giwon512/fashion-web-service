@@ -40,9 +40,17 @@
   <img src="https://github.com/giwon512/order-management-service/assets/64604990/67ae47f3-14de-4ad6-9e35-63a6a2563e80" align="center" width="32%"> 
 </p>
 
-# 🗂️ 프로젝트 아키텍처
+# 🗂️ 프로젝트 구조
+🗂️FashionNav - Spring Boot를 활용한 백엔드 로직
+🗂️FashionNavFront - React를 활용한 프론트엔드 로직 및 크롤링을 위한 파이썬 코드
+🗂️FashionTrend - 프로젝트 초기에 JSP로 제작한 목업 홈페이지 내
 
+# 📚 API 명세
+회원 관리를 위한 User API - https://giwon512.github.io/project/userAPI/
 
+컨텐츠 관리를 위한 User API - https://giwon512.github.io/project/newsAPI/
+
+메인 서비스 로직을 위한 User API - https://giwon512.github.io/project/surveyAPI/
 
 # 🗂️ 서비스 사이트맵 구조
 
